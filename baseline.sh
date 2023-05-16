@@ -17,6 +17,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 echo "dataset:${DATASET}:"
+
 SEED=30
 TEMP_DIR=tmp_${CORPUS}_$SEED
 OUT_DIR=out_$CORPUS
