@@ -1,7 +1,22 @@
 #export CUDA_DEVICE_ORDER=PCI_BUS_ID
 #export CUDA_VISIBLE_DEVICES=1
 
-CORPUS=50k
+CORPUS="2k"
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--dataset)
+      CORPUS="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    *)
+      echo "Invalid argument: $1"
+      shift # past argument
+      ;;
+  esac
+done
+echo "dataset:${DATASET}:"
 SEED=30
 TEMP_DIR=tmp_${CORPUS}_$SEED
 OUT_DIR=out_$CORPUS

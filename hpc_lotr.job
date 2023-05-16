@@ -22,7 +22,6 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-echo "dataset:${DATASET}:"
 echo "Running on $(hostname):"
 
 module load Anaconda3/
