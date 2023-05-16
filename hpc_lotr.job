@@ -27,4 +27,4 @@ echo "Running on $(hostname):"
 module load Anaconda3/
 eval "$(conda shell.bash hook)"
 conda activate 2yp
-bash 2k.sh 
+bash baseline.sh 
