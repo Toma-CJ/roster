@@ -33,6 +33,6 @@ python -u src/train.py --data_dir data/final/$CORPUS \
     --noise_train_epochs 5 --ensemble_train_epochs 10 --self_train_epochs 5 \
     --noise_train_update_interval 60 --self_train_update_interval 100 \
     --dropout 0.1 --warmup_proportion=0.1 --seed $SEED \
-    --q 0.7 --tau 0.7 --num_models 1 \
+    --q 0.7 --tau 0.7 --num_models 5 \
     --do_train --do_eval --eval_on "test" | tee $OUT_DIR/train_log.txt
     
