@@ -6,9 +6,26 @@
 #SBATCH --time=24:00:00          # Run time (hh:mm:ss) - run for one hour max
 #SBATCH --partition=brown   # Run on either the Red or Brown queue
 
-echo "$PWD"
+DATASET="2k"
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -d|--dataset)
+      DATASET="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    *)
+      echo "Invalid argument: $1"
+      shift # past argument
+      ;;
+  esac
+done
+
+echo "dataset:${DATASET}:"
 echo "Running on $(hostname):"
+
 module load Anaconda3/
 eval "$(conda shell.bash hook)"
 conda activate 2yp
-bash 2k.sh
+bash 2k.sh 
