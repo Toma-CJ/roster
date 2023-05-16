@@ -1,0 +1,1296 @@
+Running on desktop24:
+Namespace(data_dir='/home/thoc/RoSTER-main/data/test_data', pretrained_model='roberta-base', temp_dir='/home/thoc/RoSTER-main/tmp_test_data_30', output_dir='/home/thoc/RoSTER-main/out_test_data', max_seq_length=120, tag_scheme='iob', do_train=True, do_eval=True, eval_on='test', train_batch_size=32, gradient_accumulation_steps=1, eval_batch_size=64, noise_train_update_interval=60, self_train_update_interval=100, noise_train_lr=3e-05, ensemble_train_lr=1e-05, self_train_lr=5e-07, noise_train_epochs=5, ensemble_train_epochs=10, self_train_epochs=5, q=0.7, tau=0.7, num_models=5, warmup_proportion=0.1, weight_decay=0.01, dropout=0.1, seed=30)
+Some weights of RoSTERModel were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.weight', 'bin_classifier.bias', 'lm_head.decoder.bias', 'classifier.bias', 'bin_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Using 1 GPU(s)! *****
+
+Loading data from /home/thoc/RoSTER-main/data/test_data/train_dist.pt
+***** Training stats *****
+Num data = 500
+Batch size = 32
+Loading data from /home/thoc/RoSTER-main/data/test_data/test_true.pt
+***** Evaluation stats *****
+Num data = 500
+Batch size = 64
+
+
+******* Training model 0 *******
+
+
+Epoch 0:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 0:   6%|▋         | 1/16 [00:01<00:25,  1.73s/it]Epoch 0:  12%|█▎        | 2/16 [00:02<00:12,  1.09it/s]Epoch 0:  19%|█▉        | 3/16 [00:02<00:08,  1.50it/s]Epoch 0:  25%|██▌       | 4/16 [00:02<00:06,  1.83it/s]Epoch 0:  31%|███▏      | 5/16 [00:03<00:04,  2.35it/s]Epoch 0:  38%|███▊      | 6/16 [00:03<00:04,  2.46it/s]Epoch 0:  44%|████▍     | 7/16 [00:03<00:03,  2.92it/s]Epoch 0:  50%|█████     | 8/16 [00:03<00:02,  2.85it/s]Epoch 0:  56%|█████▋    | 9/16 [00:04<00:02,  2.82it/s]Epoch 0:  62%|██████▎   | 10/16 [00:04<00:02,  2.80it/s]Epoch 0:  69%|██████▉   | 11/16 [00:04<00:01,  3.26it/s]Epoch 0:  75%|███████▌  | 12/16 [00:05<00:01,  3.07it/s]Epoch 0:  81%|████████▏ | 13/16 [00:05<00:01,  2.97it/s]Epoch 0:  88%|████████▊ | 14/16 [00:05<00:00,  3.09it/s]Epoch 0:  94%|█████████▍| 15/16 [00:06<00:00,  3.22it/s]Epoch 0: 100%|██████████| 16/16 [00:06<00:00,  3.62it/s]Epoch 0: 100%|██████████| 16/16 [00:06<00:00,  2.50it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.00it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.12it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.56it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.41it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.35it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.30it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.28it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.71it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.46it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+/home/thoc/.conda/envs/2yp/lib/python3.11/site-packages/seqeval/metrics/v1.py:57: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+/home/thoc/.conda/envs/2yp/lib/python3.11/site-packages/seqeval/metrics/v1.py:57: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 due to no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, msg_start, len(result))
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.000     0.000     0.000       607
+
+   micro avg      0.000     0.000     0.000      1213
+   macro avg      0.000     0.000     0.000      1213
+weighted avg      0.000     0.000     0.000      1213
+
+Epoch 1:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 1:   6%|▋         | 1/16 [00:00<00:05,  2.99it/s]Epoch 1:  12%|█▎        | 2/16 [00:00<00:04,  2.89it/s]Epoch 1:  19%|█▉        | 3/16 [00:00<00:03,  3.50it/s]Epoch 1:  25%|██▌       | 4/16 [00:01<00:03,  3.17it/s]Epoch 1:  31%|███▏      | 5/16 [00:01<00:03,  3.04it/s]Epoch 1:  38%|███▊      | 6/16 [00:01<00:03,  3.15it/s]Epoch 1:  44%|████▍     | 7/16 [00:02<00:02,  3.32it/s]Epoch 1:  50%|█████     | 8/16 [00:02<00:02,  3.12it/s]Epoch 1:  56%|█████▋    | 9/16 [00:02<00:02,  3.32it/s]Epoch 1:  62%|██████▎   | 10/16 [00:03<00:01,  3.13it/s]Epoch 1:  69%|██████▉   | 11/16 [00:03<00:01,  3.04it/s]Epoch 1:  75%|███████▌  | 12/16 [00:03<00:01,  2.95it/s]Epoch 1:  81%|████████▏ | 13/16 [00:04<00:00,  3.29it/s]Epoch 1:  88%|████████▊ | 14/16 [00:04<00:00,  3.61it/s]Epoch 1:  94%|█████████▍| 15/16 [00:04<00:00,  3.31it/s]Epoch 1: 100%|██████████| 16/16 [00:04<00:00,  4.01it/s]Epoch 1: 100%|██████████| 16/16 [00:04<00:00,  3.33it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.05it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.15it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.57it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.42it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.35it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.30it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.28it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.70it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.46it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.000     0.000     0.000       607
+
+   micro avg      0.000     0.000     0.000      1213
+   macro avg      0.000     0.000     0.000      1213
+weighted avg      0.000     0.000     0.000      1213
+
+Epoch 2:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 2:   6%|▋         | 1/16 [00:00<00:04,  3.03it/s]Epoch 2:  12%|█▎        | 2/16 [00:00<00:04,  2.91it/s]Epoch 2:  19%|█▉        | 3/16 [00:01<00:04,  2.88it/s]Epoch 2:  25%|██▌       | 4/16 [00:01<00:04,  2.85it/s]Epoch 2:  31%|███▏      | 5/16 [00:01<00:03,  3.15it/s]Epoch 2:  38%|███▊      | 6/16 [00:01<00:03,  3.31it/s]Epoch 2:  44%|████▍     | 7/16 [00:02<00:02,  3.10it/s]Epoch 2:  50%|█████     | 8/16 [00:02<00:02,  3.00it/s]Epoch 2:  56%|█████▋    | 9/16 [00:02<00:02,  2.94it/s]Epoch 2:  62%|██████▎   | 10/16 [00:03<00:01,  3.42it/s]Epoch 2:  69%|██████▉   | 11/16 [00:03<00:01,  3.20it/s]Epoch 2:  75%|███████▌  | 12/16 [00:03<00:01,  3.07it/s]Epoch 2:  81%|████████▏ | 13/16 [00:04<00:01,  2.97it/s]Epoch 2:  88%|████████▊ | 14/16 [00:04<00:00,  3.31it/s]Epoch 2:  94%|█████████▍| 15/16 [00:04<00:00,  3.12it/s]Epoch 2: 100%|██████████| 16/16 [00:05<00:00,  3.69it/s]Epoch 2: 100%|██████████| 16/16 [00:05<00:00,  3.20it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.02it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.13it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.56it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.41it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.34it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.29it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.45it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.406     0.381     0.393       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.393     0.567     0.464       607
+
+   micro avg      0.397     0.425     0.411      1213
+   macro avg      0.200     0.237     0.214      1213
+weighted avg      0.348     0.425     0.378      1213
+
+Epoch 3:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 3:   6%|▋         | 1/16 [00:00<00:03,  4.05it/s]Epoch 3:  12%|█▎        | 2/16 [00:00<00:03,  3.60it/s]Epoch 3:  19%|█▉        | 3/16 [00:00<00:03,  3.70it/s]Epoch 3:  25%|██▌       | 4/16 [00:01<00:03,  3.26it/s]Epoch 3:  31%|███▏      | 5/16 [00:01<00:03,  3.56it/s]Epoch 3:  38%|███▊      | 6/16 [00:01<00:03,  3.24it/s]Epoch 3:  44%|████▍     | 7/16 [00:02<00:02,  3.07it/s]Epoch 3:  50%|█████     | 8/16 [00:02<00:02,  2.97it/s]Epoch 3:  56%|█████▋    | 9/16 [00:02<00:02,  2.92it/s]Epoch 3:  62%|██████▎   | 10/16 [00:03<00:02,  2.89it/s]Epoch 3:  69%|██████▉   | 11/16 [00:03<00:01,  2.86it/s]
+Updating training data weights:   0%|          | 0/16 [00:00<?, ?it/s][A
+Updating training data weights:   6%|▋         | 1/16 [00:00<00:01,  9.81it/s][A
+Updating training data weights:  12%|█▎        | 2/16 [00:00<00:01,  9.90it/s][A
+Updating training data weights:  19%|█▉        | 3/16 [00:00<00:01,  8.44it/s][A
+Updating training data weights:  25%|██▌       | 4/16 [00:00<00:01,  7.85it/s][A
+Updating training data weights:  31%|███▏      | 5/16 [00:00<00:01,  7.56it/s][A
+Updating training data weights:  38%|███▊      | 6/16 [00:00<00:01,  7.40it/s][A
+Updating training data weights:  44%|████▍     | 7/16 [00:00<00:01,  7.30it/s][A
+Updating training data weights:  50%|█████     | 8/16 [00:01<00:01,  7.25it/s][A
+Updating training data weights:  62%|██████▎   | 10/16 [00:01<00:00,  9.01it/s][A
+Updating training data weights:  69%|██████▉   | 11/16 [00:01<00:00,  9.05it/s][A
+Updating training data weights:  75%|███████▌  | 12/16 [00:01<00:00,  8.47it/s][A
+Updating training data weights:  81%|████████▏ | 13/16 [00:01<00:00,  8.76it/s][A
+Updating training data weights:  88%|████████▊ | 14/16 [00:01<00:00,  8.24it/s][A
+Updating training data weights:  94%|█████████▍| 15/16 [00:01<00:00,  7.86it/s][AUpdating training data weights: 100%|██████████| 16/16 [00:01<00:00,  8.30it/s]
+bin_loss: 0.03608; type_loss: 0.08625
+Epoch 3:  75%|███████▌  | 12/16 [00:05<00:03,  1.07it/s]Epoch 3:  81%|████████▏ | 13/16 [00:06<00:02,  1.31it/s]Epoch 3:  88%|████████▊ | 14/16 [00:06<00:01,  1.55it/s]Epoch 3:  94%|█████████▍| 15/16 [00:06<00:00,  1.88it/s]Epoch 3: 100%|██████████| 16/16 [00:07<00:00,  2.24it/s]Epoch 3: 100%|██████████| 16/16 [00:07<00:00,  2.26it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.99it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.12it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.55it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.41it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.34it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.30it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.27it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.70it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.45it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.426     0.491     0.456       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.390     0.717     0.505       607
+
+   micro avg      0.401     0.542     0.461      1213
+   macro avg      0.204     0.302     0.240      1213
+weighted avg      0.354     0.542     0.423      1213
+
+Epoch 4:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 4:   6%|▋         | 1/16 [00:00<00:05,  3.00it/s]Epoch 4:  12%|█▎        | 2/16 [00:00<00:03,  3.82it/s]Epoch 4:  19%|█▉        | 3/16 [00:00<00:03,  3.26it/s]Epoch 4:  25%|██▌       | 4/16 [00:01<00:03,  3.81it/s]Epoch 4:  31%|███▏      | 5/16 [00:01<00:03,  3.36it/s]Epoch 4:  38%|███▊      | 6/16 [00:01<00:02,  3.38it/s]Epoch 4:  44%|████▍     | 7/16 [00:01<00:02,  3.61it/s]Epoch 4:  50%|█████     | 8/16 [00:02<00:02,  3.66it/s]Epoch 4:  56%|█████▋    | 9/16 [00:02<00:01,  3.54it/s]Epoch 4:  62%|██████▎   | 10/16 [00:02<00:01,  3.27it/s]Epoch 4:  69%|██████▉   | 11/16 [00:03<00:01,  3.52it/s]Epoch 4:  75%|███████▌  | 12/16 [00:03<00:01,  3.24it/s]Epoch 4:  81%|████████▏ | 13/16 [00:03<00:00,  3.08it/s]Epoch 4:  88%|████████▊ | 14/16 [00:04<00:00,  3.45it/s]Epoch 4:  94%|█████████▍| 15/16 [00:04<00:00,  3.21it/s]Epoch 4: 100%|██████████| 16/16 [00:04<00:00,  3.45it/s]Epoch 4: 100%|██████████| 16/16 [00:04<00:00,  3.41it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.99it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.09it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.33it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.29it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.44it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.452     0.487     0.469       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.398     0.751     0.520       607
+
+   micro avg      0.414     0.557     0.475      1213
+   macro avg      0.212     0.309     0.247      1213
+weighted avg      0.367     0.557     0.435      1213
+
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.19it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.19it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.60it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.43it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.34it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.30it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.46it/s]
+Some weights of RoSTERModel were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.weight', 'bin_classifier.bias', 'lm_head.decoder.bias', 'classifier.bias', 'bin_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Using 1 GPU(s)! *****
+
+Loading data from /home/thoc/RoSTER-main/data/test_data/train_dist.pt
+***** Training stats *****
+Num data = 500
+Batch size = 32
+Loading data from /home/thoc/RoSTER-main/data/test_data/test_true.pt
+***** Evaluation stats *****
+Num data = 500
+Batch size = 64
+
+
+******* Training model 1 *******
+
+
+Epoch 0:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 0:   6%|▋         | 1/16 [00:00<00:05,  2.72it/s]Epoch 0:  12%|█▎        | 2/16 [00:00<00:04,  3.09it/s]Epoch 0:  19%|█▉        | 3/16 [00:00<00:03,  3.33it/s]Epoch 0:  25%|██▌       | 4/16 [00:01<00:03,  3.05it/s]Epoch 0:  31%|███▏      | 5/16 [00:01<00:03,  2.94it/s]Epoch 0:  38%|███▊      | 6/16 [00:01<00:03,  3.14it/s]Epoch 0:  44%|████▍     | 7/16 [00:02<00:03,  3.00it/s]Epoch 0:  50%|█████     | 8/16 [00:02<00:02,  2.91it/s]Epoch 0:  56%|█████▋    | 9/16 [00:02<00:02,  3.12it/s]Epoch 0:  62%|██████▎   | 10/16 [00:03<00:01,  3.34it/s]Epoch 0:  69%|██████▉   | 11/16 [00:03<00:01,  3.12it/s]Epoch 0:  75%|███████▌  | 12/16 [00:03<00:01,  2.99it/s]Epoch 0:  81%|████████▏ | 13/16 [00:04<00:01,  2.91it/s]Epoch 0:  88%|████████▊ | 14/16 [00:04<00:00,  2.86it/s]Epoch 0:  94%|█████████▍| 15/16 [00:05<00:00,  2.82it/s]Epoch 0: 100%|██████████| 16/16 [00:05<00:00,  3.50it/s]Epoch 0: 100%|██████████| 16/16 [00:05<00:00,  3.11it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.03it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.12it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.40it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.44it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.000     0.000     0.000       607
+
+   micro avg      0.000     0.000     0.000      1213
+   macro avg      0.000     0.000     0.000      1213
+weighted avg      0.000     0.000     0.000      1213
+
+Epoch 1:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 1:   6%|▋         | 1/16 [00:00<00:04,  3.01it/s]Epoch 1:  12%|█▎        | 2/16 [00:00<00:04,  2.89it/s]Epoch 1:  19%|█▉        | 3/16 [00:01<00:04,  2.84it/s]Epoch 1:  25%|██▌       | 4/16 [00:01<00:04,  2.81it/s]Epoch 1:  31%|███▏      | 5/16 [00:01<00:03,  2.80it/s]Epoch 1:  38%|███▊      | 6/16 [00:02<00:03,  3.06it/s]Epoch 1:  44%|████▍     | 7/16 [00:02<00:03,  2.96it/s]Epoch 1:  50%|█████     | 8/16 [00:02<00:02,  3.43it/s]Epoch 1:  56%|█████▋    | 9/16 [00:02<00:02,  3.19it/s]Epoch 1:  62%|██████▎   | 10/16 [00:03<00:01,  3.05it/s]Epoch 1:  69%|██████▉   | 11/16 [00:03<00:01,  2.97it/s]Epoch 1:  75%|███████▌  | 12/16 [00:03<00:01,  3.24it/s]Epoch 1:  81%|████████▏ | 13/16 [00:04<00:00,  3.37it/s]Epoch 1:  88%|████████▊ | 14/16 [00:04<00:00,  3.34it/s]Epoch 1:  94%|█████████▍| 15/16 [00:04<00:00,  3.16it/s]Epoch 1: 100%|██████████| 16/16 [00:05<00:00,  3.64it/s]Epoch 1: 100%|██████████| 16/16 [00:05<00:00,  3.19it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.03it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.13it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.54it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.66it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.433     0.478     0.454       607
+
+   micro avg      0.433     0.239     0.308      1213
+   macro avg      0.108     0.119     0.114      1213
+weighted avg      0.217     0.239     0.227      1213
+
+Epoch 2:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 2:   6%|▋         | 1/16 [00:00<00:03,  4.02it/s]Epoch 2:  12%|█▎        | 2/16 [00:00<00:03,  4.65it/s]Epoch 2:  19%|█▉        | 3/16 [00:00<00:02,  4.40it/s]Epoch 2:  25%|██▌       | 4/16 [00:01<00:03,  3.55it/s]Epoch 2:  31%|███▏      | 5/16 [00:01<00:03,  3.23it/s]Epoch 2:  38%|███▊      | 6/16 [00:01<00:02,  3.47it/s]Epoch 2:  44%|████▍     | 7/16 [00:02<00:02,  3.19it/s]Epoch 2:  50%|█████     | 8/16 [00:02<00:02,  3.05it/s]Epoch 2:  56%|█████▋    | 9/16 [00:02<00:02,  2.96it/s]Epoch 2:  62%|██████▎   | 10/16 [00:02<00:01,  3.25it/s]Epoch 2:  69%|██████▉   | 11/16 [00:03<00:01,  3.10it/s]Epoch 2:  75%|███████▌  | 12/16 [00:03<00:01,  3.55it/s]Epoch 2:  81%|████████▏ | 13/16 [00:03<00:00,  3.26it/s]Epoch 2:  88%|████████▊ | 14/16 [00:04<00:00,  3.10it/s]Epoch 2:  94%|█████████▍| 15/16 [00:04<00:00,  2.99it/s]Epoch 2: 100%|██████████| 16/16 [00:04<00:00,  3.27it/s]Epoch 2: 100%|██████████| 16/16 [00:04<00:00,  3.30it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.99it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.363     0.108     0.167       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.453     0.768     0.570       607
+
+   micro avg      0.443     0.425     0.434      1213
+   macro avg      0.204     0.219     0.184      1213
+weighted avg      0.362     0.425     0.347      1213
+
+Epoch 3:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 3:   6%|▋         | 1/16 [00:00<00:05,  3.00it/s]Epoch 3:  12%|█▎        | 2/16 [00:00<00:04,  2.87it/s]Epoch 3:  19%|█▉        | 3/16 [00:01<00:04,  2.84it/s]Epoch 3:  25%|██▌       | 4/16 [00:01<00:03,  3.38it/s]Epoch 3:  31%|███▏      | 5/16 [00:01<00:03,  3.47it/s]Epoch 3:  38%|███▊      | 6/16 [00:01<00:03,  3.19it/s]Epoch 3:  44%|████▍     | 7/16 [00:02<00:02,  3.25it/s]Epoch 3:  50%|█████     | 8/16 [00:02<00:02,  3.69it/s]Epoch 3:  56%|█████▋    | 9/16 [00:02<00:01,  3.81it/s]Epoch 3:  62%|██████▎   | 10/16 [00:02<00:01,  3.40it/s]Epoch 3:  69%|██████▉   | 11/16 [00:03<00:01,  3.50it/s]
+Updating training data weights:   0%|          | 0/16 [00:00<?, ?it/s][A
+Updating training data weights:   6%|▋         | 1/16 [00:00<00:02,  6.11it/s][A
+Updating training data weights:  19%|█▉        | 3/16 [00:00<00:01,  8.19it/s][A
+Updating training data weights:  25%|██▌       | 4/16 [00:00<00:01,  7.78it/s][A
+Updating training data weights:  38%|███▊      | 6/16 [00:00<00:01,  8.67it/s][A
+Updating training data weights:  44%|████▍     | 7/16 [00:00<00:01,  8.18it/s][A
+Updating training data weights:  50%|█████     | 8/16 [00:01<00:01,  7.84it/s][A
+Updating training data weights:  56%|█████▋    | 9/16 [00:01<00:00,  8.14it/s][A
+Updating training data weights:  69%|██████▉   | 11/16 [00:01<00:00,  8.64it/s][A
+Updating training data weights:  75%|███████▌  | 12/16 [00:01<00:00,  8.21it/s][A
+Updating training data weights:  81%|████████▏ | 13/16 [00:01<00:00,  8.53it/s][A
+Updating training data weights:  88%|████████▊ | 14/16 [00:01<00:00,  8.12it/s][A
+Updating training data weights:  94%|█████████▍| 15/16 [00:01<00:00,  7.82it/s][AUpdating training data weights: 100%|██████████| 16/16 [00:01<00:00,  8.23it/s]
+bin_loss: 0.0354; type_loss: 0.07608
+Epoch 3:  75%|███████▌  | 12/16 [00:05<00:03,  1.11it/s]Epoch 3:  81%|████████▏ | 13/16 [00:05<00:02,  1.43it/s]Epoch 3:  88%|████████▊ | 14/16 [00:06<00:01,  1.67it/s]Epoch 3:  94%|█████████▍| 15/16 [00:06<00:00,  1.90it/s]Epoch 3: 100%|██████████| 16/16 [00:06<00:00,  2.26it/s]Epoch 3: 100%|██████████| 16/16 [00:06<00:00,  2.36it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.97it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.54it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.40it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.33it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.417     0.436     0.426       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.407     0.845     0.550       607
+
+   micro avg      0.410     0.585     0.482      1213
+   macro avg      0.206     0.320     0.244      1213
+weighted avg      0.359     0.585     0.434      1213
+
+Epoch 4:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 4:   6%|▋         | 1/16 [00:00<00:02,  5.91it/s]Epoch 4:  12%|█▎        | 2/16 [00:00<00:03,  4.43it/s]Epoch 4:  19%|█▉        | 3/16 [00:00<00:03,  3.47it/s]Epoch 4:  25%|██▌       | 4/16 [00:01<00:03,  3.87it/s]Epoch 4:  31%|███▏      | 5/16 [00:01<00:03,  3.38it/s]Epoch 4:  38%|███▊      | 6/16 [00:01<00:02,  3.74it/s]Epoch 4:  44%|████▍     | 7/16 [00:01<00:02,  3.35it/s]Epoch 4:  50%|█████     | 8/16 [00:02<00:02,  3.14it/s]Epoch 4:  56%|█████▋    | 9/16 [00:02<00:02,  3.30it/s]Epoch 4:  62%|██████▎   | 10/16 [00:02<00:01,  3.10it/s]Epoch 4:  69%|██████▉   | 11/16 [00:03<00:01,  2.99it/s]Epoch 4:  75%|███████▌  | 12/16 [00:03<00:01,  3.09it/s]Epoch 4:  81%|████████▏ | 13/16 [00:03<00:01,  2.99it/s]Epoch 4:  88%|████████▊ | 14/16 [00:04<00:00,  3.25it/s]Epoch 4:  94%|█████████▍| 15/16 [00:04<00:00,  3.08it/s]Epoch 4: 100%|██████████| 16/16 [00:04<00:00,  3.58it/s]Epoch 4: 100%|██████████| 16/16 [00:04<00:00,  3.37it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.00it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.10it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.30it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.416     0.442     0.429       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.447     0.834     0.582       607
+
+   micro avg      0.437     0.582     0.499      1213
+   macro avg      0.216     0.319     0.253      1213
+weighted avg      0.378     0.582     0.451      1213
+
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.22it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.22it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.61it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.43it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.35it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.30it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.47it/s]
+Some weights of RoSTERModel were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.weight', 'bin_classifier.bias', 'lm_head.decoder.bias', 'classifier.bias', 'bin_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Using 1 GPU(s)! *****
+
+Loading data from /home/thoc/RoSTER-main/data/test_data/train_dist.pt
+***** Training stats *****
+Num data = 500
+Batch size = 32
+Loading data from /home/thoc/RoSTER-main/data/test_data/test_true.pt
+***** Evaluation stats *****
+Num data = 500
+Batch size = 64
+
+
+******* Training model 2 *******
+
+
+Epoch 0:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 0:   6%|▋         | 1/16 [00:00<00:05,  2.72it/s]Epoch 0:  12%|█▎        | 2/16 [00:00<00:04,  3.49it/s]Epoch 0:  19%|█▉        | 3/16 [00:00<00:03,  3.56it/s]Epoch 0:  25%|██▌       | 4/16 [00:01<00:03,  3.15it/s]Epoch 0:  31%|███▏      | 5/16 [00:01<00:03,  2.98it/s]Epoch 0:  38%|███▊      | 6/16 [00:01<00:03,  2.89it/s]Epoch 0:  44%|████▍     | 7/16 [00:02<00:02,  3.11it/s]Epoch 0:  50%|█████     | 8/16 [00:02<00:02,  3.56it/s]Epoch 0:  56%|█████▋    | 9/16 [00:02<00:02,  3.24it/s]Epoch 0:  62%|██████▎   | 10/16 [00:03<00:01,  3.36it/s]Epoch 0:  69%|██████▉   | 11/16 [00:03<00:01,  3.13it/s]Epoch 0:  75%|███████▌  | 12/16 [00:03<00:01,  2.99it/s]Epoch 0:  81%|████████▏ | 13/16 [00:04<00:01,  2.91it/s]Epoch 0:  88%|████████▊ | 14/16 [00:04<00:00,  2.86it/s]Epoch 0:  94%|█████████▍| 15/16 [00:04<00:00,  2.82it/s]Epoch 0: 100%|██████████| 16/16 [00:05<00:00,  3.10it/s]Epoch 0: 100%|██████████| 16/16 [00:05<00:00,  3.10it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.07it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.15it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.56it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.41it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.34it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.29it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.28it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.46it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.000     0.000     0.000       607
+
+   micro avg      0.000     0.000     0.000      1213
+   macro avg      0.000     0.000     0.000      1213
+weighted avg      0.000     0.000     0.000      1213
+
+Epoch 1:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 1:   6%|▋         | 1/16 [00:00<00:02,  6.02it/s]Epoch 1:  12%|█▎        | 2/16 [00:00<00:03,  3.57it/s]Epoch 1:  19%|█▉        | 3/16 [00:00<00:03,  3.79it/s]Epoch 1:  25%|██▌       | 4/16 [00:01<00:03,  3.78it/s]Epoch 1:  31%|███▏      | 5/16 [00:01<00:03,  3.34it/s]Epoch 1:  38%|███▊      | 6/16 [00:01<00:03,  3.13it/s]Epoch 1:  44%|████▍     | 7/16 [00:02<00:02,  3.01it/s]Epoch 1:  50%|█████     | 8/16 [00:02<00:02,  2.94it/s]Epoch 1:  56%|█████▋    | 9/16 [00:02<00:02,  2.88it/s]Epoch 1:  62%|██████▎   | 10/16 [00:03<00:01,  3.18it/s]Epoch 1:  69%|██████▉   | 11/16 [00:03<00:01,  3.04it/s]Epoch 1:  75%|███████▌  | 12/16 [00:03<00:01,  2.96it/s]Epoch 1:  81%|████████▏ | 13/16 [00:04<00:01,  2.90it/s]Epoch 1:  88%|████████▊ | 14/16 [00:04<00:00,  3.28it/s]Epoch 1:  94%|█████████▍| 15/16 [00:04<00:00,  3.54it/s]Epoch 1: 100%|██████████| 16/16 [00:04<00:00,  3.69it/s]Epoch 1: 100%|██████████| 16/16 [00:04<00:00,  3.30it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.98it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.54it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.34it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.30it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.28it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.71it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.45it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.496     0.126     0.201       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.476     0.359     0.409       607
+
+   micro avg      0.480     0.227     0.308      1213
+   macro avg      0.243     0.121     0.153      1213
+weighted avg      0.423     0.227     0.280      1213
+
+Epoch 2:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 2:   6%|▋         | 1/16 [00:00<00:04,  3.05it/s]Epoch 2:  12%|█▎        | 2/16 [00:00<00:03,  3.62it/s]Epoch 2:  19%|█▉        | 3/16 [00:00<00:03,  4.18it/s]Epoch 2:  25%|██▌       | 4/16 [00:01<00:03,  3.49it/s]Epoch 2:  31%|███▏      | 5/16 [00:01<00:02,  3.68it/s]Epoch 2:  38%|███▊      | 6/16 [00:01<00:02,  3.72it/s]Epoch 2:  44%|████▍     | 7/16 [00:01<00:02,  3.35it/s]Epoch 2:  50%|█████     | 8/16 [00:02<00:02,  3.38it/s]Epoch 2:  56%|█████▋    | 9/16 [00:02<00:01,  3.68it/s]Epoch 2:  62%|██████▎   | 10/16 [00:02<00:01,  3.35it/s]Epoch 2:  69%|██████▉   | 11/16 [00:03<00:01,  3.77it/s]Epoch 2:  75%|███████▌  | 12/16 [00:03<00:01,  3.39it/s]Epoch 2:  81%|████████▏ | 13/16 [00:03<00:00,  3.18it/s]Epoch 2:  88%|████████▊ | 14/16 [00:04<00:00,  3.04it/s]Epoch 2:  94%|█████████▍| 15/16 [00:04<00:00,  3.23it/s]Epoch 2: 100%|██████████| 16/16 [00:04<00:00,  3.45it/s]Epoch 2: 100%|██████████| 16/16 [00:04<00:00,  3.45it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.02it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.54it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.42it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.34it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.29it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.45it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.484     0.412     0.445       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.452     0.636     0.528       607
+
+   micro avg      0.462     0.472     0.467      1213
+   macro avg      0.234     0.262     0.243      1213
+weighted avg      0.407     0.472     0.430      1213
+
+Epoch 3:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 3:   6%|▋         | 1/16 [00:00<00:04,  3.02it/s]Epoch 3:  12%|█▎        | 2/16 [00:00<00:04,  2.90it/s]Epoch 3:  19%|█▉        | 3/16 [00:01<00:04,  2.85it/s]Epoch 3:  25%|██▌       | 4/16 [00:01<00:04,  2.82it/s]Epoch 3:  31%|███▏      | 5/16 [00:01<00:03,  2.81it/s]Epoch 3:  38%|███▊      | 6/16 [00:02<00:03,  2.98it/s]Epoch 3:  44%|████▍     | 7/16 [00:02<00:02,  3.29it/s]Epoch 3:  50%|█████     | 8/16 [00:02<00:02,  3.11it/s]Epoch 3:  56%|█████▋    | 9/16 [00:03<00:02,  3.00it/s]Epoch 3:  62%|██████▎   | 10/16 [00:03<00:01,  3.21it/s]Epoch 3:  69%|██████▉   | 11/16 [00:03<00:01,  3.07it/s]
+Updating training data weights:   0%|          | 0/16 [00:00<?, ?it/s][A
+Updating training data weights:   6%|▋         | 1/16 [00:00<00:02,  6.49it/s][A
+Updating training data weights:  19%|█▉        | 3/16 [00:00<00:01,  8.88it/s][A
+Updating training data weights:  25%|██▌       | 4/16 [00:00<00:01,  8.20it/s][A
+Updating training data weights:  31%|███▏      | 5/16 [00:00<00:01,  7.84it/s][A
+Updating training data weights:  38%|███▊      | 6/16 [00:00<00:01,  7.61it/s][A
+Updating training data weights:  44%|████▍     | 7/16 [00:00<00:01,  7.45it/s][A
+Updating training data weights:  50%|█████     | 8/16 [00:01<00:01,  7.33it/s][A
+Updating training data weights:  56%|█████▋    | 9/16 [00:01<00:00,  7.29it/s][A
+Updating training data weights:  69%|██████▉   | 11/16 [00:01<00:00,  7.78it/s][A
+Updating training data weights:  81%|████████▏ | 13/16 [00:01<00:00,  8.48it/s][A
+Updating training data weights:  88%|████████▊ | 14/16 [00:01<00:00,  8.19it/s][A
+Updating training data weights:  94%|█████████▍| 15/16 [00:01<00:00,  8.39it/s][AUpdating training data weights: 100%|██████████| 16/16 [00:01<00:00,  8.15it/s]
+bin_loss: 0.03294; type_loss: 0.07893
+Epoch 3:  75%|███████▌  | 12/16 [00:05<00:03,  1.07it/s]Epoch 3:  81%|████████▏ | 13/16 [00:06<00:02,  1.42it/s]Epoch 3:  88%|████████▊ | 14/16 [00:06<00:01,  1.74it/s]Epoch 3:  94%|█████████▍| 15/16 [00:06<00:00,  1.94it/s]Epoch 3: 100%|██████████| 16/16 [00:06<00:00,  2.40it/s]Epoch 3: 100%|██████████| 16/16 [00:06<00:00,  2.29it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.00it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.12it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.56it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.41it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.34it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.30it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.45it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.418     0.549     0.475       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.483     0.708     0.574       607
+
+   micro avg      0.457     0.559     0.503      1213
+   macro avg      0.225     0.314     0.262      1213
+weighted avg      0.397     0.559     0.464      1213
+
+Epoch 4:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 4:   6%|▋         | 1/16 [00:00<00:04,  3.01it/s]Epoch 4:  12%|█▎        | 2/16 [00:00<00:04,  2.90it/s]Epoch 4:  19%|█▉        | 3/16 [00:00<00:03,  3.73it/s]Epoch 4:  25%|██▌       | 4/16 [00:01<00:03,  3.27it/s]Epoch 4:  31%|███▏      | 5/16 [00:01<00:03,  3.07it/s]Epoch 4:  38%|███▊      | 6/16 [00:01<00:03,  3.16it/s]Epoch 4:  44%|████▍     | 7/16 [00:02<00:02,  3.03it/s]Epoch 4:  50%|█████     | 8/16 [00:02<00:02,  3.51it/s]Epoch 4:  56%|█████▋    | 9/16 [00:02<00:02,  3.47it/s]Epoch 4:  62%|██████▎   | 10/16 [00:03<00:01,  3.21it/s]Epoch 4:  69%|██████▉   | 11/16 [00:03<00:01,  3.06it/s]Epoch 4:  75%|███████▌  | 12/16 [00:03<00:01,  2.97it/s]Epoch 4:  81%|████████▏ | 13/16 [00:04<00:01,  2.91it/s]Epoch 4:  88%|████████▊ | 14/16 [00:04<00:00,  2.87it/s]Epoch 4:  94%|█████████▍| 15/16 [00:04<00:00,  2.86it/s]Epoch 4: 100%|██████████| 16/16 [00:05<00:00,  3.31it/s]Epoch 4: 100%|██████████| 16/16 [00:05<00:00,  3.15it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.01it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.14it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.56it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.42it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.34it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.29it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.27it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.71it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.46it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.486     0.529     0.506       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.461     0.771     0.577       607
+
+   micro avg      0.469     0.583     0.520      1213
+   macro avg      0.237     0.325     0.271      1213
+weighted avg      0.412     0.583     0.477      1213
+
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.25it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.24it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.64it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.47it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.37it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.32it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.29it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.73it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.50it/s]
+Some weights of RoSTERModel were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.weight', 'bin_classifier.bias', 'lm_head.decoder.bias', 'classifier.bias', 'bin_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Using 1 GPU(s)! *****
+
+Loading data from /home/thoc/RoSTER-main/data/test_data/train_dist.pt
+***** Training stats *****
+Num data = 500
+Batch size = 32
+Loading data from /home/thoc/RoSTER-main/data/test_data/test_true.pt
+***** Evaluation stats *****
+Num data = 500
+Batch size = 64
+
+
+******* Training model 3 *******
+
+
+Epoch 0:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 0:   6%|▋         | 1/16 [00:00<00:05,  2.84it/s]Epoch 0:  12%|█▎        | 2/16 [00:00<00:04,  2.82it/s]Epoch 0:  19%|█▉        | 3/16 [00:01<00:04,  3.03it/s]Epoch 0:  25%|██▌       | 4/16 [00:01<00:04,  2.92it/s]Epoch 0:  31%|███▏      | 5/16 [00:01<00:03,  3.34it/s]Epoch 0:  38%|███▊      | 6/16 [00:01<00:03,  3.32it/s]Epoch 0:  44%|████▍     | 7/16 [00:02<00:02,  3.65it/s]Epoch 0:  50%|█████     | 8/16 [00:02<00:02,  3.28it/s]Epoch 0:  56%|█████▋    | 9/16 [00:02<00:02,  3.08it/s]Epoch 0:  62%|██████▎   | 10/16 [00:03<00:02,  2.96it/s]Epoch 0:  69%|██████▉   | 11/16 [00:03<00:01,  3.17it/s]Epoch 0:  75%|███████▌  | 12/16 [00:03<00:01,  3.65it/s]Epoch 0:  81%|████████▏ | 13/16 [00:03<00:00,  3.55it/s]Epoch 0:  88%|████████▊ | 14/16 [00:04<00:00,  3.25it/s]Epoch 0:  94%|█████████▍| 15/16 [00:04<00:00,  3.35it/s]Epoch 0: 100%|██████████| 16/16 [00:04<00:00,  3.52it/s]Epoch 0: 100%|██████████| 16/16 [00:04<00:00,  3.29it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.99it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.10it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.24it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.000     0.000     0.000       607
+
+   micro avg      0.000     0.000     0.000      1213
+   macro avg      0.000     0.000     0.000      1213
+weighted avg      0.000     0.000     0.000      1213
+
+Epoch 1:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 1:   6%|▋         | 1/16 [00:00<00:05,  2.96it/s]Epoch 1:  12%|█▎        | 2/16 [00:00<00:03,  3.59it/s]Epoch 1:  19%|█▉        | 3/16 [00:00<00:03,  4.24it/s]Epoch 1:  25%|██▌       | 4/16 [00:00<00:02,  4.51it/s]Epoch 1:  31%|███▏      | 5/16 [00:01<00:02,  4.75it/s]Epoch 1:  38%|███▊      | 6/16 [00:01<00:02,  4.39it/s]Epoch 1:  44%|████▍     | 7/16 [00:01<00:02,  4.11it/s]Epoch 1:  50%|█████     | 8/16 [00:02<00:02,  3.55it/s]Epoch 1:  56%|█████▋    | 9/16 [00:02<00:02,  3.27it/s]Epoch 1:  62%|██████▎   | 10/16 [00:02<00:01,  3.10it/s]Epoch 1:  69%|██████▉   | 11/16 [00:03<00:01,  2.99it/s]Epoch 1:  75%|███████▌  | 12/16 [00:03<00:01,  2.93it/s]Epoch 1:  81%|████████▏ | 13/16 [00:03<00:01,  2.88it/s]Epoch 1:  88%|████████▊ | 14/16 [00:04<00:00,  2.84it/s]Epoch 1:  94%|█████████▍| 15/16 [00:04<00:00,  2.82it/s]Epoch 1: 100%|██████████| 16/16 [00:04<00:00,  3.34it/s]Epoch 1: 100%|██████████| 16/16 [00:04<00:00,  3.37it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.00it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.10it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.37it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.42it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.671     0.077     0.139       607
+
+   micro avg      0.671     0.039     0.073      1213
+   macro avg      0.168     0.019     0.035      1213
+weighted avg      0.336     0.039     0.069      1213
+
+Epoch 2:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 2:   6%|▋         | 1/16 [00:00<00:05,  2.98it/s]Epoch 2:  12%|█▎        | 2/16 [00:00<00:04,  2.89it/s]Epoch 2:  19%|█▉        | 3/16 [00:01<00:04,  2.84it/s]Epoch 2:  25%|██▌       | 4/16 [00:01<00:04,  2.81it/s]Epoch 2:  31%|███▏      | 5/16 [00:01<00:03,  3.08it/s]Epoch 2:  38%|███▊      | 6/16 [00:02<00:03,  2.96it/s]Epoch 2:  44%|████▍     | 7/16 [00:02<00:02,  3.25it/s]Epoch 2:  50%|█████     | 8/16 [00:02<00:02,  3.07it/s]Epoch 2:  56%|█████▋    | 9/16 [00:03<00:02,  2.98it/s]Epoch 2:  62%|██████▎   | 10/16 [00:03<00:02,  2.91it/s]Epoch 2:  69%|██████▉   | 11/16 [00:03<00:01,  2.88it/s]Epoch 2:  75%|███████▌  | 12/16 [00:04<00:01,  3.01it/s]Epoch 2:  81%|████████▏ | 13/16 [00:04<00:01,  2.94it/s]Epoch 2:  88%|████████▊ | 14/16 [00:04<00:00,  3.30it/s]Epoch 2:  94%|█████████▍| 15/16 [00:04<00:00,  3.39it/s]Epoch 2: 100%|██████████| 16/16 [00:05<00:00,  3.57it/s]Epoch 2: 100%|██████████| 16/16 [00:05<00:00,  3.12it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.99it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.09it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.579     0.024     0.047       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.399     0.643     0.492       607
+
+   micro avg      0.403     0.331     0.363      1213
+   macro avg      0.245     0.167     0.135      1213
+weighted avg      0.415     0.331     0.264      1213
+
+Epoch 3:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 3:   6%|▋         | 1/16 [00:00<00:02,  6.08it/s]Epoch 3:  12%|█▎        | 2/16 [00:00<00:03,  3.58it/s]Epoch 3:  19%|█▉        | 3/16 [00:00<00:04,  3.18it/s]Epoch 3:  25%|██▌       | 4/16 [00:01<00:03,  3.52it/s]Epoch 3:  31%|███▏      | 5/16 [00:01<00:03,  3.19it/s]Epoch 3:  38%|███▊      | 6/16 [00:01<00:02,  3.52it/s]Epoch 3:  44%|████▍     | 7/16 [00:01<00:02,  3.90it/s]Epoch 3:  50%|█████     | 8/16 [00:02<00:02,  3.44it/s]Epoch 3:  56%|█████▋    | 9/16 [00:02<00:02,  3.20it/s]Epoch 3:  62%|██████▎   | 10/16 [00:02<00:01,  3.06it/s]Epoch 3:  69%|██████▉   | 11/16 [00:03<00:01,  3.13it/s]
+Updating training data weights:   0%|          | 0/16 [00:00<?, ?it/s][A
+Updating training data weights:   6%|▋         | 1/16 [00:00<00:02,  6.27it/s][A
+Updating training data weights:  19%|█▉        | 3/16 [00:00<00:01,  8.28it/s][A
+Updating training data weights:  25%|██▌       | 4/16 [00:00<00:01,  7.81it/s][A
+Updating training data weights:  31%|███▏      | 5/16 [00:00<00:01,  7.53it/s][A
+Updating training data weights:  38%|███▊      | 6/16 [00:00<00:01,  8.08it/s][A
+Updating training data weights:  50%|█████     | 8/16 [00:01<00:00,  8.22it/s][A
+Updating training data weights:  56%|█████▋    | 9/16 [00:01<00:00,  8.59it/s][A
+Updating training data weights:  69%|██████▉   | 11/16 [00:01<00:00,  8.68it/s][A
+Updating training data weights:  75%|███████▌  | 12/16 [00:01<00:00,  8.27it/s][A
+Updating training data weights:  81%|████████▏ | 13/16 [00:01<00:00,  7.94it/s][A
+Updating training data weights:  88%|████████▊ | 14/16 [00:01<00:00,  7.71it/s][A
+Updating training data weights:  94%|█████████▍| 15/16 [00:01<00:00,  7.53it/s][AUpdating training data weights: 100%|██████████| 16/16 [00:01<00:00,  8.08it/s]
+bin_loss: 0.03967; type_loss: 0.08203
+Epoch 3:  75%|███████▌  | 12/16 [00:05<00:03,  1.07it/s]Epoch 3:  81%|████████▏ | 13/16 [00:05<00:02,  1.38it/s]Epoch 3:  88%|████████▊ | 14/16 [00:06<00:01,  1.76it/s]Epoch 3:  94%|█████████▍| 15/16 [00:06<00:00,  1.97it/s]Epoch 3: 100%|██████████| 16/16 [00:06<00:00,  2.50it/s]Epoch 3: 100%|██████████| 16/16 [00:06<00:00,  2.42it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.98it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.10it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.518     0.405     0.455       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.343     0.778     0.476       607
+
+   micro avg      0.379     0.540     0.445      1213
+   macro avg      0.215     0.296     0.233      1213
+weighted avg      0.365     0.540     0.408      1213
+
+Epoch 4:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 4:   6%|▋         | 1/16 [00:00<00:05,  2.94it/s]Epoch 4:  12%|█▎        | 2/16 [00:00<00:04,  2.87it/s]Epoch 4:  19%|█▉        | 3/16 [00:01<00:04,  2.82it/s]Epoch 4:  25%|██▌       | 4/16 [00:01<00:04,  2.81it/s]Epoch 4:  31%|███▏      | 5/16 [00:01<00:03,  3.07it/s]Epoch 4:  38%|███▊      | 6/16 [00:01<00:03,  3.24it/s]Epoch 4:  44%|████▍     | 7/16 [00:02<00:02,  3.57it/s]Epoch 4:  50%|█████     | 8/16 [00:02<00:02,  3.25it/s]Epoch 4:  56%|█████▋    | 9/16 [00:02<00:02,  3.09it/s]Epoch 4:  62%|██████▎   | 10/16 [00:03<00:01,  3.17it/s]Epoch 4:  69%|██████▉   | 11/16 [00:03<00:01,  3.30it/s]Epoch 4:  75%|███████▌  | 12/16 [00:03<00:01,  3.11it/s]Epoch 4:  81%|████████▏ | 13/16 [00:04<00:00,  3.00it/s]Epoch 4:  88%|████████▊ | 14/16 [00:04<00:00,  2.92it/s]Epoch 4:  94%|█████████▍| 15/16 [00:04<00:00,  2.88it/s]Epoch 4: 100%|██████████| 16/16 [00:05<00:00,  3.16it/s]Epoch 4: 100%|██████████| 16/16 [00:05<00:00,  3.09it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.99it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.09it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.37it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.30it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.24it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.42it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.433     0.460     0.446       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.404     0.758     0.527       607
+
+   micro avg      0.413     0.551     0.472      1213
+   macro avg      0.209     0.305     0.243      1213
+weighted avg      0.364     0.551     0.430      1213
+
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.19it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.19it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.59it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.42it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.33it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.46it/s]
+Some weights of RoSTERModel were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.weight', 'bin_classifier.bias', 'lm_head.decoder.bias', 'classifier.bias', 'bin_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Using 1 GPU(s)! *****
+
+Loading data from /home/thoc/RoSTER-main/data/test_data/train_dist.pt
+***** Training stats *****
+Num data = 500
+Batch size = 32
+Loading data from /home/thoc/RoSTER-main/data/test_data/test_true.pt
+***** Evaluation stats *****
+Num data = 500
+Batch size = 64
+
+
+******* Training model 4 *******
+
+
+Epoch 0:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 0:   6%|▋         | 1/16 [00:00<00:05,  2.83it/s]Epoch 0:  12%|█▎        | 2/16 [00:00<00:05,  2.80it/s]Epoch 0:  19%|█▉        | 3/16 [00:01<00:04,  2.77it/s]Epoch 0:  25%|██▌       | 4/16 [00:01<00:04,  2.76it/s]Epoch 0:  31%|███▏      | 5/16 [00:01<00:03,  3.32it/s]Epoch 0:  38%|███▊      | 6/16 [00:01<00:02,  3.78it/s]Epoch 0:  44%|████▍     | 7/16 [00:02<00:02,  3.35it/s]Epoch 0:  50%|█████     | 8/16 [00:02<00:02,  3.13it/s]Epoch 0:  56%|█████▋    | 9/16 [00:02<00:02,  2.99it/s]Epoch 0:  62%|██████▎   | 10/16 [00:03<00:01,  3.24it/s]Epoch 0:  69%|██████▉   | 11/16 [00:03<00:01,  3.05it/s]Epoch 0:  75%|███████▌  | 12/16 [00:03<00:01,  3.40it/s]Epoch 0:  81%|████████▏ | 13/16 [00:04<00:00,  3.14it/s]Epoch 0:  88%|████████▊ | 14/16 [00:04<00:00,  3.00it/s]Epoch 0:  94%|█████████▍| 15/16 [00:04<00:00,  3.07it/s]Epoch 0: 100%|██████████| 16/16 [00:05<00:00,  3.32it/s]Epoch 0: 100%|██████████| 16/16 [00:05<00:00,  3.16it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.98it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.09it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.30it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.26it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.24it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.66it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.42it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.000     0.000     0.000       607
+
+   micro avg      0.000     0.000     0.000      1213
+   macro avg      0.000     0.000     0.000      1213
+weighted avg      0.000     0.000     0.000      1213
+
+Epoch 1:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 1:   6%|▋         | 1/16 [00:00<00:05,  3.00it/s]Epoch 1:  12%|█▎        | 2/16 [00:00<00:04,  2.86it/s]Epoch 1:  19%|█▉        | 3/16 [00:01<00:04,  2.81it/s]Epoch 1:  25%|██▌       | 4/16 [00:01<00:04,  2.80it/s]Epoch 1:  31%|███▏      | 5/16 [00:01<00:03,  2.79it/s]Epoch 1:  38%|███▊      | 6/16 [00:02<00:03,  2.96it/s]Epoch 1:  44%|████▍     | 7/16 [00:02<00:03,  2.89it/s]Epoch 1:  50%|█████     | 8/16 [00:02<00:02,  3.22it/s]Epoch 1:  56%|█████▋    | 9/16 [00:02<00:01,  3.55it/s]Epoch 1:  62%|██████▎   | 10/16 [00:03<00:01,  3.26it/s]Epoch 1:  69%|██████▉   | 11/16 [00:03<00:01,  3.10it/s]Epoch 1:  75%|███████▌  | 12/16 [00:03<00:01,  3.43it/s]Epoch 1:  81%|████████▏ | 13/16 [00:04<00:00,  3.20it/s]Epoch 1:  88%|████████▊ | 14/16 [00:04<00:00,  3.33it/s]Epoch 1:  94%|█████████▍| 15/16 [00:04<00:00,  3.13it/s]Epoch 1: 100%|██████████| 16/16 [00:05<00:00,  3.38it/s]Epoch 1: 100%|██████████| 16/16 [00:05<00:00,  3.16it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.98it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.09it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.51it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.37it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.511     0.051     0.093       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.404     0.647     0.498       607
+
+   micro avg      0.409     0.343     0.373      1213
+   macro avg      0.229     0.175     0.148      1213
+weighted avg      0.393     0.343     0.284      1213
+
+Epoch 2:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 2:   6%|▋         | 1/16 [00:00<00:05,  2.97it/s]Epoch 2:  12%|█▎        | 2/16 [00:00<00:03,  3.60it/s]Epoch 2:  19%|█▉        | 3/16 [00:00<00:04,  3.15it/s]Epoch 2:  25%|██▌       | 4/16 [00:01<00:04,  2.99it/s]Epoch 2:  31%|███▏      | 5/16 [00:01<00:03,  2.90it/s]Epoch 2:  38%|███▊      | 6/16 [00:01<00:02,  3.56it/s]Epoch 2:  44%|████▍     | 7/16 [00:02<00:02,  3.25it/s]Epoch 2:  50%|█████     | 8/16 [00:02<00:02,  3.37it/s]Epoch 2:  56%|█████▋    | 9/16 [00:02<00:01,  3.76it/s]Epoch 2:  62%|██████▎   | 10/16 [00:02<00:01,  3.74it/s]Epoch 2:  69%|██████▉   | 11/16 [00:03<00:01,  3.37it/s]Epoch 2:  75%|███████▌  | 12/16 [00:03<00:01,  3.64it/s]Epoch 2:  81%|████████▏ | 13/16 [00:03<00:00,  3.67it/s]Epoch 2:  88%|████████▊ | 14/16 [00:04<00:00,  3.32it/s]Epoch 2:  94%|█████████▍| 15/16 [00:04<00:00,  3.14it/s]Epoch 2: 100%|██████████| 16/16 [00:04<00:00,  3.38it/s]Epoch 2: 100%|██████████| 16/16 [00:04<00:00,  3.37it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.02it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.37it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.24it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.66it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.42it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.457     0.257     0.329       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.411     0.797     0.542       607
+
+   micro avg      0.419     0.495     0.454      1213
+   macro avg      0.217     0.264     0.218      1213
+weighted avg      0.376     0.495     0.394      1213
+
+Epoch 3:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 3:   6%|▋         | 1/16 [00:00<00:05,  2.96it/s]Epoch 3:  12%|█▎        | 2/16 [00:00<00:04,  3.16it/s]Epoch 3:  19%|█▉        | 3/16 [00:00<00:03,  3.87it/s]Epoch 3:  25%|██▌       | 4/16 [00:01<00:03,  3.35it/s]Epoch 3:  31%|███▏      | 5/16 [00:01<00:02,  3.87it/s]Epoch 3:  38%|███▊      | 6/16 [00:01<00:02,  3.39it/s]Epoch 3:  44%|████▍     | 7/16 [00:02<00:02,  3.40it/s]Epoch 3:  50%|█████     | 8/16 [00:02<00:02,  3.16it/s]Epoch 3:  56%|█████▋    | 9/16 [00:02<00:02,  3.47it/s]Epoch 3:  62%|██████▎   | 10/16 [00:02<00:01,  3.50it/s]Epoch 3:  69%|██████▉   | 11/16 [00:03<00:01,  3.23it/s]
+Updating training data weights:   0%|          | 0/16 [00:00<?, ?it/s][A
+Updating training data weights:   6%|▋         | 1/16 [00:00<00:02,  6.29it/s][A
+Updating training data weights:  12%|█▎        | 2/16 [00:00<00:02,  6.69it/s][A
+Updating training data weights:  19%|█▉        | 3/16 [00:00<00:01,  7.59it/s][A
+Updating training data weights:  25%|██▌       | 4/16 [00:00<00:01,  7.41it/s][A
+Updating training data weights:  31%|███▏      | 5/16 [00:00<00:01,  8.03it/s][A
+Updating training data weights:  38%|███▊      | 6/16 [00:00<00:01,  7.69it/s][A
+Updating training data weights:  44%|████▍     | 7/16 [00:00<00:01,  7.51it/s][A
+Updating training data weights:  50%|█████     | 8/16 [00:01<00:01,  7.37it/s][A
+Updating training data weights:  62%|██████▎   | 10/16 [00:01<00:00,  9.47it/s][A
+Updating training data weights:  75%|███████▌  | 12/16 [00:01<00:00,  9.67it/s][A
+Updating training data weights:  81%|████████▏ | 13/16 [00:01<00:00,  8.92it/s][A
+Updating training data weights:  88%|████████▊ | 14/16 [00:01<00:00,  8.38it/s][A
+Updating training data weights:  94%|█████████▍| 15/16 [00:01<00:00,  8.03it/s][AUpdating training data weights: 100%|██████████| 16/16 [00:01<00:00,  8.26it/s]
+bin_loss: 0.03511; type_loss: 0.07503
+Epoch 3:  75%|███████▌  | 12/16 [00:05<00:03,  1.09it/s]Epoch 3:  81%|████████▏ | 13/16 [00:05<00:02,  1.33it/s]Epoch 3:  88%|████████▊ | 14/16 [00:06<00:01,  1.58it/s]Epoch 3:  94%|█████████▍| 15/16 [00:06<00:00,  1.81it/s]Epoch 3: 100%|██████████| 16/16 [00:06<00:00,  2.35it/s]Epoch 3: 100%|██████████| 16/16 [00:06<00:00,  2.35it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.02it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.54it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.40it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.33it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.420     0.407     0.413       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.411     0.840     0.552       607
+
+   micro avg      0.413     0.572     0.480      1213
+   macro avg      0.208     0.312     0.241      1213
+weighted avg      0.362     0.572     0.430      1213
+
+Epoch 4:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 4:   6%|▋         | 1/16 [00:00<00:03,  4.06it/s]Epoch 4:  12%|█▎        | 2/16 [00:00<00:04,  3.16it/s]Epoch 4:  19%|█▉        | 3/16 [00:00<00:04,  3.00it/s]Epoch 4:  25%|██▌       | 4/16 [00:01<00:03,  3.39it/s]Epoch 4:  31%|███▏      | 5/16 [00:01<00:03,  3.10it/s]Epoch 4:  38%|███▊      | 6/16 [00:01<00:03,  2.98it/s]Epoch 4:  44%|████▍     | 7/16 [00:02<00:02,  3.09it/s]Epoch 4:  50%|█████     | 8/16 [00:02<00:02,  2.98it/s]Epoch 4:  56%|█████▋    | 9/16 [00:02<00:02,  2.91it/s]Epoch 4:  62%|██████▎   | 10/16 [00:03<00:01,  3.11it/s]Epoch 4:  69%|██████▉   | 11/16 [00:03<00:01,  2.99it/s]Epoch 4:  75%|███████▌  | 12/16 [00:03<00:01,  2.92it/s]Epoch 4:  81%|████████▏ | 13/16 [00:04<00:00,  3.21it/s]Epoch 4:  88%|████████▊ | 14/16 [00:04<00:00,  3.44it/s]Epoch 4:  94%|█████████▍| 15/16 [00:04<00:00,  3.20it/s]Epoch 4: 100%|██████████| 16/16 [00:04<00:00,  3.89it/s]Epoch 4: 100%|██████████| 16/16 [00:04<00:00,  3.25it/s]
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.99it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.24it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.66it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.42it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.411     0.418     0.414       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.395     0.847     0.539       607
+
+   micro avg      0.399     0.580     0.473      1213
+   macro avg      0.202     0.316     0.238      1213
+weighted avg      0.351     0.580     0.424      1213
+
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.19it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.18it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.59it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.43it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.33it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.29it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.45it/s]
+Some weights of RoSTERModel were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.weight', 'bin_classifier.bias', 'lm_head.decoder.bias', 'classifier.bias', 'bin_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Using 1 GPU(s)! *****
+
+Loading data from /home/thoc/RoSTER-main/data/test_data/train_dist.pt
+***** Training stats *****
+Num data = 500
+Batch size = 32
+Loading data from /home/thoc/RoSTER-main/data/test_data/test_true.pt
+***** Evaluation stats *****
+Num data = 500
+Batch size = 64
+
+
+******* Training ensembled model *******
+
+
+Epoch 0:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 0:   6%|▋         | 1/16 [00:00<00:05,  2.73it/s]Epoch 0:  12%|█▎        | 2/16 [00:00<00:05,  2.75it/s]Epoch 0:  19%|█▉        | 3/16 [00:01<00:04,  3.10it/s]Epoch 0:  25%|██▌       | 4/16 [00:01<00:04,  2.93it/s]Epoch 0:  31%|███▏      | 5/16 [00:01<00:03,  2.85it/s]Epoch 0:  38%|███▊      | 6/16 [00:01<00:02,  3.35it/s]Epoch 0:  44%|████▍     | 7/16 [00:02<00:02,  3.35it/s]Epoch 0:  50%|█████     | 8/16 [00:02<00:02,  3.13it/s]Epoch 0:  56%|█████▋    | 9/16 [00:02<00:02,  2.99it/s]Epoch 0:  62%|██████▎   | 10/16 [00:03<00:01,  3.25it/s]Epoch 0:  69%|██████▉   | 11/16 [00:03<00:01,  3.25it/s]Epoch 0:  75%|███████▌  | 12/16 [00:03<00:01,  3.49it/s]Epoch 0:  81%|████████▏ | 13/16 [00:04<00:00,  3.20it/s]Epoch 0:  88%|████████▊ | 14/16 [00:04<00:00,  3.04it/s]Epoch 0:  94%|█████████▍| 15/16 [00:04<00:00,  3.31it/s]Epoch 0: 100%|██████████| 16/16 [00:04<00:00,  3.50it/s]Epoch 0: 100%|██████████| 16/16 [00:04<00:00,  3.21it/s]
+bin_loss: 0.62955; type_loss: 1.36274
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.97it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.09it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.66it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.42it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.000     0.000     0.000       607
+
+   micro avg      0.000     0.000     0.000      1213
+   macro avg      0.000     0.000     0.000      1213
+weighted avg      0.000     0.000     0.000      1213
+
+Epoch 1:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 1:   6%|▋         | 1/16 [00:00<00:05,  2.92it/s]Epoch 1:  12%|█▎        | 2/16 [00:00<00:04,  3.30it/s]Epoch 1:  19%|█▉        | 3/16 [00:00<00:03,  3.31it/s]Epoch 1:  25%|██▌       | 4/16 [00:01<00:03,  3.07it/s]Epoch 1:  31%|███▏      | 5/16 [00:01<00:03,  2.93it/s]Epoch 1:  38%|███▊      | 6/16 [00:01<00:02,  3.53it/s]Epoch 1:  44%|████▍     | 7/16 [00:02<00:02,  3.21it/s]Epoch 1:  50%|█████     | 8/16 [00:02<00:02,  3.04it/s]Epoch 1:  56%|█████▋    | 9/16 [00:02<00:02,  2.94it/s]Epoch 1:  62%|██████▎   | 10/16 [00:03<00:02,  2.88it/s]Epoch 1:  69%|██████▉   | 11/16 [00:03<00:01,  2.99it/s]Epoch 1:  75%|███████▌  | 12/16 [00:03<00:01,  2.91it/s]Epoch 1:  81%|████████▏ | 13/16 [00:04<00:01,  2.85it/s]Epoch 1:  88%|████████▊ | 14/16 [00:04<00:00,  3.12it/s]Epoch 1:  94%|█████████▍| 15/16 [00:04<00:00,  2.98it/s]Epoch 1: 100%|██████████| 16/16 [00:05<00:00,  3.25it/s]Epoch 1: 100%|██████████| 16/16 [00:05<00:00,  3.08it/s]
+bin_loss: 0.46111; type_loss: 0.36645
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.01it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.000     0.000     0.000       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.000     0.000     0.000       607
+
+   micro avg      0.000     0.000     0.000      1213
+   macro avg      0.000     0.000     0.000      1213
+weighted avg      0.000     0.000     0.000      1213
+
+Epoch 2:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 2:   6%|▋         | 1/16 [00:00<00:05,  2.87it/s]Epoch 2:  12%|█▎        | 2/16 [00:00<00:05,  2.78it/s]Epoch 2:  19%|█▉        | 3/16 [00:00<00:03,  3.56it/s]Epoch 2:  25%|██▌       | 4/16 [00:01<00:03,  3.17it/s]Epoch 2:  31%|███▏      | 5/16 [00:01<00:03,  3.00it/s]Epoch 2:  38%|███▊      | 6/16 [00:02<00:03,  2.90it/s]Epoch 2:  44%|████▍     | 7/16 [00:02<00:02,  3.14it/s]Epoch 2:  50%|█████     | 8/16 [00:02<00:02,  2.99it/s]Epoch 2:  56%|█████▋    | 9/16 [00:02<00:02,  3.17it/s]Epoch 2:  62%|██████▎   | 10/16 [00:03<00:01,  3.01it/s]Epoch 2:  69%|██████▉   | 11/16 [00:03<00:01,  2.92it/s]Epoch 2:  75%|███████▌  | 12/16 [00:04<00:01,  2.86it/s]Epoch 2:  81%|████████▏ | 13/16 [00:04<00:00,  3.24it/s]Epoch 2:  88%|████████▊ | 14/16 [00:04<00:00,  3.36it/s]Epoch 2:  94%|█████████▍| 15/16 [00:04<00:00,  3.12it/s]Epoch 2: 100%|██████████| 16/16 [00:04<00:00,  3.83it/s]Epoch 2: 100%|██████████| 16/16 [00:04<00:00,  3.20it/s]
+bin_loss: 0.32763; type_loss: 0.21762
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.02it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.44it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.300     0.027     0.049       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.280     0.634     0.389       607
+
+   micro avg      0.281     0.327     0.302      1213
+   macro avg      0.145     0.165     0.109      1213
+weighted avg      0.252     0.327     0.213      1213
+
+Epoch 3:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 3:   6%|▋         | 1/16 [00:00<00:05,  2.92it/s]Epoch 3:  12%|█▎        | 2/16 [00:00<00:04,  2.81it/s]Epoch 3:  19%|█▉        | 3/16 [00:01<00:04,  3.04it/s]Epoch 3:  25%|██▌       | 4/16 [00:01<00:04,  2.90it/s]Epoch 3:  31%|███▏      | 5/16 [00:01<00:03,  2.83it/s]Epoch 3:  38%|███▊      | 6/16 [00:02<00:03,  2.80it/s]Epoch 3:  44%|████▍     | 7/16 [00:02<00:03,  2.78it/s]Epoch 3:  50%|█████     | 8/16 [00:02<00:02,  2.77it/s]Epoch 3:  56%|█████▋    | 9/16 [00:03<00:02,  3.31it/s]Epoch 3:  62%|██████▎   | 10/16 [00:03<00:01,  3.09it/s]Epoch 3:  69%|██████▉   | 11/16 [00:03<00:01,  3.32it/s]Epoch 3:  75%|███████▌  | 12/16 [00:03<00:01,  3.52it/s]Epoch 3:  81%|████████▏ | 13/16 [00:04<00:00,  3.22it/s]Epoch 3:  88%|████████▊ | 14/16 [00:04<00:00,  3.05it/s]Epoch 3:  94%|█████████▍| 15/16 [00:04<00:00,  3.39it/s]Epoch 3: 100%|██████████| 16/16 [00:05<00:00,  3.86it/s]Epoch 3: 100%|██████████| 16/16 [00:05<00:00,  3.19it/s]
+bin_loss: 0.24208; type_loss: 0.14867
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.00it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.09it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.69it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.44it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.404     0.312     0.352       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.314     0.646     0.423       607
+
+   micro avg      0.334     0.439     0.379      1213
+   macro avg      0.180     0.239     0.194      1213
+weighted avg      0.308     0.439     0.343      1213
+
+Epoch 4:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 4:   6%|▋         | 1/16 [00:00<00:03,  4.00it/s]Epoch 4:  12%|█▎        | 2/16 [00:00<00:04,  3.12it/s]Epoch 4:  19%|█▉        | 3/16 [00:00<00:03,  3.33it/s]Epoch 4:  25%|██▌       | 4/16 [00:01<00:03,  3.43it/s]Epoch 4:  31%|███▏      | 5/16 [00:01<00:03,  3.12it/s]Epoch 4:  38%|███▊      | 6/16 [00:01<00:03,  2.97it/s]Epoch 4:  44%|████▍     | 7/16 [00:02<00:03,  2.89it/s]Epoch 4:  50%|█████     | 8/16 [00:02<00:02,  2.85it/s]Epoch 4:  56%|█████▋    | 9/16 [00:03<00:02,  2.81it/s]Epoch 4:  62%|██████▎   | 10/16 [00:03<00:02,  2.78it/s]Epoch 4:  69%|██████▉   | 11/16 [00:03<00:01,  2.76it/s]Epoch 4:  75%|███████▌  | 12/16 [00:03<00:01,  3.08it/s]Epoch 4:  81%|████████▏ | 13/16 [00:04<00:01,  2.97it/s]Epoch 4:  88%|████████▊ | 14/16 [00:04<00:00,  2.89it/s]Epoch 4:  94%|█████████▍| 15/16 [00:05<00:00,  2.83it/s]Epoch 4: 100%|██████████| 16/16 [00:05<00:00,  3.51it/s]Epoch 4: 100%|██████████| 16/16 [00:05<00:00,  3.07it/s]
+bin_loss: 0.21623; type_loss: 0.1004
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.04it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.13it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.54it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.40it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.44it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.344     0.416     0.377       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.349     0.675     0.460       607
+
+   micro avg      0.347     0.493     0.408      1213
+   macro avg      0.173     0.273     0.209      1213
+weighted avg      0.303     0.493     0.371      1213
+
+Epoch 5:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 5:   6%|▋         | 1/16 [00:00<00:05,  2.94it/s]Epoch 5:  12%|█▎        | 2/16 [00:00<00:04,  2.83it/s]Epoch 5:  19%|█▉        | 3/16 [00:00<00:04,  3.16it/s]Epoch 5:  25%|██▌       | 4/16 [00:01<00:04,  2.96it/s]Epoch 5:  31%|███▏      | 5/16 [00:01<00:03,  3.22it/s]Epoch 5:  38%|███▊      | 6/16 [00:01<00:03,  3.32it/s]Epoch 5:  44%|████▍     | 7/16 [00:02<00:02,  3.32it/s]Epoch 5:  50%|█████     | 8/16 [00:02<00:02,  3.64it/s]Epoch 5:  56%|█████▋    | 9/16 [00:02<00:02,  3.28it/s]Epoch 5:  62%|██████▎   | 10/16 [00:02<00:01,  3.63it/s]Epoch 5:  69%|██████▉   | 11/16 [00:03<00:01,  3.51it/s]Epoch 5:  75%|███████▌  | 12/16 [00:03<00:01,  3.23it/s]Epoch 5:  81%|████████▏ | 13/16 [00:04<00:00,  3.06it/s]Epoch 5:  88%|████████▊ | 14/16 [00:04<00:00,  2.96it/s]Epoch 5:  94%|█████████▍| 15/16 [00:04<00:00,  3.14it/s]Epoch 5: 100%|██████████| 16/16 [00:04<00:00,  3.36it/s]Epoch 5: 100%|██████████| 16/16 [00:04<00:00,  3.25it/s]
+bin_loss: 0.20885; type_loss: 0.07736
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.00it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.396     0.394     0.395       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.342     0.738     0.467       607
+
+   micro avg      0.356     0.516     0.421      1213
+   macro avg      0.185     0.283     0.216      1213
+weighted avg      0.319     0.516     0.381      1213
+
+Epoch 6:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 6:   6%|▋         | 1/16 [00:00<00:05,  2.93it/s]Epoch 6:  12%|█▎        | 2/16 [00:00<00:03,  3.52it/s]Epoch 6:  19%|█▉        | 3/16 [00:00<00:04,  3.12it/s]Epoch 6:  25%|██▌       | 4/16 [00:01<00:03,  3.69it/s]Epoch 6:  31%|███▏      | 5/16 [00:01<00:03,  3.27it/s]Epoch 6:  38%|███▊      | 6/16 [00:01<00:03,  3.06it/s]Epoch 6:  44%|████▍     | 7/16 [00:02<00:03,  2.95it/s]Epoch 6:  50%|█████     | 8/16 [00:02<00:02,  2.87it/s]Epoch 6:  56%|█████▋    | 9/16 [00:02<00:02,  2.83it/s]Epoch 6:  62%|██████▎   | 10/16 [00:03<00:01,  3.12it/s]Epoch 6:  69%|██████▉   | 11/16 [00:03<00:01,  3.24it/s]Epoch 6:  75%|███████▌  | 12/16 [00:03<00:01,  3.34it/s]Epoch 6:  81%|████████▏ | 13/16 [00:03<00:00,  3.71it/s]Epoch 6:  88%|████████▊ | 14/16 [00:04<00:00,  4.05it/s]Epoch 6:  94%|█████████▍| 15/16 [00:04<00:00,  3.52it/s]Epoch 6: 100%|██████████| 16/16 [00:04<00:00,  3.66it/s]Epoch 6: 100%|██████████| 16/16 [00:04<00:00,  3.33it/s]
+bin_loss: 0.20565; type_loss: 0.06799
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.98it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.09it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.52it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.38it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.31it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.388     0.429     0.408       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.368     0.741     0.492       607
+
+   micro avg      0.374     0.531     0.439      1213
+   macro avg      0.189     0.293     0.225      1213
+weighted avg      0.329     0.531     0.398      1213
+
+Epoch 7:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 7:   6%|▋         | 1/16 [00:00<00:05,  2.91it/s]Epoch 7:  12%|█▎        | 2/16 [00:00<00:04,  3.34it/s]Epoch 7:  19%|█▉        | 3/16 [00:00<00:04,  3.02it/s]Epoch 7:  25%|██▌       | 4/16 [00:01<00:04,  2.88it/s]Epoch 7:  31%|███▏      | 5/16 [00:01<00:03,  3.03it/s]Epoch 7:  38%|███▊      | 6/16 [00:01<00:02,  3.35it/s]Epoch 7:  44%|████▍     | 7/16 [00:02<00:02,  3.10it/s]Epoch 7:  50%|█████     | 8/16 [00:02<00:02,  2.98it/s]Epoch 7:  56%|█████▋    | 9/16 [00:02<00:02,  3.25it/s]Epoch 7:  62%|██████▎   | 10/16 [00:03<00:01,  3.05it/s]Epoch 7:  69%|██████▉   | 11/16 [00:03<00:01,  3.20it/s]Epoch 7:  75%|███████▌  | 12/16 [00:03<00:01,  3.03it/s]Epoch 7:  81%|████████▏ | 13/16 [00:04<00:00,  3.19it/s]Epoch 7:  88%|████████▊ | 14/16 [00:04<00:00,  3.30it/s]Epoch 7:  94%|█████████▍| 15/16 [00:04<00:00,  3.10it/s]Epoch 7: 100%|██████████| 16/16 [00:05<00:00,  3.34it/s]Epoch 7: 100%|██████████| 16/16 [00:05<00:00,  3.16it/s]
+bin_loss: 0.20393; type_loss: 0.06223
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.98it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.11it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.27it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.67it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.43it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.408     0.427     0.417       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.367     0.756     0.494       607
+
+   micro avg      0.378     0.538     0.444      1213
+   macro avg      0.194     0.296     0.228      1213
+weighted avg      0.336     0.538     0.403      1213
+
+Epoch 8:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 8:   6%|▋         | 1/16 [00:00<00:03,  4.65it/s]Epoch 8:  12%|█▎        | 2/16 [00:00<00:03,  4.32it/s]Epoch 8:  19%|█▉        | 3/16 [00:00<00:03,  3.95it/s]Epoch 8:  25%|██▌       | 4/16 [00:01<00:03,  3.83it/s]Epoch 8:  31%|███▏      | 5/16 [00:01<00:03,  3.34it/s]Epoch 8:  38%|███▊      | 6/16 [00:01<00:03,  3.10it/s]Epoch 8:  44%|████▍     | 7/16 [00:02<00:03,  2.97it/s]Epoch 8:  50%|█████     | 8/16 [00:02<00:02,  2.88it/s]Epoch 8:  56%|█████▋    | 9/16 [00:02<00:02,  2.83it/s]Epoch 8:  62%|██████▎   | 10/16 [00:03<00:02,  2.81it/s]Epoch 8:  69%|██████▉   | 11/16 [00:03<00:01,  2.78it/s]Epoch 8:  75%|███████▌  | 12/16 [00:03<00:01,  2.76it/s]Epoch 8:  81%|████████▏ | 13/16 [00:04<00:00,  3.29it/s]Epoch 8:  88%|████████▊ | 14/16 [00:04<00:00,  3.09it/s]Epoch 8:  94%|█████████▍| 15/16 [00:04<00:00,  3.17it/s]Epoch 8: 100%|██████████| 16/16 [00:05<00:00,  3.40it/s]Epoch 8: 100%|██████████| 16/16 [00:05<00:00,  3.18it/s]
+bin_loss: 0.20126; type_loss: 0.06069
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.99it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.10it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.65it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.42it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.399     0.438     0.418       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.372     0.751     0.498       607
+
+   micro avg      0.380     0.539     0.446      1213
+   macro avg      0.193     0.297     0.229      1213
+weighted avg      0.335     0.539     0.405      1213
+
+Epoch 9:   0%|          | 0/16 [00:00<?, ?it/s]Epoch 9:   6%|▋         | 1/16 [00:00<00:05,  2.94it/s]Epoch 9:  12%|█▎        | 2/16 [00:00<00:04,  2.82it/s]Epoch 9:  19%|█▉        | 3/16 [00:00<00:03,  3.58it/s]Epoch 9:  25%|██▌       | 4/16 [00:01<00:03,  3.17it/s]Epoch 9:  31%|███▏      | 5/16 [00:01<00:03,  3.00it/s]Epoch 9:  38%|███▊      | 6/16 [00:01<00:03,  3.11it/s]Epoch 9:  44%|████▍     | 7/16 [00:02<00:03,  2.98it/s]Epoch 9:  50%|█████     | 8/16 [00:02<00:02,  2.90it/s]Epoch 9:  56%|█████▋    | 9/16 [00:03<00:02,  2.85it/s]Epoch 9:  62%|██████▎   | 10/16 [00:03<00:02,  2.81it/s]Epoch 9:  69%|██████▉   | 11/16 [00:03<00:01,  2.78it/s]Epoch 9:  75%|███████▌  | 12/16 [00:04<00:01,  2.99it/s]Epoch 9:  81%|████████▏ | 13/16 [00:04<00:00,  3.15it/s]Epoch 9:  88%|████████▊ | 14/16 [00:04<00:00,  3.31it/s]Epoch 9:  94%|█████████▍| 15/16 [00:04<00:00,  3.09it/s]Epoch 9: 100%|██████████| 16/16 [00:05<00:00,  3.33it/s]Epoch 9: 100%|██████████| 16/16 [00:05<00:00,  3.08it/s]
+bin_loss: 0.20398; type_loss: 0.05773
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  2.98it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.10it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.53it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.29it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.26it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.44it/s]
+
+****** Evaluating on test set: ******
+
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.400     0.436     0.417       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.372     0.751     0.498       607
+
+   micro avg      0.380     0.538     0.446      1213
+   macro avg      0.193     0.297     0.229      1213
+weighted avg      0.335     0.538     0.405      1213
+
+Saving ensemble_model.pt ...
+
+
+******* Final model found; skip training *******
+
+
+Some weights of RoSTERModel were not initialized from the model checkpoint at roberta-base and are newly initialized: ['classifier.weight', 'bin_classifier.bias', 'lm_head.decoder.bias', 'classifier.bias', 'bin_classifier.weight']
+You should probably TRAIN this model on a down-stream task to be able to use it for predictions and inference.
+***** Using 1 GPU(s)! *****
+
+Loading data from /home/thoc/RoSTER-main/data/test_data/train_dist.pt
+***** Training stats *****
+Num data = 500
+Batch size = 32
+Loading data from /home/thoc/RoSTER-main/data/test_data/test_true.pt
+***** Evaluation stats *****
+Num data = 500
+Batch size = 64
+Evaluating:   0%|          | 0/8 [00:00<?, ?it/s]Evaluating:  12%|█▎        | 1/8 [00:00<00:02,  3.10it/s]Evaluating:  25%|██▌       | 2/8 [00:00<00:01,  3.16it/s]Evaluating:  38%|███▊      | 3/8 [00:00<00:01,  3.56it/s]Evaluating:  50%|█████     | 4/8 [00:01<00:01,  3.39it/s]Evaluating:  62%|██████▎   | 5/8 [00:01<00:00,  3.32it/s]Evaluating:  75%|███████▌  | 6/8 [00:01<00:00,  3.28it/s]Evaluating:  88%|████████▊ | 7/8 [00:02<00:00,  3.25it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.68it/s]Evaluating: 100%|██████████| 8/8 [00:02<00:00,  3.44it/s]
+<class 'list'>
+Warning: Sequence 52 is truncated for eval! (83/222)
+Warning: Sequence 82 is truncated for eval! (94/240)
+Warning: Sequence 213 is truncated for eval! (82/103)
+Warning: Sequence 256 is truncated for eval! (84/181)
+Warning: Sequence 258 is truncated for eval! (95/157)
+Warning: Sequence 323 is truncated for eval! (93/182)
+Warning: Sequence 344 is truncated for eval! (91/585)
+Warning: Sequence 346 is truncated for eval! (80/81)
+Warning: Sequence 364 is truncated for eval! (73/102)
+Warning: Sequence 368 is truncated for eval! (85/101)
+Warning: Sequence 379 is truncated for eval! (72/91)
+Warning: Sequence 404 is truncated for eval! (71/88)
+Warning: Sequence 424 is truncated for eval! (87/182)
+Warning: Sequence 440 is truncated for eval! (84/92)
+              precision    recall  f1-score   support
+
+         LOC      0.419     0.376     0.396       452
+        MISC      0.000     0.000     0.000        83
+         ORG      0.000     0.000     0.000        71
+         PER      0.370     0.728     0.491       607
+
+   micro avg      0.382     0.505     0.435      1213
+   macro avg      0.197     0.276     0.222      1213
+weighted avg      0.341     0.505     0.393      1213
+
