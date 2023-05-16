@@ -1,8 +1,6 @@
 #export CUDA_DEVICE_ORDER=PCI_BUS_ID
 #export CUDA_VISIBLE_DEVICES=1
 
-CORPUS="2k"
-
 while [[ $# -gt 0 ]]; do
   case $1 in
     -d|--dataset)
@@ -16,7 +14,7 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-echo "dataset:${DATASET}:"
+echo "dataset:${CORPUS}:"
 
 SEED=30
 TEMP_DIR=tmp_${CORPUS}_$SEED
