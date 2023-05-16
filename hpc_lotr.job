@@ -6,6 +6,7 @@
 #SBATCH --time=24:00:00          # Run time (hh:mm:ss) - run for one hour max
 #SBATCH --partition=brown   # Run on either the Red or Brown queue
 
+echo "$PWD"
 echo "Running on $(hostname):"
 module load Anaconda3/
 eval "$(conda shell.bash hook)"
