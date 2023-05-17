@@ -34,7 +34,7 @@ def main():
 
     # training settting parameters
     parser.add_argument("--do_train",
-                        action='store_true',
+                        action='store_true', 
                         help="whether to run training.")
     parser.add_argument("--do_eval",
                         action='store_true',
