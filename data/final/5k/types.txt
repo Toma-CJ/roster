@@ -1,4 +1,4 @@
-PER
-LOC
+LOC 
+MISC 
+PER 
 ORG
-MISC

@@ -34,7 +34,7 @@ def main():
 
     # training settting parameters
     parser.add_argument("--do_train",
-                        action='store_true',
+                        action='store_true', 
                         help="whether to run training.")
     parser.add_argument("--do_eval",
                         action='store_true',
@@ -115,6 +115,10 @@ def main():
                         type=int,
                         default=42,
                         help="random seed for training")
+    parser.add_argument('--supervision',
+                    type='dist',
+                    choices=['true', 'dist'],
+                    help="whether to train on gold or dist")
     
     args = parser.parse_args()
 
