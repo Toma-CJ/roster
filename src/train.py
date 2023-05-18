@@ -116,7 +116,7 @@ def main():
                         default=42,
                         help="random seed for training")
     parser.add_argument('--supervision',
-                    type='dist',
+                    default='dist',
                     choices=['true', 'dist'],
                     help="whether to train on gold or dist")
     
