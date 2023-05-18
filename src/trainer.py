@@ -419,7 +419,7 @@ class RoSTERTrainer(object):
         type_preds = torch.cat(type_preds, dim=0)
         all_idx = torch.cat(indices)
 
-        type_distribution = torch.zeros(len(self.train_data), self.max_seq_length, self.num_labels-1)
+        type_distribution = torch.zeros(len(self.train_data), self.max_seq_length, self.num_labels-1).to(self.device)
         for idx, type_pred in zip(all_idx, type_preds):
             type_distribution[idx] = type_pred
 

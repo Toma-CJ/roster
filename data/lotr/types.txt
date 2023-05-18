@@ -1,4 +1,0 @@
-LOC
-PER
-MISC
-ORG
