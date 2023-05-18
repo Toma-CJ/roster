@@ -18,9 +18,9 @@ echo "dataset:${CORPUS}:"
 
 SEED=30
 TEMP_DIR=tmp_${CORPUS}_$SEED
-OUT_DIR=out_$CORPUS/test
+OUT_DIR=out_$CORPUS
 mkdir -p $TEMP_DIR
-mkdir -p $OUT_DIR/test
+mkdir -p $OUT_DIR
 
 eval "$(conda shell.bash hook)"
 conda activate 2yp
