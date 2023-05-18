@@ -36,6 +36,9 @@ class RoSTERTrainer(object):
         if args.train_batch_size != 32:
             print(f'Batch size for training is {args.train_batch_size}; 32 is recommended!')
             exit(-1)
+
+        self.supervision = args.supervision
+        
         self.train_batch_size = args.train_batch_size // args.gradient_accumulation_steps
         self.eval_batch_size = args.eval_batch_size
         self.gradient_accumulation_steps = args.gradient_accumulation_steps
@@ -75,7 +78,7 @@ class RoSTERTrainer(object):
             self.multi_gpu = False
 
         if args.do_train:
-            tensor_data = self.processor.get_tensor(dataset_name="train", max_seq_length=self.max_seq_length, supervision='dist', drop_o_ratio=0.5)
+            tensor_data = self.processor.get_tensor(dataset_name="train", max_seq_length=self.max_seq_length, supervision=self.supervision, drop_o_ratio=0.5)
             
             all_idx = tensor_data["all_idx"]
             all_input_ids = tensor_data["all_input_ids"]
