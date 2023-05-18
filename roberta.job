@@ -8,7 +8,7 @@
 #SBATCH --partition=brown   # Run on either the Red or Brown queue
 #SBATCH --mail-type=END
 
-DATASET="2k"
+DATASET="conll"
 
 while [[ $# -gt 0 ]]; do
   case $1 in
