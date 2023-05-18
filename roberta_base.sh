@@ -3,7 +3,7 @@
 while [[ $# -gt 0 ]]; do
   case $1 in
     -d|--dataset)
-      CORPUS="$cpnll"
+      CORPUS="$conll"
       shift # past argument
       shift # past value
       ;;
