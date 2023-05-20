@@ -9,11 +9,17 @@
 #SBATCH --mail-type=END
 
 DATASET="conll"
+EVAL_DATASET=${DATASET}_test
 
 while [[ $# -gt 0 ]]; do
   case $1 in
     -d|--dataset)
       DATASET="$2"
+      shift # past argument
+      shift # past value
+      ;;
+    -e|--eval_dataset)
+      EVAL_DATASET="$2"
       shift # past argument
       shift # past value
       ;;
@@ -29,4 +35,4 @@ echo "Running on $(hostname):"
 module load Anaconda3/
 eval "$(conda shell.bash hook)"
 conda activate 2yp
-bash roberta_base.sh -d $DATASET
+bash roberta_base.sh -d $DATASET -e EVAL_DATASET=${DATASET}_test

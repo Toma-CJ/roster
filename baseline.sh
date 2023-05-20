@@ -8,13 +8,17 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       shift # past value
       ;;
+    -e|--eval_dataset)
+      EVAL_DATASET="$2"
+      shift # past argument
+      shift # past value
+      ;;
     *)
       echo "Invalid argument: $1"
       shift # past argument
       ;;
   esac
 done
-echo "Training dataset:${CORPUS}:"
 
 SEED=30
 TEMP_DIR=tmp_${CORPUS}_$SEED
@@ -25,7 +29,7 @@ mkdir -p $OUT_DIR
 eval "$(conda shell.bash hook)"
 conda activate 2yp
 
-python -u src/train.py --data_dir data/final/$CORPUS \
+python -u src/train.py --data_dir data/$CORPUS \
     --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
     --pretrained_model roberta-base --tag_scheme 'iob' --max_seq_length 120 \
     --train_batch_size 32 --gradient_accumulation_steps 2 --eval_batch_size 64 \
@@ -36,9 +40,11 @@ python -u src/train.py --data_dir data/final/$CORPUS \
     --q 0.7 --tau 0.7 --num_models 5 \
     --do_train --do_eval --eval_on "valid" | tee $OUT_DIR/train_log.txt
 
-python -u src/train.py --data_dir data/final/$CORPUS \
+python -u src/train.py --data_dir data/$EVAL_DATASET \
     --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
     --pretrained_model roberta-base --tag_scheme 'iob' --max_seq_length 120 \
     --do_eval --eval_on "test" | tee $OUT_DIR/test_log.txt
+
+rm -rf $TEMP_DIR
     
     

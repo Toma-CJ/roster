@@ -1,7 +1,5 @@
 #!/bin/bash
 
-### NOT FINISHED
-
 #SBATCH --job-name=email  
 #SBATCH --output=job.%j.out      # Name of output file (%j expands to jobId)
 #SBATCH --cpus-per-task=8        # Schedule 8 cores (includes hyperthreading)
@@ -37,4 +35,4 @@ echo "Running on $(hostname):"
 module load Anaconda3/
 eval "$(conda shell.bash hook)"
 conda activate 2yp
-bash baseline_eval.sh -d $DATASET -e EVAL_DATASET=${DATASET}_test
+bash baseline.sh -d $DATASET -e EVAL_DATASET
