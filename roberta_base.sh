@@ -13,11 +13,11 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-echo "dataset:${CORPUS}:"
+echo "Roberta base dataset:${CORPUS}:"
 
 SEED=30
-TEMP_DIR=tmp_${CORPUS}_$SEED
-OUT_DIR=out_$CORPUS
+TEMP_DIR=tmp_${CORPUS}__roberta_base_$SEED
+OUT_DIR=out_${CORPUS}_roberta_base
 mkdir -p $TEMP_DIR
 mkdir -p $OUT_DIR
 
@@ -35,4 +35,9 @@ python -u src/train.py --data_dir data/final/$CORPUS \
     --q 0 --tau 0 --num_models 1 \
     --supervision "true" \
     --do_train --do_eval --eval_on "valid" | tee $OUT_DIR/train_log.txt
+
+python -u src/train.py --data_dir data/final/$CORPUS \
+    --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
+    --pretrained_model roberta-base --tag_scheme 'iob' --max_seq_length 120 \
+    --do_eval --eval_on "test" | tee $OUT_DIR/test_log.txt
     

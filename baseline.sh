@@ -14,7 +14,7 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-echo "dataset:${CORPUS}:"
+echo "Training dataset:${CORPUS}:"
 
 SEED=30
 TEMP_DIR=tmp_${CORPUS}_$SEED
@@ -35,4 +35,10 @@ python -u src/train.py --data_dir data/final/$CORPUS \
     --dropout 0.1 --warmup_proportion=0.1 --seed $SEED \
     --q 0.7 --tau 0.7 --num_models 5 \
     --do_train --do_eval --eval_on "valid" | tee $OUT_DIR/train_log.txt
+
+python -u src/train.py --data_dir data/final/$CORPUS \
+    --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
+    --pretrained_model roberta-base --tag_scheme 'iob' --max_seq_length 120 \
+    --do_eval --eval_on "test" | tee $OUT_DIR/test_log.txt
+    
     
