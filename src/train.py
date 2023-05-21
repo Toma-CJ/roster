@@ -1,6 +1,7 @@
 import argparse
 import shutil
 from trainer import RoSTERTrainer
+import os
 
 def main():
     parser = argparse.ArgumentParser()
@@ -149,7 +150,7 @@ def main():
         trainer.load_model("final_model.pt", args.output_dir)
         y_pred, _ = trainer.eval(trainer.model, trainer.eval_dataloader)
         print(type(y_pred))
-        pickle.dump(y_pred,open('preds.data','wb'))
+        pickle.dump(y_pred,open(os.path.join(args.output_dir,'preds.data'),'wb'))
 
         trainer.performance_report(trainer.y_true, y_pred)
 
