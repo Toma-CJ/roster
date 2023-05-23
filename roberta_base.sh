@@ -24,6 +24,7 @@ TEMP_DIR=tmp_${CORPUS}__roberta_base_$SEED
 OUT_DIR=out_${CORPUS}_roberta_base
 mkdir -p $TEMP_DIR
 mkdir -p $OUT_DIR
+mkdir -p $OUT_DIR/$EVAL_DATASET
 
 eval "$(conda shell.bash hook)"
 conda activate 2yp
