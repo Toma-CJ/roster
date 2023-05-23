@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 DATASET="2k"
 EVAL_DATASET=${DATASET}_test
@@ -21,8 +21,6 @@ while [[ $# -gt 0 ]]; do
       ;;
   esac
 done
-
-#!/bin/bash
 
 #SBATCH --job-name=eval_light  
 #SBATCH --output=%x.%EVAL_DATASET.out      # Name of output file (%j expands to jobId)
