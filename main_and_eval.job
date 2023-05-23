@@ -35,4 +35,4 @@ echo "Running on $(hostname):"
 module load Anaconda3/
 eval "$(conda shell.bash hook)"
 conda activate 2yp
-bash baseline.sh -d $DATASET -e EVAL_DATASET
+bash baseline.sh -d $DATASET -e $EVAL_DATASET
