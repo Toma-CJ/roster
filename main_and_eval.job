@@ -10,8 +10,8 @@
 
 DATASET="2k"
 EVAL_DATASET=${DATASET}_test
-TRAIN_EPOCHS = 5
-TAG_SCHEME = "iob"
+TRAIN_EPOCHS=5
+TAG_SCHEME="iob"
 
 while [[ $# -gt 0 ]]; do
   case $1 in
