@@ -245,14 +245,15 @@ class RoSTERTrainer(object):
             self.gce_bin_weight[idx] = bin_weight
             self.gce_type_weight[idx] = type_weight
         
+        # Comment out since it does not seem to do much apart from bugging code 
         # check if there are too few training tokens for any entity type classes
-        remove_label_pos = self.gce_type_weight == 0
-        for i in range(1, self.num_labels):
-            type_label_pos = self.tensor_data["all_labels"] == i
-            remove_type_num = (type_label_pos & remove_label_pos.cpu()).sum().item()
-            remove_type_frac = remove_type_num / type_label_pos.sum().item()
-            if remove_type_frac > 0.9:
-                self.gce_type_weight[type_label_pos] = 1
+        # remove_label_pos = self.gce_type_weight == 0
+        # for i in range(1, self.num_labels):
+        #     type_label_pos = self.tensor_data["all_labels"] == i
+        #     remove_type_num = (type_label_pos & remove_label_pos.cpu()).sum().item()
+        #     remove_type_frac = remove_type_num / type_label_pos.sum().item()
+        #     if remove_type_frac > 0.9:
+        #         self.gce_type_weight[type_label_pos] = 1
 
     # compute ensembled predictions
     def ensemble_pred(self, fild_dir):
