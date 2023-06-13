@@ -1,4 +1,4 @@
-CORPUS=conll
+CORPUS=conll_orig
 
 SEED=30
 TEMP_DIR=tmp_${CORPUS}_$SEED
