@@ -59,7 +59,7 @@ python -u src/train.py --data_dir data/$CORPUS \
     --noise_train_update_interval 60 --self_train_update_interval 100 \
     --dropout 0.1 --warmup_proportion=0.1 --seed $SEED \
     --q 0.7 --tau 0.7 --num_models $ENSEMBLE_MODELS \
-    --do_train --do_eval --eval_on "valid" | tee $OUT_DIR/train_log.txt
+    --do_train --eval_on "valid" | tee $OUT_DIR/train_log.txt
 
 python -u src/train.py --data_dir data/$EVAL_DATASET \
     --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
