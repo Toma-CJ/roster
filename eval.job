@@ -23,6 +23,11 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       shift # past value
       ;;
+    -ts|--tag_scheme)
+      TAG_SCHEME="$2"
+      shift # past argument
+      shift # past value
+      ;;
     *)
       echo "Invalid argument: $1"
       shift # past argument
@@ -35,4 +40,4 @@ echo "Running on $(hostname):"
 module load Anaconda3/
 eval "$(conda shell.bash hook)"
 conda activate 2yp
-bash baseline_eval.sh -d $DATASET -e $EVAL_DATASET
+bash baseline_eval.sh -d $DATASET -e $EVAL_DATASET -ts $TAG_SCHEME
