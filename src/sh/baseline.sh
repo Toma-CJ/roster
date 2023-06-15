@@ -50,7 +50,7 @@ mkdir -p $OUT_DIR/data/$EVAL_DATASET
 eval "$(conda shell.bash hook)"
 conda activate 2yp
 
-python -u ../src/train.py --data_dir data/$CORPUS \
+python -u src/train.py --data_dir data/$CORPUS \
     --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
     --pretrained_model roberta-base --tag_scheme $TAG_SCHEME --max_seq_length 120 \
     --train_batch_size 32 --gradient_accumulation_steps 1 --eval_batch_size 64 \
