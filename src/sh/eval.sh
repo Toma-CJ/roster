@@ -35,9 +35,7 @@ mkdir -p $OUT_DIR/data/$EVAL_DATASET
 eval "$(conda shell.bash hook)"
 conda activate 2yp
 
-echo "$PWD"
-
-python -u /src/train.py --data_dir data/$EVAL_DATASET \
+python -u /src/sh/train.py --data_dir data/$EVAL_DATASET \
     --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
     --pretrained_model roberta-base --tag_scheme $TAG_SCHEME --max_seq_length 120 \
     --do_eval --eval_on "test" | tee $OUT_DIR/test_log.txt
