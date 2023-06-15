@@ -1,5 +1,5 @@
 torch
 transformers 
-numpy == 1.18.5
-tqdm == 4.47.0
+numpy
+tqdm 
 seqeval
