@@ -10,7 +10,7 @@
 
 DATASET="2k"
 EVAL_DATASET=${DATASET}_test
-TAG_SCHEME="iob"
+TAG_SCHEME="io"
 
 while [[ $# -gt 0 ]]; do
   case $1 in
