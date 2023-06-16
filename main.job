@@ -14,6 +14,7 @@ TRAIN_EPOCHS=5
 TAG_SCHEME="io"
 ENSEMBLE_MODELS=5
 ENSEMBLE_EPOCHS=10
+SELF_EPOCHS=5
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -47,6 +48,11 @@ while [[ $# -gt 0 ]]; do
       shift # past argument
       shift # past value
       ;;
+    -se|--self_train_epochs)
+      SELF_EPOCHS="$2"
+      shift # past argument
+      shift # past value
+      ;;
     *)
       echo "Invalid argument: $1"
       shift # past argument
@@ -59,4 +65,4 @@ echo "Running on $(hostname):"
 module load Anaconda3/
 eval "$(conda shell.bash hook)"
 conda activate 2yp
-bash src/sh/baseline.sh -d $DATASET -e $EVAL_DATASET -te $TRAIN_EPOCHS -ts $TAG_SCHEME -em $ENSEMBLE_MODELS -ee $ENSEMBLE_EPOCHS
+bash src/sh/baseline.sh -d $DATASET -e $EVAL_DATASET -te $TRAIN_EPOCHS -ts $TAG_SCHEME -em $ENSEMBLE_MODELS -ee $ENSEMBLE_EPOCHS -se $SELF_EPOCHS
