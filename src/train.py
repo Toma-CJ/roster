@@ -4,9 +4,13 @@ from trainer import RoSTERTrainer
 import os
 
 import wandb
-from ray import tune, air
 from seqeval.metrics import f1_score
-# from hp_trainer import RoSTERTrainer2
+
+import ray
+from ray import air, tune
+from ray.air import session
+from ray.air.integrations.wandb import setup_wandb
+from ray.air.integrations.wandb import WandbLoggerCallback
 
 def main():
 
@@ -138,47 +142,42 @@ def main():
 
     if args.do_hyperparam:
 
-        @wandb_mixin
-        def train_fn(config):
-            RoSTERTrainer2()
-            for i in range(10):
-                loss = self.config["a"] + self.config["b"]
-                wandb.log({"loss": loss})
-                tune.report(loss=loss)
+        def train_function_wandb(config):
+            w = setup_wandb(config)
+            trainer = RoSTERTrainer(args)
+            for i in range(config['noise_robust_train_epochs']):
+                l = trainer.step()
+                session.report({"loss": l})
+                w.log(dict(loss=l))
 
-        tune.run(
-            train_fn,
-            config={
-                # define search space here
-                "a": tune.choice([1, 2, 3]),
-                "b": tune.choice([4, 5, 6]),
-                # wandb configuration
-                "wandb": {
-                    "project": "Optimization_Project",
-                    "api_key_file": "/path/to/file"
-                }
-            })
+        def tune_with_setup():
+            """Example for using the setup_wandb utility with the function API"""
+            tuner = tune.Tuner  (
+                train_function_wandb,
+                tune_config=tune.TuneConfig(
+                    metric="loss",
+                    mode="min",
+                ),
+                param_space=vars(args)
+                param_space= {
+                    "noise_train_epochs": tune.tune.randint(3, 100),
+                    "ensemble_train_epochs": tune.tune.randint(3, 100),
+                    "self_train_epochs": tune.tune.randint(3, 100),
+                    
+                    "noise_train_lr":tune.loguniform(1e-7, 1e-2),
+                    "ensemble_train_lr":tune.loguniform(1e-7, 1e-2),
+                    "self_train_lr":tune.loguniform(1e-7, 1e-2),
 
-        # tuner = tune.Tuner(
-        #     RoSTERTrainer2,
-        #     run_config=air.RunConfig(
-        #     # Train for 20 steps
-        #     stop={"training_iteration": 20},
-        #     checkpoint_config=air.CheckpointConfig(
-        #         # We haven't implemented checkpointing yet. See below!
-        #         checkpoint_at_end=False
-        #         ),
-        #     ),
-        #     param_space={
-        #         "a": tune.choice([1, 2, 3]),
-        #         "b": tune.choice([4, 5, 6]),
-        #         # wandb configuration
-        #         "wandb": {
-        #             "project": "2YNLP",
-        #         }
-        #     })
-        
-        # results = tuner.fit()
+                    "q":tune.uniform(0,1),
+                    "tau":tune.uniform(0,1),
+
+                    "weight_decay":tune.loguniform(1e-7, 1e-1),
+                    "warmup_proportion":tune.uniform(0,1),
+
+                    "wandb": {"project": "2YNLP"}
+                },
+            )
+            tuner.fit()
             
 
     if args.do_train:
