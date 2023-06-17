@@ -157,7 +157,7 @@ def main():
         print(type(y_pred))
         pickle.dump(y_pred,open(os.path.join(args.output_dir,args.data_dir,'preds.data'),'wb'))
 
-        trainer.performance_report(trainer.y_true, y_pred)
+        trainer.performance_report(trainer.y_true, y_pred, False)
 
 
 if __name__ == "__main__":

@@ -140,6 +140,7 @@ class RoSTERTrainer(object):
             return
         else:
             # init run logging 
+            early_stopper = self.EarlyStopping(tolerance=3, min_delta=0)
             run = wandb.init(project="2YNLP",group="Model training", job_type=f"noise_robust_train model:{model_idx}",config=self.args)
             print(f"\n\n******* Training model {model_idx} *******\n\n")
 
@@ -149,6 +150,7 @@ class RoSTERTrainer(object):
         
         i = 0
         for epoch in range(self.noise_train_epochs):
+            losses = []
             bin_loss_sum = 0
             type_loss_sum = 0
             for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch}")):
@@ -161,6 +163,7 @@ class RoSTERTrainer(object):
                     type_loss_sum = 0
 
                 loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
+                losses.append(loss)
                 loss.backward()
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
@@ -191,6 +194,10 @@ class RoSTERTrainer(object):
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
+            
+            early_stopper(losses[0],losses[1])
+            if early_stopper.early_stop:
+                break
                 
         eval_sampler = SequentialSampler(self.train_data)
         eval_dataloader = DataLoader(self.train_data, sampler=eval_sampler, batch_size=self.eval_batch_size)
@@ -640,4 +647,18 @@ class RoSTERTrainer(object):
             loss = loss / self.gradient_accumulation_steps
 
         return loss, bin_loss_sum, type_loss_sum
+    
+    class EarlyStopping:
+        def __init__(self, tolerance=5, min_delta=0):
+
+            self.tolerance = tolerance
+            self.min_delta = min_delta
+            self.counter = 0
+            self.early_stop = False
+
+        def __call__(self, train_loss, validation_loss):
+            if (validation_loss - train_loss) > self.min_delta:
+                self.counter +=1
+                if self.counter >= self.tolerance:  
+                    self.early_stop = True
     
