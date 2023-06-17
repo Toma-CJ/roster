@@ -162,8 +162,8 @@ def main():
         trainer.performance_report(trainer.y_true, y_pred, False)
 
         wandb.log({
-                'F1 micro': round(f1_score(trainer.y_true,y_pred,average='micro'),2),
-                'F1 macro': round(f1_score(trainer.y_true,y_pred,average='micro'),2)
+                'test F1 micro': round(f1_score(trainer.y_true,y_pred,average='micro'),2),
+                'test F1 macro': round(f1_score(trainer.y_true,y_pred,average='micro'),2)
                 })
 
         wandb.finish(quiet=True)

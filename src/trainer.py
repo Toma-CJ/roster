@@ -296,36 +296,8 @@ class RoSTERTrainer(object):
             bin_loss_sum = 0
             model.train()
             for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch}")):
-                input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
-
-                max_len = attention_mask.sum(-1).max().item()
-                input_ids, attention_mask, valid_pos, labels = tuple(t[:, :max_len] for t in \
-                        (input_ids, attention_mask, valid_pos, labels))
                 
-                labels = labels[valid_pos > 0]
-                target_type = labels
-                target_type = target_type[:,1:]
-                target_type = target_type / target_type.sum(dim=-1, keepdim=True)
-
-                type_logits, bin_logits = model(input_ids, attention_mask, valid_pos)
-                
-                loss_fct = nn.KLDivLoss(reduction='sum')
-                preds = F.log_softmax(type_logits, dim=-1)
-                type_loss = loss_fct(preds, target_type)
-                if type_logits.size(0) > 0:
-                    type_loss = type_loss / type_logits.size(0)
-                    type_loss_sum += type_loss.item()
-                
-                bin_labels = 1 - labels[:,0]
-                loss_fct = nn.BCEWithLogitsLoss()
-                bin_loss = loss_fct(bin_logits.view(-1), bin_labels.view(-1))
-                bin_loss_sum += bin_loss.item()
-
-                loss = type_loss + bin_loss
-                
-                if self.gradient_accumulation_steps > 1:
-                    loss = loss / self.gradient_accumulation_steps
-
+                loss = self.ensemble_train_step(model=model,batch=batch,type_loss_sum=type_loss_sum,bin_loss_sum=bin_loss_sum)
                 loss.backward()
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
@@ -341,10 +313,18 @@ class RoSTERTrainer(object):
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
                 self.performance_report(self.y_true, y_pred,True)
 
+                # calculate loss for eval
+                bin_loss_sum = 0
+                type_loss_sum = 0
+                for step, batch in enumerate(self.eval_dataloader):
+                    self.update_weights(model)
+                    model.train()
+                    loss, bin_loss_sum, type_loss_sum = self.ensemble_train_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
+
             wandb.log({
                 'epoch': epoch, 
-                'bin_loss': round(bin_loss_sum/self.noise_train_update_interval,5), 
-                'type_loss': round(type_loss_sum/self.noise_train_update_interval,5), 
+                'bin_loss': round(bin_loss_sum/step+1,5), 
+                'type_loss': round(type_loss_sum/step+1,5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
@@ -644,7 +624,34 @@ class RoSTERTrainer(object):
         return loss, bin_loss_sum, type_loss_sum
     
     def ensemble_train_step(self,model,batch,type_loss_sum,bin_loss_sum):
-        
+        input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
 
+        max_len = attention_mask.sum(-1).max().item()
+        input_ids, attention_mask, valid_pos, labels = tuple(t[:, :max_len] for t in \
+                (input_ids, attention_mask, valid_pos, labels))
+        
+        labels = labels[valid_pos > 0]
+        target_type = labels
+        target_type = target_type[:,1:]
+        target_type = target_type / target_type.sum(dim=-1, keepdim=True)
+
+        type_logits, bin_logits = model(input_ids, attention_mask, valid_pos)
+        
+        loss_fct = nn.KLDivLoss(reduction='sum')
+        preds = F.log_softmax(type_logits, dim=-1)
+        type_loss = loss_fct(preds, target_type)
+        if type_logits.size(0) > 0:
+            type_loss = type_loss / type_logits.size(0)
+            type_loss_sum += type_loss.item()
+        
+        bin_labels = 1 - labels[:,0]
+        loss_fct = nn.BCEWithLogitsLoss()
+        bin_loss = loss_fct(bin_logits.view(-1), bin_labels.view(-1))
+        bin_loss_sum += bin_loss.item()
+
+        loss = type_loss + bin_loss
+        
+        if self.gradient_accumulation_steps > 1:
+            loss = loss / self.gradient_accumulation_steps
+                    
         return loss, bin_loss_sum, type_loss_sum
-    
