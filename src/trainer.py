@@ -241,8 +241,6 @@ class RoSTERTrainer(object):
             self.gce_bin_weight[idx] = bin_weight
             self.gce_type_weight[idx] = type_weight
         
-        # Comment out since it does not seem to do much apart from bugging code 
-        # check if there are too few training tokens for any entity type classes
         remove_label_pos = self.gce_type_weight == 0
         for i in range(1, self.num_labels):
             type_label_pos = self.tensor_data["all_labels"] == i
@@ -642,6 +640,12 @@ class RoSTERTrainer(object):
         loss = type_loss + bin_loss
         if self.gradient_accumulation_steps > 1:
             loss = loss / self.gradient_accumulation_steps
+
+        return loss, bin_loss_sum, type_loss_sum
+    
+    def ensemble_train_step(self,model,batch,type_loss_sum,bin_loss_sum):
+        
+
 
         return loss, bin_loss_sum, type_loss_sum
     

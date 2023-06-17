@@ -38,7 +38,9 @@ def main():
 
     # training settting parameters
     parser.add_argument("--do_train",
-                        action='store_true', 
+                        default=0,
+                        type= int,
+                        choices=[0, 1],
                         help="whether to run training.")
     parser.add_argument("--do_eval",
                         action='store_true',
