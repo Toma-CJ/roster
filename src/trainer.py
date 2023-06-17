@@ -179,8 +179,6 @@ class RoSTERTrainer(object):
                 bin_loss_sum = 0
                 type_loss_sum = 0
                 for step, batch in enumerate(self.eval_dataloader):
-                    self.update_weights(model)
-                    model.train()
                     loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
 
 
@@ -640,12 +638,6 @@ class RoSTERTrainer(object):
         loss = type_loss + bin_loss
         if self.gradient_accumulation_steps > 1:
             loss = loss / self.gradient_accumulation_steps
-
-        return loss, bin_loss_sum, type_loss_sum
-    
-    def ensemble_train_step(self,model,batch,type_loss_sum,bin_loss_sum):
-        
-
 
         return loss, bin_loss_sum, type_loss_sum
     
