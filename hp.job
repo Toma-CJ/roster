@@ -43,6 +43,7 @@ srun --nodes=1 --ntasks=1 -w "$head_node" \
 
 # number of nodes other than the head node
 worker_num=$((SLURM_JOB_NUM_NODES - 1))
+echo $worker_num
 
 for ((i = 1; i <= worker_num; i++)); do
     node_i=${nodes_array[$i]}
