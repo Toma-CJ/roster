@@ -21,9 +21,6 @@ class RoSTERTrainer(object):
 
     def __init__(self, args):
 
-        # init run logging 
-        run = wandb.init(project="test", config=args)
-
         self.args = args
         self.seed = args.seed
         random.seed(args.seed)
@@ -142,7 +139,10 @@ class RoSTERTrainer(object):
             print(f"\n\n******* Model {model_idx} predictions found; skip training *******\n\n")
             return
         else:
+            # init run logging 
+            run = wandb.init(project="2YNLP",group="Model training", job_type=f"noise_robust_train model:{model_idx}",config=self.args)
             print(f"\n\n******* Training model {model_idx} *******\n\n")
+
         model, optimizer, scheduler = self.prepare_train(lr=self.noise_train_lr, epochs=self.noise_train_epochs)
         train_sampler = RandomSampler(self.train_data)
         train_dataloader = DataLoader(self.train_data, sampler=train_sampler, batch_size=self.train_batch_size)
@@ -299,6 +299,8 @@ class RoSTERTrainer(object):
             print(f"\n\n******* Ensemble model found; skip training *******\n\n")
             return
         else:
+            # init run logging 
+            run = wandb.init(project="2YNLP",group="Model training", job_type="Ensemble train",config=self.args)
             print("\n\n******* Training ensembled model *******\n\n")
         model, optimizer, scheduler = self.prepare_train(lr=self.ensemble_train_lr, epochs=self.ensemble_train_epochs)
 
@@ -359,6 +361,14 @@ class RoSTERTrainer(object):
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
                 self.performance_report(self.y_true, y_pred)
+
+            wandb.log({
+                'epoch': epoch, 
+                'bin_loss': round(bin_loss_sum/self.noise_train_update_interval,5), 
+                'type_loss': round(type_loss_sum/self.noise_train_update_interval,5), 
+                'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
+                'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
+                })
         
         self.save_model(model, "ensemble_model.pt", self.temp_dir)
 
@@ -457,6 +467,7 @@ class RoSTERTrainer(object):
             print(f"\n\n******* Final model found; skip training *******\n\n")
             return
         else:
+            run = wandb.init(project="2YNLP",group="Model training", job_type="Self train",config=self.args)
             print("\n\n******* Self-training *******\n\n")
         self.load_model("ensemble_model.pt", self.temp_dir)
         model, optimizer, scheduler = self.prepare_train(lr=self.self_train_lr, epochs=self.self_train_epochs)
@@ -547,6 +558,14 @@ class RoSTERTrainer(object):
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
                 self.performance_report(self.y_true, y_pred)
+
+            wandb.log({
+                'epoch': epoch, 
+                'bin_loss': round(bin_loss_sum/self.noise_train_update_interval,5), 
+                'type_loss': round(type_loss_sum/self.noise_train_update_interval,5), 
+                'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
+                'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
+                })
         
         self.save_model(model, "final_model.pt", self.output_dir)
 
