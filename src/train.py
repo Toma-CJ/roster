@@ -144,7 +144,7 @@ def main():
 
         import os
         
-        print("YOU ARE HERE")
+        print("YOU ARE HERE BEFORE FN")
         print(os.getcwd())
 
         class Bunch(object):
@@ -152,6 +152,9 @@ def main():
                 self.__dict__.update(adict)
 
         def train_function_wandb(config):
+            print("YOU ARE HERE IN FN")
+            print(os.getcwd())
+
             w = setup_wandb(config)
             p1=vars(args)
             config = {**p1, **config}
