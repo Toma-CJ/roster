@@ -142,6 +142,10 @@ def main():
 
     if args.do_hyperparam:
 
+        import os
+
+        print(os.getcwd())
+
         class Bunch(object):
             def __init__(self, adict):
                 self.__dict__.update(adict)

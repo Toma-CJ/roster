@@ -58,9 +58,6 @@ conda activate 2yp
 
 wandb login b21d196340321c0166c5b1d4961bbb082b528935
 
-echo "ELUWINA"
-echo "$PWD"
-
 python -u src/train.py --data_dir data/$CORPUS \
     --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
     --pretrained_model roberta-base --tag_scheme $TAG_SCHEME --max_seq_length 120 \
