@@ -8,6 +8,9 @@
 #SBATCH --partition=brown   # Run on either the Red or Brown queue
 #SBATCH --mail-type=END
 
+echo "first hp STEP"
+echo $CUDA_VISIBLE_DEVICES
+
 DATASET="2k"
 EVAL_DATASET=${DATASET}_test
 TRAIN_EPOCHS=5
