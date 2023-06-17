@@ -46,8 +46,11 @@ while [[ $# -gt 0 ]]; do
 done
 
 SEED=30
-TEMP_DIR=tmp_${CORPUS}_$SEED
-OUT_DIR=out_$CORPUS
+
+PATH_TO_ROSTER=/home/jawi/roster
+
+TEMP_DIR=$PATH_TO_ROSTER/tmp_${CORPUS}_$SEED
+OUT_DIR=$PATH_TO_ROSTER/out_$CORPUS
 mkdir -p $TEMP_DIR
 mkdir -p $OUT_DIR
 mkdir -p $OUT_DIR/data/$EVAL_DATASET
