@@ -165,9 +165,9 @@ def main():
                     mode="min",
                 ),
                 param_space= {
-                    "noise_train_epochs": tune.tune.randint(3, 100),
-                    "ensemble_train_epochs": tune.tune.randint(3, 100),
-                    "self_train_epochs": tune.tune.randint(3, 100),
+                    "noise_train_epochs": tune.randint(3, 100),
+                    "ensemble_train_epochs": tune.randint(3, 100),
+                    "self_train_epochs": tune.randint(3, 100),
                     
                     "noise_train_lr":tune.loguniform(1e-7, 1e-2),
                     "ensemble_train_lr":tune.loguniform(1e-7, 1e-2),
