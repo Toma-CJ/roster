@@ -161,7 +161,7 @@ def main():
             p1=vars(args)
             config = {**p1, **config}
             trainer = RoSTERTrainer(Bunch(config))
-            for i in range(config['noise_robust_train_epochs']):
+            for i in range(config['noise_train_epochs']):
                 l = trainer.step()
                 session.report({"loss": l})
                 w.log(dict(loss=l))
