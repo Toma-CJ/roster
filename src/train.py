@@ -179,7 +179,7 @@ def main():
                     "weight_decay":tune.loguniform(1e-7, 1e-1),
                     "warmup_proportion":tune.uniform(0,1),
 
-                    "wandb": {"project": "2YNLP"}
+                    "wandb": {"project": "2YNLP","job_type":'Hyperparameter tuning'}
                 },
             )
             tuner.fit()

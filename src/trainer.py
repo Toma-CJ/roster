@@ -700,9 +700,7 @@ class RoSTERTrainer(object):
                     _, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
                 
                 l = (bin_loss_sum + type_loss_sum)/step+1
-                wandb.log({"loss": l})
-                tune.report(loss= l)
-
+                
                 # log noise robust training stats 
                 early_stopper(losses[0],losses[1])
                 if early_stopper.early_stop:
