@@ -59,10 +59,10 @@ mkdir -p $OUT_DIR/data/${CORPUS}
 eval "$(conda shell.bash hook)"
 conda activate 2yp
 
+wandb login b21d196340321c0166c5b1d4961bbb082b528935
+
 echo "ELUWINA"
 echo $CUDA_VISIBLE_DEVICES
-
-wandb login b21d196340321c0166c5b1d4961bbb082b528935
 
 python -u src/train.py --data_dir $PATH_TO_ROSTER/data/$CORPUS \
     --output_dir $PATH_TO_ROSTER/$OUT_DIR --temp_dir $TEMP_DIR \
