@@ -591,7 +591,7 @@ class RoSTERTrainer(object):
         return loss, bin_loss_sum, type_loss_sum
     
     def ensemble_train_step(self,model,batch,type_loss_sum,bin_loss_sum):
-        input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
+        _, input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
 
         max_len = attention_mask.sum(-1).max().item()
         input_ids, attention_mask, valid_pos, labels = tuple(t[:, :max_len] for t in \
