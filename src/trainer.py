@@ -202,7 +202,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                if not self.args.do_train:self.performance_report(self.y_true, y_pred)
+                self.performance_report(self.y_true, y_pred,self.args.do_train)
 
             # log noise robust training stats 
 
@@ -361,7 +361,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                if not self.args.do_train:self.performance_report(self.y_true, y_pred)
+                self.performance_report(self.y_true, y_pred,self.args.do_train)
 
             wandb.log({
                 'epoch': epoch, 
@@ -559,7 +559,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                if not self.args.do_train:self.performance_report(self.y_true, y_pred)
+                self.performance_report(self.y_true, y_pred,self.args.do_train)
 
             wandb.log({
                 'epoch': epoch, 
@@ -606,13 +606,15 @@ class RoSTERTrainer(object):
         return y_pred, pred_probs
 
     # print out ner performance given ground truth and model prediction
-    def performance_report(self, y_true, y_pred):
+    def performance_report(self, y_true, y_pred, do_train = True):
         for i in range(len(y_true)):
             if len(y_true[i]) > len(y_pred[i]):
                 print(f"Warning: Sequence {i} is truncated for eval! ({len(y_pred[i])}/{len(y_true[i])})")
                 y_pred[i] = y_pred[i] + ['O'] * (len(y_true[i])-len(y_pred[i]))
-        report = classification_report(y_true, y_pred, digits=3)
-        print(report) 
+
+        if not do_train:
+            report = classification_report(y_true, y_pred, digits=3)
+            print(report) 
 
     # save model, tokenizer, and configs to directory
     def save_model(self, model, model_name, save_dir):
