@@ -49,8 +49,8 @@ SEED=30
 
 PATH_TO_ROSTER=/home/jawi/roster
 
-TEMP_DIR=$PATH_TO_ROSTER/tmp_${CORPUS}_$SEED
-OUT_DIR=$PATH_TO_ROSTER/out_$CORPUS
+TEMP_DIR=tmp_${CORPUS}_$SEED
+OUT_DIR=out_$CORPUS
 mkdir -p $TEMP_DIR
 mkdir -p $OUT_DIR
 mkdir -p $OUT_DIR/data/$EVAL_DATASET
@@ -61,8 +61,8 @@ conda activate 2yp
 
 wandb login b21d196340321c0166c5b1d4961bbb082b528935
 
-python -u src/train.py --data_dir data/$CORPUS \
-    --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
+python -u src/train.py --data_dir $PATH_TO_ROSTER/data/$CORPUS \
+    --output_dir $PATH_TO_ROSTER/$OUT_DIR --temp_dir $TEMP_DIR \
     --pretrained_model roberta-base --tag_scheme $TAG_SCHEME --max_seq_length 120 \
     --train_batch_size 32 --gradient_accumulation_steps 1 --eval_batch_size 64 \
     --noise_train_lr 3e-5 --ensemble_train_lr 1e-5 --self_train_lr 5e-7 \
