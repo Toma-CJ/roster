@@ -190,7 +190,7 @@ def main():
                     "warmup_proportion":tune.uniform(0,1),
 
                     "do_train":tune.choice([True]) ,
-                    "wandb": {"project": "2YNLP","job_type":'Hyperparameter tuning'}
+                    "wandb": {"project": "2YNLP","group":'Hyperparameter tuning'}
                 },
             )
             tuner.fit()
