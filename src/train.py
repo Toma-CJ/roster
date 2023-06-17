@@ -3,8 +3,6 @@ import shutil
 from trainer import RoSTERTrainer
 import os
 
-import wandb
-
 def main():
 
     parser = argparse.ArgumentParser()
@@ -148,16 +146,27 @@ def main():
 
         shutil.rmtree(trainer.temp_dir, ignore_errors=True)
 
-    if args.do_eval:
+    if args.do_eval and not args.do_train:
         import pickle
-        
+        import wandb
+        from seqeval.metrics import f1_score
+
+        wandb.init(project="2YNLP",group="Final model eval",config=args)
+
         trainer = RoSTERTrainer(args)
         trainer.load_model("final_model.pt", args.output_dir)
         y_pred, _ = trainer.eval(trainer.model, trainer.eval_dataloader)
         print(type(y_pred))
         pickle.dump(y_pred,open(os.path.join(args.output_dir,args.data_dir,'preds.data'),'wb'))
 
-        trainer.performance_report(trainer.y_true, y_pred)
+        trainer.performance_report(trainer.y_true, y_pred, False)
+
+        wandb.log({
+                'F1 micro': round(f1_score(trainer.y_true,y_pred,average='micro'),2),
+                'F1 macro': round(f1_score(trainer.y_true,y_pred,average='micro'),2)
+                })
+
+        wandb.finish(quiet=True)
 
 
 if __name__ == "__main__":
