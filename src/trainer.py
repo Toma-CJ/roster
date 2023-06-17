@@ -146,7 +146,6 @@ class RoSTERTrainer(object):
         model, optimizer, scheduler = self.prepare_train(lr=self.noise_train_lr, epochs=self.noise_train_epochs)
         train_sampler = RandomSampler(self.train_data)
         train_dataloader = DataLoader(self.train_data, sampler=train_sampler, batch_size=self.train_batch_size)
-        loss_fct = GCELoss(q=self.q)
         
         i = 0
         for epoch in range(self.noise_train_epochs):
@@ -161,35 +160,7 @@ class RoSTERTrainer(object):
                     bin_loss_sum = 0
                     type_loss_sum = 0
 
-                idx, input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
-                bin_weights = self.gce_bin_weight[idx].to(self.device)
-                type_weights = self.gce_type_weight[idx].to(self.device)
-
-                max_len = attention_mask.sum(-1).max().item()
-                input_ids, attention_mask, valid_pos, labels, bin_weights, type_weights = tuple(t[:, :max_len] for t in \
-                        (input_ids, attention_mask, valid_pos, labels, bin_weights, type_weights))
-                
-                type_logits, bin_logits = model(input_ids, attention_mask, valid_pos)
-               
-                labels = labels[valid_pos > 0]
-                bin_weights = bin_weights[valid_pos > 0]
-                type_weights = type_weights[valid_pos > 0]
-
-                bin_labels = labels.clone()
-                bin_labels[labels > 0] = 1
-                type_labels = labels - 1
-                type_labels[type_labels < 0] = -100
-
-                type_loss = loss_fct(type_logits.view(-1, self.num_labels-1), type_labels.view(-1), type_weights)
-                type_loss_sum += type_loss.item()
-
-                bin_loss = loss_fct(bin_logits.view(-1, 1), bin_labels.view(-1), bin_weights)
-                bin_loss_sum += bin_loss.item()
-                
-                loss = type_loss + bin_loss
-                if self.gradient_accumulation_steps > 1:
-                    loss = loss / self.gradient_accumulation_steps
-                
+                loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
                 loss.backward()
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
@@ -204,12 +175,21 @@ class RoSTERTrainer(object):
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
                 self.performance_report(self.y_true, y_pred,self.args.do_train)
 
+                # calculate loss for eval
+                bin_loss_sum = 0
+                type_loss_sum = 0
+                for step, batch in enumerate(self.eval_dataloader):
+                    self.update_weights(model)
+                    model.train()
+                    loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
+
+
             # log noise robust training stats 
 
             wandb.log({
                 'epoch': epoch, 
-                'bin_loss': round(bin_loss_sum/self.noise_train_update_interval,5), 
-                'type_loss': round(type_loss_sum/self.noise_train_update_interval,5), 
+                'bin_loss': round(bin_loss_sum/step+1,5), 
+                'type_loss': round(type_loss_sum/step+1,5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
@@ -630,3 +610,38 @@ class RoSTERTrainer(object):
     # load model from directory
     def load_model(self, model_name, load_dir):
         self.model.load_state_dict(torch.load(os.path.join(load_dir, model_name)))
+
+    def noise_robust_step(self,model,batch, loss_fct,type_loss_sum,bin_loss_sum):
+        loss_fct = GCELoss(q=self.q)
+
+        idx, input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
+        bin_weights = self.gce_bin_weight[idx].to(self.device)
+        type_weights = self.gce_type_weight[idx].to(self.device)
+
+        max_len = attention_mask.sum(-1).max().item()
+        input_ids, attention_mask, valid_pos, labels, bin_weights, type_weights = tuple(t[:, :max_len] for t in \
+                (input_ids, attention_mask, valid_pos, labels, bin_weights, type_weights))
+        
+        type_logits, bin_logits = model(input_ids, attention_mask, valid_pos)
+        
+        labels = labels[valid_pos > 0]
+        bin_weights = bin_weights[valid_pos > 0]
+        type_weights = type_weights[valid_pos > 0]
+
+        bin_labels = labels.clone()
+        bin_labels[labels > 0] = 1
+        type_labels = labels - 1
+        type_labels[type_labels < 0] = -100
+
+        type_loss = loss_fct(type_logits.view(-1, self.num_labels-1), type_labels.view(-1), type_weights)
+        type_loss_sum += type_loss.item()
+
+        bin_loss = loss_fct(bin_logits.view(-1, 1), bin_labels.view(-1), bin_weights)
+        bin_loss_sum += bin_loss.item()
+        
+        loss = type_loss + bin_loss
+        if self.gradient_accumulation_steps > 1:
+            loss = loss / self.gradient_accumulation_steps
+
+        return loss, bin_loss_sum, type_loss_sum
+    
