@@ -16,6 +16,8 @@ from model import RoSTERModel
 from loss import GCELoss
 
 import wandb
+from ray import tune
+from ray.tune.integration.wandb import wandb_mixin
 
 class RoSTERTrainer(object):
 
@@ -140,7 +142,7 @@ class RoSTERTrainer(object):
             return
         else:
             # init run logging 
-            early_stopper = self.EarlyStopping(tolerance=3, min_delta=0)
+            early_stopper = self.EarlyStopping(tolerance=5, min_delta=0.1)
             run = wandb.init(project="2YNLP",group="Model training", job_type=f"noise_robust_train model:{model_idx}",config=self.args)
             print(f"\n\n******* Training model {model_idx} *******\n\n")
 
@@ -647,6 +649,57 @@ class RoSTERTrainer(object):
             loss = loss / self.gradient_accumulation_steps
 
         return loss, bin_loss_sum, type_loss_sum
+    
+    # @wandb_mixin
+    # def train_fn(self):
+    #     early_stopper = self.EarlyStopping(tolerance=3, min_delta=0)
+    #     print(f"\n\n******* Parameter tuning  *******\n\n")
+
+    #     model, optimizer, scheduler = self.prepare_train(lr=self.noise_train_lr, epochs=self.noise_train_epochs)
+    #     train_sampler = RandomSampler(self.train_data)
+    #     train_dataloader = DataLoader(self.train_data, sampler=train_sampler, batch_size=self.train_batch_size)
+        
+    #     i = 0
+    #     for _ in range(self.noise_train_epochs):
+    #         losses = []
+    #         bin_loss_sum = 0
+    #         type_loss_sum = 0
+    #         for step, batch in enumerate(train_dataloader):
+                
+    #             if (i+1) % self.noise_train_update_interval == 0:
+    #                 self.update_weights(model)
+    #                 model.train()
+    #                 bin_loss_sum = 0
+    #                 type_loss_sum = 0
+
+    #             loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
+    #             losses.append(loss)
+    #             loss.backward()
+    #             nn.utils.clip_grad_norm_(model.parameters(), 1.0)
+
+    #             if (step+1) % self.gradient_accumulation_steps == 0:
+    #                 optimizer.step()
+    #                 scheduler.step()
+    #                 model.zero_grad()
+    #             i += 1
+            
+    #         y_pred, _ = self.eval(model, self.eval_dataloader)
+    #         self.performance_report(self.y_true, y_pred,True)
+
+    #         # calculate loss for eval
+    #         bin_loss_sum = 0
+    #         type_loss_sum = 0
+    #         for step, batch in enumerate(self.eval_dataloader):
+    #             _, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
+            
+    #         l = (bin_loss_sum + type_loss_sum)/step+1
+    #         wandb.log({"loss": l})
+    #         tune.report(loss= l)
+
+    #         # log noise robust training stats 
+    #         early_stopper(losses[0],losses[1])
+    #         if early_stopper.early_stop:
+    #             break
     
     class EarlyStopping:
         def __init__(self, tolerance=5, min_delta=0):

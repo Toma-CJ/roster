@@ -4,6 +4,8 @@ from trainer import RoSTERTrainer
 import os
 
 import wandb
+from ray import tune
+from seqeval.metrics import f1_score
 
 def main():
 
@@ -45,6 +47,9 @@ def main():
     parser.add_argument("--do_eval",
                         action='store_true',
                         help="whether to run eval on eval set or not.")
+    parser.add_argument("--do_hyperparam",
+                        action='store_true',
+                        help="whether to run hyperparameter tuning")
     parser.add_argument("--eval_on",
                         default="test",
                         choices=['valid', 'test'],
@@ -130,6 +135,25 @@ def main():
 
     print(args)
 
+    if args.do_hyper_tuning:
+
+        trainer = RoSTERTrainer(args)
+        trainer.noise_robust_train(i)
+        args.seed = args.seed + 1
+
+        tune.run(
+            train_fn,
+            config={
+                # define search space here
+                "a": tune.choice([1, 2, 3]),
+                "b": tune.choice([4, 5, 6]),
+                # wandb configuration
+                "wandb": {
+                    "project": "2YNLP",
+                }
+        })
+            
+
     if args.do_train:
 
         # train K models for ensemble
@@ -150,7 +174,8 @@ def main():
 
     if args.do_eval:
         import pickle
-        
+        run = wandb.init(project="2YNLP",group="Model training", job_type="TEST Final Model Evaluation",config=self.args)
+
         trainer = RoSTERTrainer(args)
         trainer.load_model("final_model.pt", args.output_dir)
         y_pred, _ = trainer.eval(trainer.model, trainer.eval_dataloader)
@@ -158,6 +183,13 @@ def main():
         pickle.dump(y_pred,open(os.path.join(args.output_dir,args.data_dir,'preds.data'),'wb'))
 
         trainer.performance_report(trainer.y_true, y_pred, False)
+
+        wandb.log({
+                'F1 micro': round(f1_score(trainer.y_true,y_pred,average='micro'),2),
+                'F1 macro': round(f1_score(trainer.y_true,y_pred,average='micro'),2)
+                })
+
+        wandb.finish(quiet=True)
 
 
 if __name__ == "__main__":
