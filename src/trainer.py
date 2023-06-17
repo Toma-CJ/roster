@@ -611,7 +611,7 @@ class RoSTERTrainer(object):
     def load_model(self, model_name, load_dir):
         self.model.load_state_dict(torch.load(os.path.join(load_dir, model_name)))
 
-    def noise_robust_step(self,model,batch, loss_fct,type_loss_sum,bin_loss_sum):
+    def noise_robust_step(self,model,batch,type_loss_sum,bin_loss_sum):
         loss_fct = GCELoss(q=self.q)
 
         idx, input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
