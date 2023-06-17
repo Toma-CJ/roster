@@ -4,8 +4,9 @@ from trainer import RoSTERTrainer
 import os
 
 import wandb
-from ray import tune
+from ray import tune, air
 from seqeval.metrics import f1_score
+from hp_trainer import RoSTERTrainer2
 
 def main():
 
@@ -135,23 +136,49 @@ def main():
 
     print(args)
 
-    if args.do_hyperparam:
+    # if args.do_hyperparam:
 
-        trainer = RoSTERTrainer(args)
-        trainer.noise_robust_train(i)
-        args.seed = args.seed + 1
+    #     @wandb_mixin
+    #     def train_fn(config):
+    #         RoSTERTrainer2
+    #         for i in range(10):
+    #             loss = self.config["a"] + self.config["b"]
+    #             wandb.log({"loss": loss})
+    #             tune.report(loss=loss)
 
-        tune.run(
-            train_fn,
-            config={
-                # define search space here
-                "a": tune.choice([1, 2, 3]),
-                "b": tune.choice([4, 5, 6]),
-                # wandb configuration
-                "wandb": {
-                    "project": "2YNLP",
-                }
-        })
+    #     tune.run(
+    #         train_fn,
+    #         config={
+    #             # define search space here
+    #             "a": tune.choice([1, 2, 3]),
+    #             "b": tune.choice([4, 5, 6]),
+    #             # wandb configuration
+    #             "wandb": {
+    #                 "project": "Optimization_Project",
+    #                 "api_key_file": "/path/to/file"
+    #             }
+    #         })
+
+        # tuner = tune.Tuner(
+        #     RoSTERTrainer2,
+        #     run_config=air.RunConfig(
+        #     # Train for 20 steps
+        #     stop={"training_iteration": 20},
+        #     checkpoint_config=air.CheckpointConfig(
+        #         # We haven't implemented checkpointing yet. See below!
+        #         checkpoint_at_end=False
+        #         ),
+        #     ),
+        #     param_space={
+        #         "a": tune.choice([1, 2, 3]),
+        #         "b": tune.choice([4, 5, 6]),
+        #         # wandb configuration
+        #         "wandb": {
+        #             "project": "2YNLP",
+        #         }
+        #     })
+        
+        # results = tuner.fit()
             
 
     if args.do_train:
@@ -174,7 +201,7 @@ def main():
 
     if args.do_eval:
         import pickle
-        run = wandb.init(project="2YNLP",group="Model training", job_type="TEST Final Model Evaluation",config=self.args)
+        run = wandb.init(project="2YNLP",group="Model training", job_type="TEST Final Model Evaluation",config=args)
 
         trainer = RoSTERTrainer(args)
         trainer.load_model("final_model.pt", args.output_dir)
