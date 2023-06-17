@@ -218,6 +218,7 @@ class RoSTERTrainer(object):
         eval_dataloader = DataLoader(self.train_data, sampler=eval_sampler, batch_size=self.eval_batch_size)
         y_pred, pred_probs = self.eval(model, eval_dataloader)
         torch.save({"pred_probs": pred_probs}, os.path.join(self.temp_dir, f"y_pred_{model_idx}.pt"))
+        wandb.finish(quiet=True)
 
     # assign 0/1 weights to each training token based on whether the model prediction agrees with the distant label (noisy label removal)
     def update_weights(self, model):
@@ -371,6 +372,7 @@ class RoSTERTrainer(object):
                 })
         
         self.save_model(model, "ensemble_model.pt", self.temp_dir)
+        wandb.finish(quiet=True)
 
     # use pre-trained RoBERTa to create contextualized augmentations given original sequences
     def aug(self, mask_prob=0.15, save_name="aug.pt"):
@@ -568,6 +570,7 @@ class RoSTERTrainer(object):
                 })
         
         self.save_model(model, "final_model.pt", self.output_dir)
+        wandb.finish(quiet=True)
 
     # obtain model predictions on a given dataset
     def eval(self, model, eval_dataloader):
