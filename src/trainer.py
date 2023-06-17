@@ -11,7 +11,7 @@ from transformers import (RobertaTokenizer, get_linear_schedule_with_warmup)
 from torch.optim import AdamW
 from tqdm import tqdm
 from seqeval.metrics import classification_report, f1_score
-from utils import RoSTERUtils
+from utils import RoSTERUtils, EarlyStopping
 from model import RoSTERModel
 from loss import GCELoss
 
@@ -660,7 +660,6 @@ class RoSTERTrainer(object):
         return loss, bin_loss_sum, type_loss_sum
     
     def step(self):
-            early_stopper = self.EarlyStopping(tolerance=3, min_delta=0)
 
             model, optimizer, scheduler = self.prepare_train(lr=self.noise_train_lr, epochs=self.noise_train_epochs)
             train_sampler = RandomSampler(self.train_data)
@@ -669,6 +668,7 @@ class RoSTERTrainer(object):
             losses = []
             bin_loss_sum = 0
             type_loss_sum = 0
+            i = 0
             for step, batch in enumerate(train_dataloader):
                 if (i+1) % self.noise_train_update_interval == 0:
                     self.update_weights(model)
@@ -686,35 +686,19 @@ class RoSTERTrainer(object):
                     scheduler.step()
                     model.zero_grad()
                 
-                y_pred, _ = self.eval(model, self.eval_dataloader)
-                self.performance_report(self.y_true, y_pred,True)
-
-                # calculate loss for eval
-                bin_loss_sum = 0
-                type_loss_sum = 0
-                for step, batch in enumerate(self.eval_dataloader):
-                    _, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
+                i+=1
                 
-                l = (bin_loss_sum + type_loss_sum)/step+1
+            y_pred, _ = self.eval(model, self.eval_dataloader)
+            self.performance_report(self.y_true, y_pred,True)
 
-                # log noise robust training stats 
-                early_stopper(losses[0],losses[1])
-                if early_stopper.early_stop:
-                    break
+            # calculate loss for eval
+            bin_loss_sum = 0
+            type_loss_sum = 0
+            for step, batch in enumerate(self.eval_dataloader):
+                _, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
+            
+            l = (bin_loss_sum + type_loss_sum)/step+1
 
-                return l
-    
-    class EarlyStopping:
-        def __init__(self, tolerance=5, min_delta=0):
-
-            self.tolerance = tolerance
-            self.min_delta = min_delta
-            self.counter = 0
-            self.early_stop = False
-
-        def __call__(self, train_loss, validation_loss):
-            if (validation_loss - train_loss) > self.min_delta:
-                self.counter +=1
-                if self.counter >= self.tolerance:  
-                    self.early_stop = True
+            # log noise robust training stats 
+            return l
     

@@ -11,6 +11,7 @@ from ray import air, tune
 from ray.air import session
 from ray.air.integrations.wandb import setup_wandb
 from ray.air.integrations.wandb import WandbLoggerCallback
+from utils import RoSTERUtils, EarlyStopping
 
 def main():
 
@@ -142,29 +143,28 @@ def main():
 
     if args.do_hyperparam:
 
-        import os
-        
-        print("YOU ARE HERE BEFORE FN")
-        print(os.getcwd())
-
         class Bunch(object):
             def __init__(self, adict):
                 self.__dict__.update(adict)
 
         def train_function_wandb(config):
-            print("YOU ARE HERE IN FN")
-            print(os.getcwd())
-
-            print(args.data_dir)
-
             w = setup_wandb(config)
             p1=vars(args)
             config = {**p1, **config}
             trainer = RoSTERTrainer(Bunch(config))
+            losses = tuple(0,0)
+            early_stopper = EarlyStopping(5, 0.1)
             for i in range(config['noise_train_epochs']):
                 l = trainer.step()
                 session.report({"loss": l})
                 w.log(dict(loss=l))
+
+                losses[1] = losses[0]
+                losses[0] = l
+                
+                early_stopper(losses[0],losses[1])
+                if early_stopper.early_stop:
+                    break
 
         def tune_with_setup():
             """Find best hyperparameters for noise robust training"""
