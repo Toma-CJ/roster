@@ -168,7 +168,7 @@ def main():
 
         def tune_with_setup():
             """Find best hyperparameters for noise robust training"""
-            tuner = tune.Tuner(
+            tuner = tune.Tuner (
                 train_function_wandb,
                 tune_config=tune.TuneConfig(
                     metric="loss",
@@ -190,7 +190,6 @@ def main():
                     "warmup_proportion":tune.uniform(0,1),
 
                     "do_train":tune.choice([True]) ,
-                    "resources_per_trial": = tune.choices({"cpu": 1, "gpu": 1}), 
                     "wandb": {"project": "2YNLP","group":'Hyperparameter tuning'}
                 },
             )
