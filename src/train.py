@@ -184,6 +184,8 @@ def main():
             )
             tuner.fit()
 
+        tune_with_setup()
+
     if args.do_train:
 
         # train K models for ensemble
