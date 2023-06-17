@@ -6,7 +6,7 @@ import os
 import wandb
 from ray import tune, air
 from seqeval.metrics import f1_score
-from hp_trainer import RoSTERTrainer2
+# from hp_trainer import RoSTERTrainer2
 
 def main():
 
@@ -136,28 +136,28 @@ def main():
 
     print(args)
 
-    # if args.do_hyperparam:
+    if args.do_hyperparam:
 
-    #     @wandb_mixin
-    #     def train_fn(config):
-    #         RoSTERTrainer2
-    #         for i in range(10):
-    #             loss = self.config["a"] + self.config["b"]
-    #             wandb.log({"loss": loss})
-    #             tune.report(loss=loss)
+        @wandb_mixin
+        def train_fn(config):
+            RoSTERTrainer2()
+            for i in range(10):
+                loss = self.config["a"] + self.config["b"]
+                wandb.log({"loss": loss})
+                tune.report(loss=loss)
 
-    #     tune.run(
-    #         train_fn,
-    #         config={
-    #             # define search space here
-    #             "a": tune.choice([1, 2, 3]),
-    #             "b": tune.choice([4, 5, 6]),
-    #             # wandb configuration
-    #             "wandb": {
-    #                 "project": "Optimization_Project",
-    #                 "api_key_file": "/path/to/file"
-    #             }
-    #         })
+        tune.run(
+            train_fn,
+            config={
+                # define search space here
+                "a": tune.choice([1, 2, 3]),
+                "b": tune.choice([4, 5, 6]),
+                # wandb configuration
+                "wandb": {
+                    "project": "Optimization_Project",
+                    "api_key_file": "/path/to/file"
+                }
+            })
 
         # tuner = tune.Tuner(
         #     RoSTERTrainer2,

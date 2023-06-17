@@ -18,7 +18,6 @@ from loss import GCELoss
 
 import wandb
 from ray import tune
-from ray.tune.integration.wandb import wandb_mixin
 
 class RoSTERTrainer2(tune.Trainable):
 
@@ -117,7 +116,7 @@ class RoSTERTrainer2(tune.Trainable):
             print("***** Evaluation stats *****")
             print(f"Num data = {all_input_ids.size(0)}")
             print(f"Batch size = {args.eval_batch_size}")
-            
+
     def setup(self, config: Dict):
         self.noise_train_lr = config['noise_train_lr']
         self.q = config['q']
