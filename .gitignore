@@ -3,3 +3,4 @@ tmp*
 out*
 *.pt
 1.ipynb
+wandb
