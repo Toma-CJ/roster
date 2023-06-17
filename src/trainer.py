@@ -308,13 +308,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                self.performance_report(self.y_true, y_pred,self.args.do_train)
-
-                # calculate loss for eval
-                bin_loss_sum = 0
-                type_loss_sum = 0
-                for step, batch in enumerate(self.eval_dataloader):
-                    loss, bin_loss_sum, type_loss_sum = self.ensemble_train_step(model=model,batch=batch,type_loss_sum=type_loss_sum,bin_loss_sum=bin_loss_sum)
+                self.performance_report(self.y_true, y_pred,True)
 
             wandb.log({
                 'epoch': epoch, 
@@ -473,17 +467,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                self.performance_report(self.y_true, y_pred,self.args.do_train)
-
-                # calculate loss for eval
-                bin_loss_sum = 0
-                type_loss_sum = 0
-                aug_loss_sum = 0
-                for step, batch in enumerate(self.eval_dataloader):
-                    type_distribution = self.soft_labels(model)
-                    self.update_weights(model)
-                    model.train()
-                    loss, bin_loss_sum, type_loss_sum, aug_loss_sum = self.self_train_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum, aug_loss_sum = aug_loss_sum, type_distribution = type_distribution)
+                self.performance_report(self.y_true, y_pred,True)
 
             wandb.log({
                 'epoch': epoch, 
@@ -619,12 +603,7 @@ class RoSTERTrainer(object):
 
         loss = type_loss + bin_loss
         
-        if self.gradient_accumulation_steps > 1:
-            loss = loss / self.gradient_accumulation_steps
-                    
-=======
 
->>>>>>> parent of 2c9d0aa (fixes)
         return loss, bin_loss_sum, type_loss_sum
     
     def self_train_step(self,model,batch,type_loss_sum,bin_loss_sum,aug_loss_sum, type_distribution):
