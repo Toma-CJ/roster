@@ -321,7 +321,7 @@ class RoSTERTrainer(object):
                 for step, batch in enumerate(self.eval_dataloader):
                     self.update_weights(model)
                     model.train()
-                    loss, bin_loss_sum, type_loss_sum = self.ensemble_train_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
+                    loss, bin_loss_sum, type_loss_sum = self.ensemble_train_step(model=model,batch=batch,type_loss_sum=type_loss_sum,bin_loss_sum=bin_loss_sum)
 
             wandb.log({
                 'epoch': epoch, 
