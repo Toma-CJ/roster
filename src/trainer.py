@@ -10,15 +10,20 @@ from torch.utils.data import (DataLoader, RandomSampler, SequentialSampler, Tens
 from transformers import (RobertaTokenizer, get_linear_schedule_with_warmup)
 from torch.optim import AdamW
 from tqdm import tqdm
-from seqeval.metrics import classification_report
+from seqeval.metrics import classification_report, f1_score
 from utils import RoSTERUtils
 from model import RoSTERModel
 from loss import GCELoss
 
+import wandb
 
 class RoSTERTrainer(object):
 
     def __init__(self, args):
+
+        # init run logging 
+        run = wandb.init(project="test", config=args)
+
         self.args = args
         self.seed = args.seed
         random.seed(args.seed)
@@ -198,6 +203,16 @@ class RoSTERTrainer(object):
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
                 self.performance_report(self.y_true, y_pred)
+
+            # log noise robust training stats 
+
+            wandb.log({
+                'epoch': epoch, 
+                'bin_loss': round(bin_loss_sum/self.noise_train_update_interval,5), 
+                'type_loss': round(type_loss_sum/self.noise_train_update_interval,5), 
+                'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
+                'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
+                })
                 
         eval_sampler = SequentialSampler(self.train_data)
         eval_dataloader = DataLoader(self.train_data, sampler=eval_sampler, batch_size=self.eval_batch_size)
@@ -575,7 +590,7 @@ class RoSTERTrainer(object):
                 print(f"Warning: Sequence {i} is truncated for eval! ({len(y_pred[i])}/{len(y_true[i])})")
                 y_pred[i] = y_pred[i] + ['O'] * (len(y_true[i])-len(y_pred[i]))
         report = classification_report(y_true, y_pred, digits=3)
-        print(report)
+        print(report) 
 
     # save model, tokenizer, and configs to directory
     def save_model(self, model, model_name, save_dir):

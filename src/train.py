@@ -3,7 +3,10 @@ import shutil
 from trainer import RoSTERTrainer
 import os
 
+import wandb
+
 def main():
+
     parser = argparse.ArgumentParser()
 
     # data preparation parameters
