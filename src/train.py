@@ -157,7 +157,7 @@ def main():
                 w.log(dict(loss=l))
 
         def tune_with_setup():
-            """Example for using the setup_wandb utility with the function API"""
+            """Find best hyperparameters for noise robust training"""
             tuner = tune.Tuner(
                 train_function_wandb,
                 tune_config=tune.TuneConfig(
