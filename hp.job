@@ -12,7 +12,8 @@
 #SBATCH --partition=brown   # Run on either the Red or Brown queue
 #SBATCH --mail-type=END
 
-#SBATCH --gpu-per-task=rtx8000:1
+echo "first hp STEP"
+echo $CUDA_VISIBLE_DEVICES
 
 # Getting the node names
 nodes=$(scontrol show hostnames "$SLURM_JOB_NODELIST")

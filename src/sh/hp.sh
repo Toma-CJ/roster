@@ -61,6 +61,7 @@ conda activate 2yp
 
 echo "ELUWINA"
 lspci | grep -i --color 'vga\|3d\|2d'
+echo $CUDA_VISIBLE_DEVICES
 
 wandb login b21d196340321c0166c5b1d4961bbb082b528935
 
