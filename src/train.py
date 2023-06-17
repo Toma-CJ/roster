@@ -152,7 +152,7 @@ def main():
             p1=vars(args)
             config = {**p1, **config}
             trainer = RoSTERTrainer(Bunch(config))
-            losses = tuple(0,0)
+            losses = tuple([0,0])
             early_stopper = EarlyStopping(5, 0.1)
             for i in range(config['noise_train_epochs']):
                 l = trainer.step()
