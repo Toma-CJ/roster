@@ -135,7 +135,7 @@ def main():
 
     print(args)
 
-    if args.do_hyper_tuning:
+    if args.do_hyperparam:
 
         trainer = RoSTERTrainer(args)
         trainer.noise_robust_train(i)
