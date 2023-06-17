@@ -17,9 +17,6 @@ from loss import GCELoss
 
 import wandb
 
-#param search
-from typing import TYPE_CHECKING, Any, Callable, Dict, List, Optional, Tuple, Union
-
 class RoSTERTrainer(object):
 
     def __init__(self, args):
@@ -297,7 +294,7 @@ class RoSTERTrainer(object):
             bin_loss_sum = 0
             model.train()
             for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch}")):
-                loss, bin_loss_sum, type_loss_sum = self.ensemble_train_step(model=model,batch=batch,type_loss_sum=type_loss_sum,bin_loss_sum=bin_loss_sum)
+                loss, bin_loss_sum, type_loss_sum = self.ensemble_train_step(model= model,batch= batch,type_loss_sum= type_loss_sum,bin_loss_sum= bin_loss_sum)
                 loss.backward()
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
@@ -627,7 +624,7 @@ class RoSTERTrainer(object):
         return loss, bin_loss_sum, type_loss_sum
     
     def self_train_step(self,model,batch,type_loss_sum,bin_loss_sum,aug_loss_sum, type_distribution):
-        idx, input_ids, aug_input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
+        _, idx, input_ids, aug_input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
         target_type = type_distribution[idx].to(self.device)
 
         max_len = attention_mask.sum(-1).max().item()
