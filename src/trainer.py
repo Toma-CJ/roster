@@ -644,11 +644,11 @@ class RoSTERTrainer(object):
         target_type = target_type[agree_pos]
         aug_loss = loss_fct(preds, target_type)
         if preds.size(0) > 0:
-            aug_loss = aug_loss / preds.size(0)
+            aug_loss = augsadasda_loss / preds.size(0)
             aug_loss_sum += aug_loss.item()
 
         loss = type_loss + bin_loss + aug_loss
 
         return loss, bin_loss_sum, type_loss_sum, aug_loss
     
-    
+    asdasdas
