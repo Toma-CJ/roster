@@ -153,7 +153,7 @@ class RoSTERTrainer(object):
             return
         else:
             # init run logging 
-            early_stopper = self.EarlyStopping(tolerance=5, min_delta=0.1)
+            early_stopper = EarlyStopping(tolerance=5, min_delta=0.1)
             run = wandb.init(project="2YNLP",group="Model training", job_type=f"noise_robust_train model:{0}",config=self.args) # hardcoded 0 as model_idx since there is no point in a differiation 
             print(f"\n\n******* Training model {model_idx} *******\n\n")
 
