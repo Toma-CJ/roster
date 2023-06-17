@@ -182,8 +182,6 @@ class RoSTERTrainer(object):
                 bin_loss_sum = 0
                 type_loss_sum = 0
                 for step, batch in enumerate(self.eval_dataloader):
-                    self.update_weights(model)
-                    model.train()
                     loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
 
 
@@ -308,7 +306,7 @@ class RoSTERTrainer(object):
                     scheduler.step()
                     model.zero_grad()
             
-            print(f"bin_loss: {round(bin_loss_sum/step,5)}; type_loss: {round(type_loss_sum/step,5)}")
+            print(f"bin_loss: {round(bin_loss_sum/step+1,5)}; type_loss: {round(type_loss_sum/step+1,5)}")
             
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
@@ -319,8 +317,6 @@ class RoSTERTrainer(object):
                 bin_loss_sum = 0
                 type_loss_sum = 0
                 for step, batch in enumerate(self.eval_dataloader):
-                    self.update_weights(model)
-                    model.train()
                     loss, bin_loss_sum, type_loss_sum = self.ensemble_train_step(model=model,batch=batch,type_loss_sum=type_loss_sum,bin_loss_sum=bin_loss_sum)
 
             wandb.log({
