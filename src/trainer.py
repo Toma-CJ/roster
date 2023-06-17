@@ -173,7 +173,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                self.performance_report(self.y_true, y_pred,True)
+                self.performance_report(self.y_true, y_pred,self.args.do_train)
 
                 # calculate loss for eval
                 bin_loss_sum = 0
@@ -308,7 +308,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                self.performance_report(self.y_true, y_pred,True)
+                self.performance_report(self.y_true, y_pred,self.args.do_train)
 
                 # calculate loss for eval
                 bin_loss_sum = 0
@@ -473,7 +473,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                self.performance_report(self.y_true, y_pred,True)
+                self.performance_report(self.y_true, y_pred,self.args.do_train)
 
                 # calculate loss for eval
                 bin_loss_sum = 0
@@ -593,6 +593,7 @@ class RoSTERTrainer(object):
     def ensemble_train_step(self,model,batch,type_loss_sum,bin_loss_sum):
         _, input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
 
+<<<<<<< HEAD
         max_len = attention_mask.sum(-1).max().item()
         input_ids, attention_mask, valid_pos, labels = tuple(t[:, :max_len] for t in \
                 (input_ids, attention_mask, valid_pos, labels))
@@ -621,6 +622,9 @@ class RoSTERTrainer(object):
         if self.gradient_accumulation_steps > 1:
             loss = loss / self.gradient_accumulation_steps
                     
+=======
+
+>>>>>>> parent of 2c9d0aa (fixes)
         return loss, bin_loss_sum, type_loss_sum
     
     def self_train_step(self,model,batch,type_loss_sum,bin_loss_sum,aug_loss_sum, type_distribution):
