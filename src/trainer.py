@@ -308,7 +308,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                self.performance_report(self.y_true, y_pred,True)
+                self.performance_report(self.y_true, y_pred,self.args.do_train)
 
             wandb.log({
                 'epoch': epoch, 
@@ -467,7 +467,7 @@ class RoSTERTrainer(object):
             if self.args.do_eval:
                 y_pred, _ = self.eval(model, self.eval_dataloader)
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
-                self.performance_report(self.y_true, y_pred,True)
+                self.performance_report(self.y_true, y_pred,self.args.do_train)
 
             wandb.log({
                 'epoch': epoch, 
@@ -603,6 +603,7 @@ class RoSTERTrainer(object):
 
         loss = type_loss + bin_loss
         
+
 
         return loss, bin_loss_sum, type_loss_sum
     
