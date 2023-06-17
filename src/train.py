@@ -142,9 +142,15 @@ def main():
 
     if args.do_hyperparam:
 
+        class Bunch(object):
+            def __init__(self, adict):
+                self.__dict__.update(adict)
+
         def train_function_wandb(config):
             w = setup_wandb(config)
-            trainer = RoSTERTrainer(args)
+            p1=vars(args)
+            config = {**p1, **config}
+            trainer = RoSTERTrainer(Bunch(config))
             for i in range(config['noise_robust_train_epochs']):
                 l = trainer.step()
                 session.report({"loss": l})
@@ -152,13 +158,12 @@ def main():
 
         def tune_with_setup():
             """Example for using the setup_wandb utility with the function API"""
-            tuner = tune.Tuner  (
+            tuner = tune.Tuner(
                 train_function_wandb,
                 tune_config=tune.TuneConfig(
                     metric="loss",
                     mode="min",
                 ),
-                param_space=vars(args)
                 param_space= {
                     "noise_train_epochs": tune.tune.randint(3, 100),
                     "ensemble_train_epochs": tune.tune.randint(3, 100),
@@ -178,7 +183,6 @@ def main():
                 },
             )
             tuner.fit()
-            
 
     if args.do_train:
 
