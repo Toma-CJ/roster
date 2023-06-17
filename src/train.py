@@ -143,7 +143,8 @@ def main():
     if args.do_hyperparam:
 
         import os
-
+        
+        print("YOU ARE HERE")
         print(os.getcwd())
 
         class Bunch(object):
