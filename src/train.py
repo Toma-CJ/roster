@@ -151,12 +151,11 @@ def main():
             def __init__(self, adict):
                 self.__dict__.update(adict)
 
-
-/home/jawi/ray_results/train_function_wandb_2023-06-17_23-11-39/train_function_wandb_9d5f6_00000_0_ensemble_train_epochs=6,ensemble_train_lr=0.0000,noise_train_epochs=6,noise_train_lr=0.0000,q=0_2023-06-17_23-12-06
-
         def train_function_wandb(config):
             print("YOU ARE HERE IN FN")
             print(os.getcwd())
+
+            print(args.data_dir)
 
             w = setup_wandb(config)
             p1=vars(args)
