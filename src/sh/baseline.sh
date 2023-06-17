@@ -51,6 +51,7 @@ OUT_DIR=out_$CORPUS
 mkdir -p $TEMP_DIR
 mkdir -p $OUT_DIR
 mkdir -p $OUT_DIR/data/$EVAL_DATASET
+mkdir -p $OUT_DIR/data/${CORPUS}
 
 eval "$(conda shell.bash hook)"
 conda activate 2yp
