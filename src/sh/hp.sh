@@ -59,6 +59,9 @@ mkdir -p $OUT_DIR/data/${CORPUS}
 eval "$(conda shell.bash hook)"
 conda activate 2yp
 
+echo "ELUWINA"
+lspci | grep -i --color 'vga\|3d\|2d'
+
 wandb login b21d196340321c0166c5b1d4961bbb082b528935
 
 python -u src/train.py --data_dir $PATH_TO_ROSTER/data/$CORPUS \
