@@ -1,5 +1,5 @@
-# export CUDA_DEVICE_ORDER=PCI_BUS_ID
-# export CUDA_VISIBLE_DEVICES=1
+export CUDA_DEVICE_ORDER=PCI_BUS_ID
+export CUDA_VISIBLE_DEVICES=1
 
 while [[ $# -gt 0 ]]; do
   case $1 in
