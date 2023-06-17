@@ -11,7 +11,7 @@ from ray import air, tune
 from ray.air import session
 from ray.air.integrations.wandb import setup_wandb
 from ray.air.integrations.wandb import WandbLoggerCallback
-from utils import RoSTERUtils, EarlyStopping
+from utils import EarlyStopping
 
 def main():
 
@@ -161,7 +161,7 @@ def main():
 
                 losses[1] = losses[0]
                 losses[0] = l
-                
+
                 early_stopper(losses[0],losses[1])
                 if early_stopper.early_stop:
                     break
