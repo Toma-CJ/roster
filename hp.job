@@ -12,6 +12,8 @@
 #SBATCH --partition=brown   # Run on either the Red or Brown queue
 #SBATCH --mail-type=END
 
+#SBATCH --gres-per-task=1
+
 # Getting the node names
 nodes=$(scontrol show hostnames "$SLURM_JOB_NODELIST")
 nodes_array=($nodes)

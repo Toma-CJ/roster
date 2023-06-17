@@ -84,7 +84,7 @@ class RoSTERTrainer(object):
         # Prepare model
         self.model = RoSTERModel.from_pretrained(args.pretrained_model, num_labels=self.num_labels-1,
                                                  hidden_dropout_prob=args.dropout, attention_probs_dropout_prob=args.dropout)
-        print(f"HERE YOU LOSER{torch.cuda.is_available()}")
+        print(f"HERE YOU LOSER {torch.cuda.is_available()}")
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         print(f"***** Using {torch.cuda.device_count()} GPU(s)! *****\n")
         if torch.cuda.device_count() > 1:
