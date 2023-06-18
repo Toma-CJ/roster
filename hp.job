@@ -98,9 +98,9 @@ ip_head=$head_node_ip:$port
 export ip_head
 echo "IP Head: $ip_head"
 echo "Starting HEAD at $head_node"
-srun --nodes=1 --ntasks=1 -w "$head_node" \
+srun --gres=gpu:$SLURM_GPUS_PER_TASK --nodes=1 --ntasks=1 -w "$head_node" \
     ray start --head --node-ip-address="$head_node_ip" --port=$port \
-    --num-cpus "${SLURM_CPUS_PER_TASK}" --num-gpus "${SLURM_GPUS_PER_TASK}" --gres=gpu:$SLURM_GPUS_PER_TASK --block &
+    --num-cpus "${SLURM_CPUS_PER_TASK}" --num-gpus "${SLURM_GPUS_PER_TASK}"  --block &
 
 # optional, though may be useful in certain versions of Ray < 1.0.
 sleep 10
