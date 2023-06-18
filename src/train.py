@@ -149,7 +149,6 @@ def main():
         sweep_config = {}
 
         sweep_id = wandb.sweep(sweep_config)
-        wandb.agent(sweep_id, function=train)
         
         metric = {
             'name': 'loss',
