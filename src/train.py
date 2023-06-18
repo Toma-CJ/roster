@@ -141,6 +141,73 @@ def main():
 
     print(args)
 
+    if args.do_hyperparam:
+
+        d1 = vars(args)
+        d1 = {key: {'value': value} for key, value in d1.items()}
+
+        sweep_config = {}
+
+        sweep_id = wandb.sweep(sweep_config)
+        wandb.agent(sweep_id, function=train)
+        
+        metric = {
+            'name': 'loss',
+            'goal': 'minimize'   
+            }
+
+        sweep_config['metric'] = metric
+
+        sweep_config= {
+                    "noise_train_epochs": {'distribution':'int_uniform',
+                                           'max': 100 ,
+                                           'min': 3 
+                                            },
+                    "ensemble_train_epochs":{'distribution':'int_uniform',
+                                           'max': 100 ,
+                                           'min': 3 
+                                            },
+                    "self_train_epochs": {'distribution':'int_uniform',
+                                           'max': 100 ,
+                                           'min': 3 
+                                            },
+                    
+                    "noise_train_lr":{'distribution':'log_uniform',
+                                           'max': 1e-2 ,
+                                           'min': 1e-7 
+                                            },
+                    "ensemble_train_lr":{'distribution':'log_uniform',
+                                           'max': 1e-2 ,
+                                           'min': 1e-7 
+                                            },
+                    "self_train_lr":{'distribution':'log_uniform',
+                                           'max': 1e-2 ,
+                                           'min': 1e-7 
+                                            },
+
+                    "q":{'distribution':'uniform',
+                                           'max': 1 ,
+                                           'min': 0 
+                                            },
+                    "tau":{'distribution':'uniform',
+                                           'max': 1 ,
+                                           'min': 0 
+                                            },
+
+                    "weight_decay":{'distribution':'log_uniform',
+                                           'max': 1e-1 ,
+                                           'min': 1e-7 
+                                            },
+                    "warmup_proportion":{'distribution':'uniform',
+                                           'max': 1 ,
+                                           'min': 0 
+                                            },
+
+                    "do_train":{'value':True} ,
+                }
+        
+        sweep_config = {**d1, **sweep_config}
+
     if args.do_train:
 
         # train K models for ensemble
