@@ -58,7 +58,7 @@ for ((i=1; i<=$num_combinations; i++)); do
   q=$(generate_random_value 'uniform' 0 1)
   tau=$(generate_random_value 'uniform' 0 1)
 
-  SBATCH -d $DATASET -e $EVAL_DATASET -ts io -te $noise_train_epochs -ee $ensemble_train_epochs \
+  sbatch -d $DATASET -e $EVAL_DATASET -ts io -te $noise_train_epochs -ee $ensemble_train_epochs \
         -se $self_train_epochs -q $q -t $tau \
         -tlr $noise_train_lr -elr $ensemble_train_lr -slr $self_train_lr
 done
