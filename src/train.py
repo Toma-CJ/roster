@@ -141,64 +141,6 @@ def main():
 
     print(args)
 
-    if args.do_hyperparam:
-
-        def train_function_wandb(config):
-            w = setup_wandb(config)
-            p1=vars(args)
-            config = {**p1, **config}
-            trainer = RoSTERTrainer(Bunch(config))
-            losses = tuple([0,0])
-            early_stopper = EarlyStopping(5, 0.1)
-            for i in range(config['noise_train_epochs']):
-                l = trainer.step()
-                session.report({"loss": l})
-                w.log(dict(loss=l))
-
-                losses[1] = losses[0]
-                losses[0] = l
-
-                early_stopper(losses[0],losses[1])
-                if early_stopper.early_stop:
-                    break
-
-        def tune_with_setup():
-            """Find best hyperparameters for noise robust training"""
-            tuner = tune.Tuner (
-                train_function_wandb,
-                tune_config=tune.TuneConfig(max_concurrent_trials=1,
-                    metric="loss",
-                    mode="min",
-                ),
-                param_space= {
-                    "noise_train_epochs": tune.randint(3, 100),
-                    "ensemble_train_epochs": tune.randint(3, 100),
-                    "self_train_epochs": tune.randint(3, 100),
-                    
-                    "noise_train_lr":tune.loguniform(1e-7, 1e-2),
-                    "ensemble_train_lr":tune.loguniform(1e-7, 1e-2),
-                    "self_train_lr":tune.loguniform(1e-7, 1e-2),
-
-                    "q":tune.uniform(0,1),
-                    "tau":tune.uniform(0,1),
-
-                    "weight_decay":tune.loguniform(1e-7, 1e-1),
-                    "warmup_proportion":tune.uniform(0,1),
-
-                    "do_train":tune.choice([True]) ,
-                    "wandb": {"project": "2YNLP","group":'Hyperparameter tuning'}
-                },
-            )
-            tuner.fit()
-
-        os.environ['CUDA_VISIBLE_DEVICES']
-
-        ray.init(address="auto")
-
-        os.environ['CUDA_VISIBLE_DEVICES']
-
-        tune_with_setup()
-
     if args.do_train:
 
         # train K models for ensemble
