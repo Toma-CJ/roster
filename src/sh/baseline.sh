@@ -92,12 +92,12 @@ python -u src/train.py --data_dir data/$CORPUS \
     --noise_train_update_interval 60 --self_train_update_interval 100 \
     --dropout 0.1 --warmup_proportion=0.1 --seed $SEED \
     --q $q --tau $tau --num_models $ENSEMBLE_MODELS \
-    --do_train 1 --do_eval --eval_on "valid" | tee $OUT_DIR/train_log.txt
+    --do_train 1 --do_eval 1 --eval_on "valid" | tee $OUT_DIR/train_log.txt
 
 python -u src/train.py --data_dir data/$EVAL_DATASET \
     --output_dir $OUT_DIR --temp_dir $TEMP_DIR \
     --pretrained_model roberta-base --tag_scheme $TAG_SCHEME --max_seq_length 120 \
-    --do_eval --eval_on "test" | tee $OUT_DIR/test_log.txt
+    --do_eval 1 --eval_on "test" | tee $OUT_DIR/test_log.txt
 
 rm -rf $TEMP_DIR
     
