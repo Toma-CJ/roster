@@ -191,7 +191,7 @@ def main():
             )
             tuner.fit()
 
-        ray.init(address="auto")
+        ray.init(address="auto", num_cpus = 1 ,num_gpus = 1)
 
         tune_with_setup()
 
