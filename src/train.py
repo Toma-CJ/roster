@@ -208,6 +208,28 @@ def main():
         
         sweep_config = {**d1, **sweep_config}
 
+        sweep_id = wandb.sweep(sweep_config, project="pytorch-sweeps-demo")
+
+        def train_fn(config=None):
+            trainer = RoSTERTrainer(config)
+
+            losses = tuple([0,0])
+            early_stopper = EarlyStopping(5, 0.1)
+
+            for epoch in config['noise_train_epochs']:
+                l = trainer.train_fn()
+
+                losses[1] = losses[0]
+                losses[0] = l
+
+                wandb.log({"loss": l, "epoch": epoch}) 
+
+                early_stopper(losses[0],losses[1])
+                if early_stopper.early_stop:
+                    break
+
+        wandb.agent(sweep_id, train_fn, count=5)
+
     if args.do_train:
 
         # train K models for ensemble

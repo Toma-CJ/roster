@@ -661,7 +661,7 @@ class RoSTERTrainer(object):
 
         return loss, bin_loss_sum, type_loss_sum
     
-    def step(self):
+    def train_fn(self):
 
             model, optimizer, scheduler = self.prepare_train(lr=self.noise_train_lr, epochs=self.noise_train_epochs)
             train_sampler = RandomSampler(self.train_data)
