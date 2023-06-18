@@ -11,7 +11,7 @@ from ray import air, tune
 from ray.air import session
 from ray.air.integrations.wandb import setup_wandb
 from ray.air.integrations.wandb import WandbLoggerCallback
-from utils import EarlyStopping
+from utils import EarlyStopping, Bunch
 
 def main():
 
@@ -143,10 +143,6 @@ def main():
 
     if args.do_hyperparam:
 
-        class Bunch(object):
-            def __init__(self, adict):
-                self.__dict__.update(adict)
-
         def train_function_wandb(config):
             w = setup_wandb(config)
             p1=vars(args)
@@ -194,6 +190,8 @@ def main():
                 },
             )
             tuner.fit()
+
+        ray.init(address="auto")
 
         tune_with_setup()
 

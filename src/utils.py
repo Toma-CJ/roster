@@ -153,4 +153,7 @@ class EarlyStopping:
             self.counter +=1
             if self.counter >= self.tolerance:  
                 self.early_stop = True
-    
+
+class Bunch(object):
+    def __init__(self, adict):
+        self.__dict__.update(adict)
