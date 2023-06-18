@@ -96,7 +96,7 @@ echo "IP Head: $ip_head"
 
 echo "Starting HEAD at $head_node"
 srun --nodes=1 --ntasks=1 -w "$head_node" \
-    /home/jawi/.conda/envs/2yp/lib/python3.11/site-packages/ray start --head --node-ip-address="$head_node_ip" --port=$port \
+    ray start --head --node-ip-address="$head_node_ip" --port=$port \
     --num-cpus "${SLURM_CPUS_PER_TASK}" --num-gpus "${SLURM_GPUS_PER_TASK}" --block &
 
 # optional, though may be useful in certain versions of Ray < 1.0.
@@ -109,7 +109,7 @@ for ((i = 1; i <= worker_num; i++)); do
     node_i=${nodes_array[$i]}
     echo "Starting WORKER $i at $node_i"
     srun --nodes=1 --ntasks=1 -w "$node_i" \
-        /home/jawi/.conda/envs/2yp/lib/python3.11/site-packages/ray start --address "$ip_head" \
+        ray start --address "$ip_head" \
         --num-cpus "${SLURM_CPUS_PER_TASK}" --num-gpus "${SLURM_GPUS_PER_TASK}" --block &
     sleep 5
 done
