@@ -141,15 +141,6 @@ def main():
         d1 = vars(args)
         d1 = {key: {'value': value} for key, value in d1.items()}
 
-        sweep_config = {'method': 'random'}
-        
-        metric = {
-            'name': 'loss',
-            'goal': 'minimize'   
-            }
-
-        sweep_config['metric'] = metric
-
         sweep_config= {
                     "noise_train_epochs": {'distribution':'int_uniform',
                                            'max': 100 ,
@@ -197,6 +188,14 @@ def main():
 
                     "do_train":{'value':True} ,
                 }
+        
+        sweep_config['metric'] = metric
+        sweep_config['metric'] = 'random'
+        
+        metric = {
+            'name': 'loss',
+            'goal': 'minimize'   
+            }
         
         sweep_config = {**d1, **sweep_config}
 
