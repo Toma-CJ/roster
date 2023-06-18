@@ -141,9 +141,7 @@ def main():
         d1 = vars(args)
         d1 = {key: {'value': value} for key, value in d1.items()}
 
-        sweep_config = {}
-
-        sweep_id = wandb.sweep(sweep_config)
+        sweep_config = {'method': 'random'}
         
         metric = {
             'name': 'loss',
