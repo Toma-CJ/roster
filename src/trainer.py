@@ -17,12 +17,6 @@ from loss import GCELoss
 
 import wandb
 
-import ray
-from ray import air, tune
-from ray.air import session
-from ray.air.integrations.wandb import setup_wandb
-from ray.air.integrations.wandb import WandbLoggerCallback
-
 class RoSTERTrainer(object):
 
     def __init__(self, args):
@@ -295,6 +289,7 @@ class RoSTERTrainer(object):
             return
         else:
             # init run logging 
+            early_stopper = EarlyStopping(tolerance=5, min_delta=0.1)
             run = wandb.init(project="2YNLP",group="Model training", job_type="Ensemble train",config=self.args)
             print("\n\n******* Training ensembled model *******\n\n")
         model, optimizer, scheduler = self.prepare_train(lr=self.ensemble_train_lr, epochs=self.ensemble_train_epochs)
@@ -307,6 +302,7 @@ class RoSTERTrainer(object):
         train_sampler = RandomSampler(ensemble_train_data)
         train_dataloader = DataLoader(ensemble_train_data, sampler=train_sampler, batch_size=self.train_batch_size)
         
+        losses = (0,0)
         for epoch in range(self.ensemble_train_epochs):
             type_loss_sum = 0
             bin_loss_sum = 0
@@ -364,6 +360,13 @@ class RoSTERTrainer(object):
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
+        
+            losses[1] = losses[0]
+            losses[0] = loss
+            
+            early_stopper(losses[0],losses[1])
+            if early_stopper.early_stop:
+                break
         
         self.save_model(model, "ensemble_model.pt", self.temp_dir)
         wandb.finish(quiet=True)
@@ -463,6 +466,7 @@ class RoSTERTrainer(object):
             print(f"\n\n******* Final model found; skip training *******\n\n")
             return
         else:
+            early_stopper = EarlyStopping(tolerance=5, min_delta=0.1)
             run = wandb.init(project="2YNLP",group="Model training", job_type="Self train",config=self.args)
             print("\n\n******* Self-training *******\n\n")
         self.load_model("ensemble_model.pt", self.temp_dir)
@@ -475,6 +479,7 @@ class RoSTERTrainer(object):
         all_soft_labels = self.ensemble_label
 
         i = 0
+        losses =(0,0)
         for epoch in range(self.self_train_epochs):
             type_loss_sum = 0
             bin_loss_sum = 0
@@ -562,6 +567,13 @@ class RoSTERTrainer(object):
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
+            
+            losses[1] = losses[0]
+            losses[0] = loss
+            
+            early_stopper(losses[0],losses[1])
+            if early_stopper.early_stop:
+                break
         
         self.save_model(model, "final_model.pt", self.output_dir)
         wandb.finish(quiet=True)
