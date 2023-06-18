@@ -6,11 +6,6 @@ import os
 import wandb
 from seqeval.metrics import f1_score
 
-import ray
-from ray import air, tune
-from ray.air import session
-from ray.air.integrations.wandb import setup_wandb
-from ray.air.integrations.wandb import WandbLoggerCallback
 from utils import EarlyStopping, Bunch
 
 def main():
