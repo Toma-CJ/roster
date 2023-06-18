@@ -64,6 +64,8 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+SLURM_GPUS_PER_TASK=4
+
 echo "Running on $(hostname):"
 
 module load Anaconda3/
@@ -93,7 +95,7 @@ port=6379
 ip_head=$head_node_ip:$port
 export ip_head
 echo "IP Head: $ip_head"
-echo "YOU ARE HEREL: $SLURM_GPUS_PER_TASK"
+echo "YOU ARE HERE: $SLURM_GPUS_PER_TASK"
 echo "Starting HEAD at $head_node"
 srun --nodes=1 --ntasks=1 -w "$head_node" \
     ray start --head --node-ip-address="$head_node_ip" --port=$port \
