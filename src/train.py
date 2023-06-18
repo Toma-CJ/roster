@@ -6,8 +6,6 @@ import os
 import wandb
 from seqeval.metrics import f1_score
 
-from utils import EarlyStopping, Bunch
-
 def main():
 
     parser = argparse.ArgumentParser()
@@ -48,9 +46,6 @@ def main():
     parser.add_argument("--do_eval",
                         action='store_true',
                         help="whether to run eval on eval set or not.")
-    parser.add_argument("--do_hyperparam",
-                        action='store_true',
-                        help="whether to run hyperparameter tuning")
     parser.add_argument("--eval_on",
                         default="test",
                         choices=['valid', 'test'],
@@ -133,97 +128,7 @@ def main():
                     help="whether to train on gold or dist")
     
     args = parser.parse_args()
-
-    print(args)
-
-    if args.do_hyperparam:
-
-        d1 = vars(args)
-        d1 = {key: {'value': value} for key, value in d1.items()}
-
-        sweep_config= {
-                    "noise_train_epochs": {'distribution':'int_uniform',
-                                           'max': 100 ,
-                                           'min': 3 
-                                            },
-                    "ensemble_train_epochs":{'distribution':'int_uniform',
-                                           'max': 100 ,
-                                           'min': 3 
-                                            },
-                    "self_train_epochs": {'distribution':'int_uniform',
-                                           'max': 100 ,
-                                           'min': 3 
-                                            },
-                    
-                    "noise_train_lr":{'distribution':'log_uniform',
-                                           'max': 1e-2 ,
-                                           'min': 1e-7 
-                                            },
-                    "ensemble_train_lr":{'distribution':'log_uniform',
-                                           'max': 1e-2 ,
-                                           'min': 1e-7 
-                                            },
-                    "self_train_lr":{'distribution':'log_uniform',
-                                           'max': 1e-2 ,
-                                           'min': 1e-7 
-                                            },
-
-                    "q":{'distribution':'uniform',
-                                           'max': 1 ,
-                                           'min': 0 
-                                            },
-                    "tau":{'distribution':'uniform',
-                                           'max': 1 ,
-                                           'min': 0 
-                                            },
-
-                    "weight_decay":{'distribution':'log_uniform',
-                                           'max': 1e-1 ,
-                                           'min': 1e-7 
-                                            },
-                    "warmup_proportion":{'distribution':'uniform',
-                                           'max': 1 ,
-                                           'min': 0 
-                                            },
-
-                    "do_train":{'value':True} ,
-                }
         
-        metric = {
-            'name': 'loss',
-            'goal': 'minimize'   
-            }
-        
-        sweep_config['metric'] = metric
-        sweep_config['method'] = 'random'
-        
-        sweep_config = {**d1, **sweep_config}
-
-        sweep_id = wandb.sweep(sweep_config, project="pytorch-sweeps-demo")
-
-        def train_fn(config=None):
-            # Initialize a new wandb run
-            with wandb.init(config=config):
-                config = wandb.config
-                trainer = RoSTERTrainer(config)
-
-                losses = tuple([0,0])
-                early_stopper = EarlyStopping(5, 0.1)
-
-                for epoch in config.noise_train_epochs:
-                    l = trainer.train_fn()
-
-                    losses[1] = losses[0]
-                    losses[0] = l
-
-                    wandb.log({"loss": l, "epoch": epoch}) 
-
-                    early_stopper(losses[0],losses[1])
-                    if early_stopper.early_stop:
-                        break
-
-        wandb.agent(sweep_id, train_fn, count=5)
-
     if args.do_train:
 
         # train K models for ensemble
@@ -243,8 +148,12 @@ def main():
         shutil.rmtree(trainer.temp_dir, ignore_errors=True)
 
     if args.do_eval:
+        if args.do_train:
+            g = "Model training"
+        else:
+            g = 'Model Evaluation'
         import pickle
-        run = wandb.init(project="2YNLP",group="Model training", job_type="TEST Final Model Evaluation",config=args)
+        run = wandb.init(project="2YNLP",group=g, job_type="TEST Final Model Evaluation",config=args)
 
         trainer = RoSTERTrainer(args)
         trainer.load_model("final_model.pt", args.output_dir)
@@ -256,7 +165,8 @@ def main():
 
         wandb.log({
                 'F1 micro': round(f1_score(trainer.y_true,y_pred,average='micro'),2),
-                'F1 macro': round(f1_score(trainer.y_true,y_pred,average='micro'),2)
+                'F1 macro': round(f1_score(trainer.y_true,y_pred,average='micro'),2),
+                'Train Dataset': args.data_dir
                 })
 
         wandb.finish(quiet=True)

@@ -84,9 +84,7 @@ class RoSTERTrainer(object):
         # Prepare model
         self.model = RoSTERModel.from_pretrained(args.pretrained_model, num_labels=self.num_labels-1,
                                                  hidden_dropout_prob=args.dropout, attention_probs_dropout_prob=args.dropout)
-        print(f"HERE YOU LOSER {torch.cuda.is_available()}")
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-
         print(f"***** Using {torch.cuda.device_count()} GPU(s)! *****\n")
         if torch.cuda.device_count() > 1:
             self.multi_gpu = True
@@ -660,47 +658,3 @@ class RoSTERTrainer(object):
             loss = loss / self.gradient_accumulation_steps
 
         return loss, bin_loss_sum, type_loss_sum
-    
-    def train_fn(self):
-
-            model, optimizer, scheduler = self.prepare_train(lr=self.noise_train_lr, epochs=self.noise_train_epochs)
-            train_sampler = RandomSampler(self.train_data)
-            train_dataloader = DataLoader(self.train_data, sampler=train_sampler, batch_size=self.train_batch_size)
-            
-            losses = []
-            bin_loss_sum = 0
-            type_loss_sum = 0
-            i = 0
-            for step, batch in enumerate(train_dataloader):
-                if (i+1) % self.noise_train_update_interval == 0:
-                    self.update_weights(model)
-                    model.train()
-                    bin_loss_sum = 0
-                    type_loss_sum = 0
-
-                loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
-                losses.append(loss)
-                loss.backward()
-                nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-
-                if (step+1) % self.gradient_accumulation_steps == 0:
-                    optimizer.step()
-                    scheduler.step()
-                    model.zero_grad()
-                
-                i+=1
-                
-            y_pred, _ = self.eval(model, self.eval_dataloader)
-            self.performance_report(self.y_true, y_pred,True)
-
-            # calculate loss for eval
-            bin_loss_sum = 0
-            type_loss_sum = 0
-            for step, batch in enumerate(self.eval_dataloader):
-                _, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
-            
-            l = (bin_loss_sum + type_loss_sum)/step+1
-
-            # log noise robust training stats 
-            return l
-    
