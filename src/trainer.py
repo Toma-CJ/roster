@@ -156,7 +156,7 @@ class RoSTERTrainer(object):
         
         i = 0
         for epoch in range(self.noise_train_epochs):
-            losses = []
+            losses = (0,0)
             bin_loss_sum = 0
             type_loss_sum = 0
             for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch}")):
@@ -169,7 +169,7 @@ class RoSTERTrainer(object):
                     type_loss_sum = 0
 
                 loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
-                losses.append(loss)
+                losses[0] = loss
                 loss.backward()
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
@@ -189,11 +189,12 @@ class RoSTERTrainer(object):
                 type_loss_sum = 0
                 for step, batch in enumerate(self.eval_dataloader):
                     loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
-
+            losses[1] = loss
             # log noise robust training stats 
 
             wandb.log({
                 'epoch': epoch, 
+                'loss' : round((bin_loss_sum+type_loss_sum)/step+1,5),
                 'bin_loss': round(bin_loss_sum/step+1,5), 
                 'type_loss': round(type_loss_sum/step+1,5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
@@ -355,8 +356,9 @@ class RoSTERTrainer(object):
 
             wandb.log({
                 'epoch': epoch, 
-                'bin_loss': round(bin_loss_sum/self.noise_train_update_interval,5), 
-                'type_loss': round(type_loss_sum/self.noise_train_update_interval,5), 
+                'loss' : round((bin_loss_sum+type_loss_sum)/step+1,5),
+                'bin_loss': round(bin_loss_sum/step+1,5), 
+                'type_loss': round(type_loss_sum/step+1,5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
@@ -562,8 +564,9 @@ class RoSTERTrainer(object):
 
             wandb.log({
                 'epoch': epoch, 
-                'bin_loss': round(bin_loss_sum/self.noise_train_update_interval,5), 
-                'type_loss': round(type_loss_sum/self.noise_train_update_interval,5), 
+                'loss' : round((bin_loss_sum+type_loss_sum)/step+1,5),
+                'bin_loss': round(bin_loss_sum/step+1,5), 
+                'type_loss': round(type_loss_sum/step+1,5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
