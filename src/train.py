@@ -189,13 +189,15 @@ def main():
                     "do_train":{'value':True} ,
                 }
         
-        sweep_config['metric'] = metric
-        sweep_config['metric'] = 'random'
-        
         metric = {
             'name': 'loss',
             'goal': 'minimize'   
             }
+        
+        sweep_config['metric'] = metric
+        sweep_config['metric'] = 'random'
+        
+
         
         sweep_config = {**d1, **sweep_config}
 
