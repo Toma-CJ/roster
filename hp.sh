@@ -3,12 +3,12 @@
 while [[ $# -gt 0 ]]; do
   case $1 in
     -d|--dataset)
-      DATASET="$2"
+      DATASET="$2k"
       shift # past argument
       shift # past value
       ;;
     -e|--eval_dataset)
-      EVAL_DATASET="$2"
+      EVAL_DATASET="$lotr_test"
       shift # past argument
       shift # past value
       ;;
