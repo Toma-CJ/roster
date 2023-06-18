@@ -76,6 +76,9 @@ conda activate 2yp
 nodes=$(scontrol show hostnames "$SLURM_JOB_NODELIST")
 nodes_array=($nodes)
 
+echo here
+echo $nodes_array
+
 head_node=${nodes_array[0]}
 head_node_ip=$(srun --nodes=1 --ntasks=1 -w "$head_node" hostname --ip-address)
 
@@ -104,7 +107,7 @@ echo $worker_num
 for ((i = 1; i <= worker_num; i++)); do
     node_i=${nodes_array[$i]}
     echo "Starting WORKER $i at $node_i"
-    srun --nodes=1 --ntasks=1 -w "$node_i" \
+    srun --gres=gpu:$SLURM_GPUS_PER_TASK --nodes=1 --ntasks=1 -w "$node_i" \
         ray start --address "$ip_head" \
         --num-cpus "${SLURM_CPUS_PER_TASK}" --num-gpus "${SLURM_GPUS_PER_TASK}" --block &
     sleep 5
