@@ -86,6 +86,7 @@ class RoSTERTrainer(object):
                                                  hidden_dropout_prob=args.dropout, attention_probs_dropout_prob=args.dropout)
         print(f"HERE YOU LOSER {torch.cuda.is_available()}")
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = "cuda"
         print(f"***** Using {torch.cuda.device_count()} GPU(s)! *****\n")
         if torch.cuda.device_count() > 1:
             self.multi_gpu = True
