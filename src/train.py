@@ -170,7 +170,7 @@ def main():
             """Find best hyperparameters for noise robust training"""
             tuner = tune.Tuner (
                 train_function_wandb,
-                tune_config=tune.TuneConfig(
+                tune_config=tune.TuneConfig(max_concurrent_trials=1,
                     metric="loss",
                     mode="min",
                 ),
