@@ -156,7 +156,7 @@ class RoSTERTrainer(object):
         
         i = 0
         for epoch in range(self.noise_train_epochs):
-            losses = (0,0)
+            losses = [0,0]
             bin_loss_sum = 0
             type_loss_sum = 0
             for step, batch in enumerate(tqdm(train_dataloader, desc=f"Epoch {epoch}")):
@@ -303,7 +303,7 @@ class RoSTERTrainer(object):
         train_sampler = RandomSampler(ensemble_train_data)
         train_dataloader = DataLoader(ensemble_train_data, sampler=train_sampler, batch_size=self.train_batch_size)
         
-        losses = (0,0)
+        losses = [0,0]
         for epoch in range(self.ensemble_train_epochs):
             type_loss_sum = 0
             bin_loss_sum = 0
@@ -481,7 +481,7 @@ class RoSTERTrainer(object):
         all_soft_labels = self.ensemble_label
 
         i = 0
-        losses =(0,0)
+        losses =[0,0]
         for epoch in range(self.self_train_epochs):
             type_loss_sum = 0
             bin_loss_sum = 0
