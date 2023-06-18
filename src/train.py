@@ -195,9 +195,7 @@ def main():
             }
         
         sweep_config['metric'] = metric
-        sweep_config['metric'] = 'random'
-        
-
+        sweep_config['method'] = 'random'
         
         sweep_config = {**d1, **sweep_config}
 
