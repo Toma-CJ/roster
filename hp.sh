@@ -50,7 +50,7 @@ for ((i=1; i<=$num_combinations; i++)); do
   noise_train_epochs=$(generate_random_value 'int_uniform' 3 100)
   ensemble_train_epochs=$(generate_random_value 'int_uniform' 3 100)
   self_train_epochs=$(generate_random_value 'int_uniform' 3 100)
-  
+
   noise_train_lr=$(generate_random_value 'log_uniform' 1e-7 1e-2)
   ensemble_train_lr=$(generate_random_value 'log_uniform' 1e-7 1e-2)
   self_train_lr=$(generate_random_value 'log_uniform' 1e-7 1e-2)
@@ -59,5 +59,6 @@ for ((i=1; i<=$num_combinations; i++)); do
   tau=$(generate_random_value 'uniform' 0 1)
 
   SBATCH -d $DATASET -e $EVAL_DATASET -ts io -te $noise_train_epochs -ee $ensemble_train_epochs \
-        -se $self_train_epochs -q $q -t $tau 
+        -se $self_train_epochs -q $q -t $tau \
+        -tlr $noise_train_lr -elr $ensemble_train_lr -slr $self_train_lr
 done
