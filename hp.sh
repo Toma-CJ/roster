@@ -1,14 +1,17 @@
 #!/bin/bash
 
+DATASET="2k"
+EVAL_DATASET="lotr_test"
+
 while [[ $# -gt 0 ]]; do
   case $1 in
     -d|--dataset)
-      DATASET="$2k"
+      DATASET="$2"
       shift # past argument
       shift # past value
       ;;
     -e|--eval_dataset)
-      EVAL_DATASET="$lotr_test"
+      EVAL_DATASET="$2"
       shift # past argument
       shift # past value
       ;;
