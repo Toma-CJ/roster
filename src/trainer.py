@@ -218,7 +218,7 @@ class RoSTERTrainer(object):
 
             wandb.log({
             'epoch': epoch, 
-            'loss' : round((bin_loss_sum+type_loss_sum)/step+1,5),
+            'loss' : round(loss,5),
             'bin_loss': round(bin_loss_sum/step+1,5), 
             'type_loss': round(type_loss_sum/step+1,5), 
             'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
@@ -233,7 +233,7 @@ class RoSTERTrainer(object):
         eval_dataloader = DataLoader(self.train_data, sampler=eval_sampler, batch_size=self.eval_batch_size)
         y_pred, pred_probs = self.eval(model, eval_dataloader)
         torch.save({"pred_probs": pred_probs}, os.path.join(self.temp_dir, f"y_pred_{model_idx}.pt"))
-
+        wandb.finish(quiet=True)
 
     # assign 0/1 weights to each training token based on whether the model prediction agrees with the distant label (noisy label removal)
     def update_weights(self, model):
@@ -380,7 +380,7 @@ class RoSTERTrainer(object):
 
             wandb.log({
                 'epoch': epoch, 
-                'loss' : round((bin_loss_sum+type_loss_sum)/step+1,5),
+                'loss' : round(loss,5),
                 'bin_loss': round(bin_loss_sum/step+1,5), 
                 'type_loss': round(type_loss_sum/step+1,5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
@@ -588,7 +588,7 @@ class RoSTERTrainer(object):
 
             wandb.log({
                 'epoch': epoch, 
-                'loss' : round((bin_loss_sum+type_loss_sum)/step+1,5),
+                'loss' : round(loss,5),
                 'bin_loss': round(bin_loss_sum/step+1,5), 
                 'type_loss': round(type_loss_sum/step+1,5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
