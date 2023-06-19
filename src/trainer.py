@@ -147,7 +147,7 @@ class RoSTERTrainer(object):
             print(f"\n\n******* Model {model_idx} predictions found; skip training *******\n\n")
             return
         else:
-            early_stopper = EarlyStopping(tolerance=2, min_delta=0.05)
+            early_stopper = EarlyStopping(tolerance=3, min_delta=0.05)
             run = wandb.init(project="2YNLP",group="Model training", job_type=f"noise_robust_train model:{0}",config=self.args) # hardcoded 0 as model_idx since there is no point in a differiation 
             print(f"\n\n******* Training model {model_idx} *******\n\n")
 
@@ -225,7 +225,7 @@ class RoSTERTrainer(object):
             losses[1] = losses[0]
             losses[0] = (bin_loss_sum+type_loss_sum)/(step+1)
         
-            early_stopper(losses[0],losses[1])
+            early_stopper(losses[1],losses[0])
             if early_stopper.early_stop:
                 break
 
@@ -314,7 +314,7 @@ class RoSTERTrainer(object):
             return
         else:
             # init run logging 
-            early_stopper = EarlyStopping(tolerance=2, min_delta=0.05)
+            early_stopper = EarlyStopping(tolerance=3, min_delta=0.05)
             run = wandb.init(project="2YNLP",group="Model training", job_type="Ensemble train",config=self.args)
             print("\n\n******* Training ensembled model *******\n\n")
         model, optimizer, scheduler = self.prepare_train(lr=self.ensemble_train_lr, epochs=self.ensemble_train_epochs)
@@ -390,7 +390,7 @@ class RoSTERTrainer(object):
             losses[1] = losses[0]
             losses[0] = (bin_loss_sum+type_loss_sum)/(step+1)
             
-            early_stopper(losses[0],losses[1])
+            early_stopper(losses[1],losses[0])
             if early_stopper.early_stop:
                 break
         
@@ -492,7 +492,7 @@ class RoSTERTrainer(object):
             print(f"\n\n******* Final model found; skip training *******\n\n")
             return
         else:
-            early_stopper = EarlyStopping(tolerance=2, min_delta=0.05)
+            early_stopper = EarlyStopping(tolerance=3, min_delta=0.05)
             run = wandb.init(project="2YNLP",group="Model training", job_type="Self train",config=self.args)
             print("\n\n******* Self-training *******\n\n")
         self.load_model("ensemble_model.pt", self.temp_dir)
@@ -598,7 +598,7 @@ class RoSTERTrainer(object):
             losses[1] = losses[0]
             losses[0] = (bin_loss_sum+type_loss_sum)/(step+1)
             
-            early_stopper(losses[0],losses[1])
+            early_stopper(losses[1],losses[0])
             if early_stopper.early_stop:
                 break
         
