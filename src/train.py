@@ -159,7 +159,7 @@ def main():
 
         shutil.rmtree(trainer.temp_dir, ignore_errors=True)
 
-    if args.do_eval:
+    if args.do_eval and not args.sweep:
         if args.do_train:
             g = "Model training"
         else:
