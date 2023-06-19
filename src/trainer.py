@@ -219,7 +219,7 @@ class RoSTERTrainer(object):
                 'bin_loss': round(bin_loss_sum/(step+1),5), 
                 'type_loss': round(type_loss_sum/(step+1),5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
-                'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
+                'F1 macro': round(f1_score(self.y_true,y_pred,average='macro'),2)
                 })
             
             losses[1] = losses[0]
@@ -384,7 +384,7 @@ class RoSTERTrainer(object):
                 'bin_loss': round(bin_loss_sum/(step+1),5), 
                 'type_loss': round(type_loss_sum/(step+1),5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
-                'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
+                'F1 macro': round(f1_score(self.y_true,y_pred,average='macro'),2)
                 })
             
             losses[1] = losses[0]
@@ -592,7 +592,7 @@ class RoSTERTrainer(object):
                 'bin_loss': round(bin_loss_sum/(step+1),5), 
                 'type_loss': round(type_loss_sum/(step+1),5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
-                'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
+                'F1 macro': round(f1_score(self.y_true,y_pred,average='macro'),2)
                 })
             
             losses[1] = losses[0]
