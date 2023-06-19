@@ -213,17 +213,17 @@ class RoSTERTrainer(object):
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
                 self.performance_report(self.y_true, y_pred,True)
 
-            losses[1] = losses[0]
-            losses[0] = loss
-
             wandb.log({
-            'epoch': epoch, 
-            'loss' : round(loss,5),
-            'bin_loss': round(bin_loss_sum/step+1,5), 
-            'type_loss': round(type_loss_sum/step+1,5), 
-            'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
-            'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
-            })
+                'epoch': epoch, 
+                'loss' : round((bin_loss_sum+type_loss_sum)/(step+1),5),
+                'bin_loss': round(bin_loss_sum/(step+1),5), 
+                'type_loss': round(type_loss_sum/(step+1),5), 
+                'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
+                'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
+                })
+            
+            losses[1] = losses[0]
+            losses[0] = (bin_loss_sum+type_loss_sum)/(step+1)
         
             early_stopper(losses[0],losses[1])
             if early_stopper.early_stop:
@@ -380,15 +380,15 @@ class RoSTERTrainer(object):
 
             wandb.log({
                 'epoch': epoch, 
-                'loss' : round(loss,5),
-                'bin_loss': round(bin_loss_sum/step+1,5), 
-                'type_loss': round(type_loss_sum/step+1,5), 
+                'loss' : round((bin_loss_sum+type_loss_sum)/(step+1),5),
+                'bin_loss': round(bin_loss_sum/(step+1),5), 
+                'type_loss': round(type_loss_sum/(step+1),5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
-        
+            
             losses[1] = losses[0]
-            losses[0] = loss
+            losses[0] = (bin_loss_sum+type_loss_sum)/(step+1)
             
             early_stopper(losses[0],losses[1])
             if early_stopper.early_stop:
@@ -588,15 +588,15 @@ class RoSTERTrainer(object):
 
             wandb.log({
                 'epoch': epoch, 
-                'loss' : round(loss,5),
-                'bin_loss': round(bin_loss_sum/step+1,5), 
-                'type_loss': round(type_loss_sum/step+1,5), 
+                'loss' : round((bin_loss_sum+type_loss_sum)/(step+1),5),
+                'bin_loss': round(bin_loss_sum/(step+1),5), 
+                'type_loss': round(type_loss_sum/(step+1),5), 
                 'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
                 'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
                 })
             
             losses[1] = losses[0]
-            losses[0] = loss
+            losses[0] = (bin_loss_sum+type_loss_sum)/(step+1)
             
             early_stopper(losses[0],losses[1])
             if early_stopper.early_stop:
