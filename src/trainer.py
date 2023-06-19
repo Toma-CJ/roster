@@ -75,6 +75,8 @@ class RoSTERTrainer(object):
         self.inv_vocab = {k: v for v, k in self.vocab.items()}
         self.mask_id = self.tokenizer.mask_token_id
 
+        self.sweep = args.sweep
+
         # Prepare model
         self.model = RoSTERModel.from_pretrained(args.pretrained_model, num_labels=self.num_labels-1,
                                                  hidden_dropout_prob=args.dropout, attention_probs_dropout_prob=args.dropout)
@@ -141,7 +143,7 @@ class RoSTERTrainer(object):
 
     # training model on distantly-labeled data with noise-robust learning
     def noise_robust_train(self, model_idx=0):
-        if os.path.exists(os.path.join(self.temp_dir, f"y_pred_{model_idx}.pt")):
+        if os.path.exists(os.path.join(self.temp_dir, f"y_pred_{model_idx}.pt")) and not self.sweep:
             print(f"\n\n******* Model {model_idx} predictions found; skip training *******\n\n")
             return
         else:
@@ -307,7 +309,7 @@ class RoSTERTrainer(object):
 
     # train an ensembled model
     def ensemble_train(self):
-        if os.path.exists(os.path.join(self.temp_dir, "ensemble_model.pt")):
+        if os.path.exists(os.path.join(self.temp_dir, "ensemble_model.pt")) and not self.sweep:
             print(f"\n\n******* Ensemble model found; skip training *******\n\n")
             return
         else:
@@ -486,7 +488,7 @@ class RoSTERTrainer(object):
 
     # self-training with augmentation
     def self_train(self):
-        if os.path.exists(os.path.join(self.output_dir, "final_model.pt")):
+        if os.path.exists(os.path.join(self.output_dir, "final_model.pt")) and not self.sweep:
             print(f"\n\n******* Final model found; skip training *******\n\n")
             return
         else:

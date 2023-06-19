@@ -48,6 +48,11 @@ def main():
                         type= int,
                         choices=[0, 1],
                         help="whether to run eval on eval set or not.")
+    parser.add_argument("--sweep",
+                        default=0,
+                        type= int,
+                        choices=[0, 1],
+                        help="whether the run is a part of a sweep")
     parser.add_argument("--eval_on",
                         default="test",
                         choices=['valid', 'test'],
