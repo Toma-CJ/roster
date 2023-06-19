@@ -224,7 +224,7 @@ class RoSTERTrainer(object):
             
             losses[1] = losses[0]
             losses[0] = (bin_loss_sum+type_loss_sum)/(step+1)
-        
+
             early_stopper(losses[1],losses[0])
             if early_stopper.early_stop:
                 break
