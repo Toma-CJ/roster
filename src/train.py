@@ -136,6 +136,8 @@ def main():
     
     args = parser.parse_args()
 
+    print(args)
+
     if args.sweep:
 
         trainer = RoSTERTrainer(args)
