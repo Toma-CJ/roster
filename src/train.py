@@ -177,7 +177,7 @@ def main():
 
         wandb.log({
                 'F1 micro': round(f1_score(trainer.y_true,y_pred,average='micro'),2),
-                'F1 macro': round(f1_score(trainer.y_true,y_pred,average='micro'),2),
+                'F1 macro': round(f1_score(trainer.y_true,y_pred,average='macro'),2),
                 'Train Dataset': args.data_dir
                 })
 
