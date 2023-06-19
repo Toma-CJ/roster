@@ -141,7 +141,7 @@ def main():
         trainer = RoSTERTrainer(args)
         trainer.noise_robust_train(0)
         
-    if args.do_train:
+    if args.do_train and not args.sweep:
 
         # train K models for ensemble
         for i in range(args.num_models):

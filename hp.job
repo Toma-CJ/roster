@@ -15,7 +15,6 @@ eval "$(conda shell.bash hook)"
 conda activate 2yp
 
 #sweep agent init
-wandb agent jawi/2YNLP/o8c0dji8
-
+wandb agent jawi/2YNLP/ujymp9fv
 
 
