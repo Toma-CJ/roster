@@ -135,6 +135,11 @@ def main():
                     help="whether to train on gold or dist")
     
     args = parser.parse_args()
+
+    if args.sweep:
+
+        trainer = RoSTERTrainer(args)
+        trainer.noise_robust_train(i)
         
     if args.do_train:
 
@@ -154,7 +159,7 @@ def main():
 
         shutil.rmtree(trainer.temp_dir, ignore_errors=True)
 
-    if args.do_eval and not args.sweep:
+    if args.do_eval:
         if args.do_train:
             g = "Model training"
         else:

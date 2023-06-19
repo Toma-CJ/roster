@@ -36,7 +36,7 @@ class RoSTERTrainer(object):
         self.data_dir = args.data_dir
         self.temp_dir = args.temp_dir
         os.makedirs(args.output_dir, exist_ok=True)
-        os.makedirs(self.temp_dir, exist_ok=True)
+        os.makedirs(args.temp_dir, exist_ok=True)
 
         if args.gradient_accumulation_steps < 1:
            raise ValueError(f"Invalid gradient_accumulation_steps parameter: {args.gradient_accumulation_steps}, must be >= 1")
