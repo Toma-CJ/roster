@@ -145,7 +145,6 @@ class RoSTERTrainer(object):
             print(f"\n\n******* Model {model_idx} predictions found; skip training *******\n\n")
             return
         else:
-            # init run logging 
             early_stopper = EarlyStopping(tolerance=2, min_delta=0.01)
             run = wandb.init(project="2YNLP",group="Model training", job_type=f"noise_robust_train model:{0}",config=self.args) # hardcoded 0 as model_idx since there is no point in a differiation 
             print(f"\n\n******* Training model {model_idx} *******\n\n")
@@ -153,6 +152,7 @@ class RoSTERTrainer(object):
         model, optimizer, scheduler = self.prepare_train(lr=self.noise_train_lr, epochs=self.noise_train_epochs)
         train_sampler = RandomSampler(self.train_data)
         train_dataloader = DataLoader(self.train_data, sampler=train_sampler, batch_size=self.train_batch_size)
+        loss_fct = GCELoss(q=self.q)
         
         i = 0
         losses = [0,100]
@@ -168,8 +168,35 @@ class RoSTERTrainer(object):
                     bin_loss_sum = 0
                     type_loss_sum = 0
 
-                loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
-                losses[0] = loss
+                idx, input_ids, attention_mask, valid_pos, labels = tuple(t.to(self.device) for t in batch)
+                bin_weights = self.gce_bin_weight[idx].to(self.device)
+                type_weights = self.gce_type_weight[idx].to(self.device)
+
+                max_len = attention_mask.sum(-1).max().item()
+                input_ids, attention_mask, valid_pos, labels, bin_weights, type_weights = tuple(t[:, :max_len] for t in \
+                        (input_ids, attention_mask, valid_pos, labels, bin_weights, type_weights))
+                
+                type_logits, bin_logits = model(input_ids, attention_mask, valid_pos)
+               
+                labels = labels[valid_pos > 0]
+                bin_weights = bin_weights[valid_pos > 0]
+                type_weights = type_weights[valid_pos > 0]
+
+                bin_labels = labels.clone()
+                bin_labels[labels > 0] = 1
+                type_labels = labels - 1
+                type_labels[type_labels < 0] = -100
+
+                type_loss = loss_fct(type_logits.view(-1, self.num_labels-1), type_labels.view(-1), type_weights)
+                type_loss_sum += type_loss.item()
+
+                bin_loss = loss_fct(bin_logits.view(-1, 1), bin_labels.view(-1), bin_weights)
+                bin_loss_sum += bin_loss.item()
+                
+                loss = type_loss + bin_loss
+                if self.gradient_accumulation_steps > 1:
+                    loss = loss / self.gradient_accumulation_steps
+                
                 loss.backward()
                 nn.utils.clip_grad_norm_(model.parameters(), 1.0)
 
@@ -184,32 +211,27 @@ class RoSTERTrainer(object):
                 print(f"\n****** Evaluating on {self.args.eval_on} set: ******\n")
                 self.performance_report(self.y_true, y_pred,True)
 
-                # calculate loss for eval
-                bin_loss_sum = 0
-                type_loss_sum = 0
-                for step, batch in enumerate(self.eval_dataloader):
-                    loss, bin_loss_sum, type_loss_sum = self.noise_robust_step(model = model, batch = batch, type_loss_sum = type_loss_sum, bin_loss_sum = bin_loss_sum)
-            losses[1] = loss
-            # log noise robust training stats 
+            losses[1] = losses[0]
+            losses[0] = loss
 
             wandb.log({
-                'epoch': epoch, 
-                'loss' : round((bin_loss_sum+type_loss_sum)/step+1,5),
-                'bin_loss': round(bin_loss_sum/step+1,5), 
-                'type_loss': round(type_loss_sum/step+1,5), 
-                'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
-                'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
-                })
-            
+            'epoch': epoch, 
+            'loss' : round((bin_loss_sum+type_loss_sum)/step+1,5),
+            'bin_loss': round(bin_loss_sum/step+1,5), 
+            'type_loss': round(type_loss_sum/step+1,5), 
+            'F1 micro': round(f1_score(self.y_true,y_pred,average='micro'),2),
+            'F1 macro': round(f1_score(self.y_true,y_pred,average='micro'),2)
+            })
+        
             early_stopper(losses[0],losses[1])
             if early_stopper.early_stop:
                 break
-                
+
         eval_sampler = SequentialSampler(self.train_data)
         eval_dataloader = DataLoader(self.train_data, sampler=eval_sampler, batch_size=self.eval_batch_size)
         y_pred, pred_probs = self.eval(model, eval_dataloader)
         torch.save({"pred_probs": pred_probs}, os.path.join(self.temp_dir, f"y_pred_{model_idx}.pt"))
-        wandb.finish(quiet=True)
+
 
     # assign 0/1 weights to each training token based on whether the model prediction agrees with the distant label (noisy label removal)
     def update_weights(self, model):
